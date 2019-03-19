@@ -4,4 +4,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/677116e0ed1f3a68b9cf/test_coverage)](https://codeclimate.com/github/zdehkordi/Project-Elevate/test_coverage)
 [![Build Status](https://travis-ci.org/zdehkordi/Project-Elevate.svg?branch=master)](https://travis-ci.org/zdehkordi/Project-Elevate)
 
-[Find the Live App At](https://afternoon-plateau-73978.herokuapp.com/)
+[Find the Live App At](https://project-elevate.herokuapp.com/)
