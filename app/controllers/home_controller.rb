@@ -19,6 +19,9 @@ class HomeController < ApplicationController
         elsif current_user.membership == 'Coah'
             @membership = 'Coach'
             # Add everything else needed here
+        elsif current_user.membership == 'Manager'
+            @membership = 'Manager'
+            # Add everything else needed here
         end
 
     end
