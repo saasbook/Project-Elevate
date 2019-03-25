@@ -7,34 +7,17 @@ class UserController < ApplicationController
       # Add everything else needed here
     elsif current_user.membership == 'Administrator'
       @users = User.all_users_except_admin
-
-
-      
       render "administrator_profile"
       # Add everything else needed here
     elsif current_user.membership == 'Coach'
       render "coach_profile"
       # Add everything else needed here
     elsif current_user.membership == 'Manager'
+      @users = User.manager_users_view
       render "manager_profile"
       # Add everything else needed here
     end
 
   end
 
-  def coach_profile
-      @membership = 'Coach'
-  end
-
-  def club_member_profile
-    @membership = 'Club Member'
-  end
-
-  def manager_profile
-    @membership = 'Manager'
-  end
-
-  def administrator_profile
-    @membership = 'Administrator'
-  end
 end

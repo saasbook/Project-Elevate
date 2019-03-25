@@ -8,7 +8,10 @@ class User < ApplicationRecord
 
   def self.all_users_except_admin
     return User.select(:nickname, :email, :membership).where(:membership => ["Club Member", "Manager", "Coach"])
+  end
 
+  def self.manager_users_view
+    return User.select(:nickname, :email, :membership).where(:membership => ["Club Member", "Coach"])
   end
 
 end
