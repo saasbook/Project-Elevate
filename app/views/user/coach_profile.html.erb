@@ -1,5 +1,5 @@
 
-<p> <h5> Membership: You have not signed up for a valid type of user account yet</h5>
+<p> <h5> Membership: <%= @membership %></h5>
 <br> <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 </p>
 
