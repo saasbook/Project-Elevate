@@ -8,7 +8,6 @@ class HomeController < ApplicationController
         # redirect_to '/users/sign_in'
     end
 
-
     def member_profile
         if current_user.membership == 'Club Member'
             @membership = 'Club Member'
@@ -23,11 +22,8 @@ class HomeController < ApplicationController
             @membership = 'Manager'
             # Add everything else needed here
         end
-
+    
     end
-
-
-
 
 
 end
