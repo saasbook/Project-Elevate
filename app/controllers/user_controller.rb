@@ -1,23 +1,23 @@
 class UserController < ApplicationController
 
   def member_profile
-
-    if current_user.membership.blank?
-      
-    end
-        
+    @membership = current_user.membership
     if current_user.membership == 'Club Member'
-        redirect_to club_member_profile_path
-        # Add everything else needed here
+      render "club_member_profile"
+      # Add everything else needed here
     elsif current_user.membership == 'Administrator'
-        redirect_to administrator_profile_path
-        # Add everything else needed here
+      @users = User.all_users_except_admin
+
+
+      
+      render "administrator_profile"
+      # Add everything else needed here
     elsif current_user.membership == 'Coach'
-        redirect_to coach_profile_path
-        # Add everything else needed here
+      render "coach_profile"
+      # Add everything else needed here
     elsif current_user.membership == 'Manager'
-        redirect_to manager_profile_path
-        # Add everything else needed here
+      render "manager_profile"
+      # Add everything else needed here
     end
 
   end

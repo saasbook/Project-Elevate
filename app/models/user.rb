@@ -4,4 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+
+
+  def self.all_users_except_admin
+    return User.select(:nickname, :email, :membership).where(:membership => ["Club Member", "Manager", "Coach"])
+
+  end
+
 end
