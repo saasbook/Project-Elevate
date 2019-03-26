@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  before_action :authenticate_user!
 
   def member_profile
     @membership = current_user.membership
