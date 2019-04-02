@@ -6,7 +6,15 @@ class User < ApplicationRecord
 
 
    def self.coaches
-     return User.select(:email, :full_name).where(:membership => ["Coach"])
+     return User.select(:email, :name).where(:membership => ["Coach"])
    end
+
+  def self.all_users_except_admin
+    return User.select(:name, :email, :membership).where(:membership => ["Club Member", "Manager", "Coach"])
+  end
+
+  def self.manager_users_view
+    return User.select(:name, :email, :membership).where(:membership => ["Club Member", "Coach"])
+  end
 
 end
