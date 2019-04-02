@@ -3,6 +3,33 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
+  <div class="full_name">
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name, autocomplete: "full_name" %>
+    <br />
+  </div>
+
+  <% if false %>
+    <div class="membership">
+      <%= label_tag :membership, "Player" %>
+      <%= check_box_tag :membership %>
+
+      <%= label_tag :membership, "Coach" %>
+      <%= check_box_tag :membership %>
+
+      <%= label_tag :membership, "Admin" %>
+      <%= check_box_tag :membership %>
+    </div>
+  <% end %>
+
+
+
+  <div class ="my_admin">
+    <%= f.label "Name of Organization/Administrator" %><br />
+    <%= f.text_field :my_admin, autocomplete: "my_admin" %>
+  </div>
+
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -21,14 +48,13 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-  <div class="field">
-    <%= f.label :nickname %><br />
-    <%= f.text_field :nickname, autocomplete: "nickname" %>
-  </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
+
+
+
 <% end %>
 
 <%= render "devise/shared/links" %>
