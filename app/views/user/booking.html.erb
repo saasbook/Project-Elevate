@@ -17,7 +17,7 @@
 
   <div class="coaches">
     Choose Coach: <br />
-    <% options = options_from_collection_for_select(@coaches, 'id', 'full_name') %>
+    <% options = options_from_collection_for_select(@coaches, 'id', 'name') %>
     <%= f.select :all_val,  options %>
   </div>
 <% end %>
