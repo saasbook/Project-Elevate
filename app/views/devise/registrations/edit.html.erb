@@ -11,24 +11,6 @@
     Membership status: <%= current_user.membership %><br />
   </div>
 
-  <% if (current_user.membership.eql?("Administrator")) %>
-    <h2> Members: </h2>
-    <% @users.each do |user| %>
-      <% if (!(user.my_admin.empty?)) %>
-        <%= user.full_name %>
-        <%= form_for(user, html: {method: :put}) do |temp| %>
-          <%= temp.select :membership, ['Player', 'Coach', 'Administrator'] %> <br />
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-
-
-  <br />
-  <br />
-  <br />
-
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
