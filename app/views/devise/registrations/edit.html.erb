@@ -2,11 +2,7 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-
-  <div class="my_admin">
-    Name of Organization: <%= current_user.my_admin %><br />
-  </div>
+  
   <div class="first_name">
     Name: <%= current_user.full_name %><br />
   </div>

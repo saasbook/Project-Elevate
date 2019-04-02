@@ -1,0 +1,23 @@
+
+
+<%= form_for :user do |f| %>
+  <div class="periodicity">
+    Choose Periodicity:<br />
+    <%= f.radio_button :once, "Once" %>
+    <%= f.label :once, "Once", value: "Once" %>
+    <%= f.radio_button :weekly, "Weekly" %>
+    <%= f.label :weekly, "Weekly", value: "Weekly" %>
+  </div>
+
+  <div class="date">
+    Choose Date: <br />
+    <%= select_month(Date.today, prompt: 'Choose month') %>
+    <%= select_day(Date.today, prompt: 'Choose day') %>
+  </div>
+
+  <div class="coaches">
+    Choose Coach: <br />
+    <% options = options_from_collection_for_select(@coaches, 'id', 'full_name') %>
+    <%= f.select :all_val,  options %>
+  </div>
+<% end %>

@@ -8,27 +8,7 @@
     <%= f.text_field :full_name, autocomplete: "full_name" %>
     <br />
   </div>
-
-  <% if false %>
-    <div class="membership">
-      <%= label_tag :membership, "Player" %>
-      <%= check_box_tag :membership %>
-
-      <%= label_tag :membership, "Coach" %>
-      <%= check_box_tag :membership %>
-
-      <%= label_tag :membership, "Admin" %>
-      <%= check_box_tag :membership %>
-    </div>
   <% end %>
-
-
-
-  <div class ="my_admin">
-    <%= f.label "Name of Organization/Administrator" %><br />
-    <%= f.text_field :my_admin, autocomplete: "my_admin" %>
-  </div>
-
 
   <div class="field">
     <%= f.label :email %><br />
