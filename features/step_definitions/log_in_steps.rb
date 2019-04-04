@@ -27,3 +27,23 @@ end
 Then /he should see membership as "(.*)"/ do |membership|
     step %{I should see "#{membership}"}
 end
+
+And /he should see "(.*)"/ do |page_name|
+    step %{I should see "#{page_name}"}
+end
+
+And /he should not see "(.*)"/ do |page_name|
+    step %{I should not see "#{page_name}"}
+end
+
+And /he should see the following: "(.*)"/ do |text_lists|
+    text_lists.split(', ').each do |text|
+        step %{I should see "#{text}"}
+    end
+end
+
+And /he should not see the following: "(.*)"/ do |text_lists|
+    text_lists.split(', ').each do |text|
+        step %{I should not see "#{text}"}
+    end
+end
