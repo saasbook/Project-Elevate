@@ -6,4 +6,14 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  include Devise::TestHelpers                          
+  include Warden::Test::Helpers                        
+  Warden.test_mode!                                    
+
+  def teardown                                         
+    Warden.test_reset!                                 
+  end                                 
+
 end
+
+
