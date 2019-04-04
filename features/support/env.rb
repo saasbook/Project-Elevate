@@ -27,7 +27,11 @@ require 'cucumber/rails'
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+# env.rb (Rails example location - RAILS_ROOT/features/support/env.rb)
+World(FactoryBot::Syntax::Methods)
+World(Devise::TestHelpers)
 
+include Warden::Test::Helpers
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin

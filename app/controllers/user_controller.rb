@@ -7,6 +7,12 @@ class UserController < ApplicationController
   end
 
   def member_profile
+    # For testing purposes below
+    # if !(:current_user.blank?)
+    #   @membership = :current_user.membership
+    # end
+    
+    # For testing purposes above
     @membership = current_user.membership
     if current_user.membership == 'Club Member'
       render "club_member_profile"
