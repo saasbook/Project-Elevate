@@ -25,14 +25,15 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 require 'rspec/rails'
-require 'factory_bot'
-RSpec.configure do |config|
-  config.include Warden::Test::Helpers
-end
-RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
-end
-include Warden::Test::Helpers
+# require 'factory_bot'
+require 'devise'
+# RSpec.configure do |config|
+#   config.include Warden::Test::Helpers
+# end
+# RSpec.configure do |config|
+#   config.include FactoryBot::Syntax::Methods
+# end
+# include Warden::Test::Helpers
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
