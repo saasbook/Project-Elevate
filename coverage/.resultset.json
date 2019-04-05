@@ -1,21 +1,8 @@
 {
   "RSpec": {
     "coverage": {
-      "/mnt/c/Users/zacde/College/Spring 2019/169/Project-Elevate/spec/support/controller_helpers.rb": [
-        1,
-        1,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null
-      ]
     },
-    "timestamp": 1554499277
+    "timestamp": 1554499854
   },
   "Cucumber Features": {
     "coverage": {
