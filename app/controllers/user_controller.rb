@@ -5,6 +5,17 @@ class UserController < ApplicationController
     @coaches = User.coaches
     render "booking"
   end
+  
+  def calendar
+    if current_user.membership == "Club Member"
+        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
+    elsif current_user.membership == "Coach"
+        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time) #only booked classes currently
+    else
+        @calendars = Calendar.all
+    #add admin
+    end
+  end 
 
   def member_profile
     # For testing purposes below

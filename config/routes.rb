@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'user/profile' => 'user#member_profile', :as => 'member_profile'
  
   get 'user/booking' => 'user#booking', :as => 'booking'
+  
+  get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
 
   root to: "home#index"
   # This needs to be at the end
