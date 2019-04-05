@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :calendars
   get 'error/error'
   # get 'user/member_profile'
   devise_for :users
