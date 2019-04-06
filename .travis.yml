@@ -33,7 +33,7 @@ script:
   # run RSpec tests, and capture coverage
   - bundle exec rspec
   # - $CCTR format-coverage --output coverage/codeclimate.$SUITE.json
-  - $CCTR format-coverage --output coverage/codeclimate.rspec.json --prefix /home/travis/build/zdehkordi/Project-Elevate
+  - $CCTR format-coverage -d -t simplecov --output coverage/codeclimate.rspec.json --prefix /home/travis/build/zdehkordi/Project-Elevate
   # run Cucumber scenarios, and capture coverage. --strict means undefined steps result in a failure.
   - bundle exec cucumber --strict
   - $CCTR format-coverage --output coverage/codeclimate.cuc.json
