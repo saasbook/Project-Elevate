@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'user/booking' => 'user#booking', :as => 'booking'
   
   get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
+  
+  get '/' => 'home#index', :as => 'root'
 
   root to: "home#index"
   # This needs to be at the end
