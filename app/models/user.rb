@@ -5,9 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
 
-   def self.coaches
-     return User.select(:email, :name).where(:membership => ["Coach"])
-   end
+  def self.coaches
+    return User.select(:id, :email, :name).where(:membership => ["Coach"])
+  end
 
   def self.all_users_except_admin
     return User.select(:name, :email, :membership).where(:membership => ["Club Member", "Manager", "Coach"])
