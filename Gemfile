@@ -43,6 +43,8 @@ gem 'omniauth-facebook', '~> 4.0'
 gem 'activerecord-session_store', '~> 1.0'
 # dotenv
 gem 'dotenv', '~> 2.2.1'
+# figaro
+gem 'figaro'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
