@@ -1,0 +1,2 @@
+class CoachAvailability < ApplicationRecord
+end
