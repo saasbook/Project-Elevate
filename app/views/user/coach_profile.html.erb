@@ -1,5 +1,6 @@
 
 <p> <h5> Membership: <%= @membership %></h5>
 <br> <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+<br> <%= link_to "Edit Availibilities", availabilities_path, method: :get, :class => 'navbar-link'  %>
 </p>
 

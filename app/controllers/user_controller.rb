@@ -6,6 +6,31 @@ class UserController < ApplicationController
     render "booking"
   end
 
+  def availabilities
+    @time_table = CoachAvailability.where(:coach_id => current_user.id)
+    render "availabilities"
+  end
+
+  def add_availabilities
+    start_time = "#{params[:user][:start_time]}:#{params[:user][:start_time_s]} #{params[:user][:start_time_ampm]}"
+    end_time = "#{params[:user][:end_time]}:#{params[:user][:end_time_s]} #{params[:user][:end_time_ampm]}"
+    st = Time.parse(start_time)
+    et = Time.parse(end_time)
+
+    if !CoachAvailability.valid_availibility(current_user.id, params[:user][:day], st, et)
+      flash[:alert] = "Invalid Time"
+      redirect_to availabilities_path
+      return
+    end
+
+    avail = CoachAvailability.new(:day => params[:user][:day], :start_time => start_time, :end_time => end_time)
+    
+    avail.coach_id = current_user.id
+
+    avail.save!
+    redirect_to availabilities_path
+  end
+
   def member_profile
     # For testing purposes below
     # if !(:current_user.blank?)

@@ -4,7 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-
   def self.coaches
     return User.select(:id, :email, :name).where(:membership => ["Coach"])
   end
