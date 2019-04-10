@@ -18,7 +18,7 @@ And the following availabilities exist:
 Scenario: Add availibility with no issues
   Given "Roger Destroyer" is a "Coach"
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
-  And I go to "Availabilities Page"
+  And "Roger Destroyer" goes to "Availabilities Page"
   Then I select "Sunday" from "user_day"
   And I select "9" from "user_start_time"
   And I select "00" from "user_start_time_s"
@@ -32,7 +32,7 @@ Scenario: Add availibility with no issues
 Scenario: Add availibility but incorrect availibilty
   Given "Roger Destroyer" is a "Coach"
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
-  And I go to "Availabilities Page"
+  And "Roger Destroyer" goes to "Availabilities Page"
   Then I select "Sunday" from "user_day"
   And I select "7" from "user_start_time"
   And I select "00" from "user_end_time_s"
@@ -47,7 +47,7 @@ Scenario: Add availibility but incorrect availibilty
 Scenario: Add availibility with no issues with 30 minute blocks
   Given "Roger Destroyer" is a "Coach"
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
-  And I go to "Availabilities Page"
+  And "Roger Destroyer" goes to "Availabilities Page"
   Then I select "Sunday" from "user_day"
   And I select "7" from "user_start_time"
   And I select "00" from "user_start_time_s"

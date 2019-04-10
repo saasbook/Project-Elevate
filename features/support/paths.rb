@@ -28,8 +28,9 @@ module NavigationHelpers
       user = User.find_by_name($1)
       member_profile_path :current_user => user 
 
-    when /^"Availabilities Page"$/i
-      availabilities_path
+    when /^(.*)'s Availabilities Page$/i
+      user = User.find_by_name($1)
+      availabilities_path :current_user => user 
 
 
 
