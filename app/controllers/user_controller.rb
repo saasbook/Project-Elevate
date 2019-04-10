@@ -12,14 +12,18 @@ class UserController < ApplicationController
   end
 
   def add_availabilities
-    avail = CoachAvailability.new(avail_params)
-    
-    if !CoachAvailability.valid_availibility(current_user.id, params[:user][:day], params[:user][:start_time], params[:user][:end_time])
+    start_time = "#{params[:user][:start_time]}:#{params[:user][:start_time_s]} #{params[:user][:start_time_ampm]}"
+    end_time = "#{params[:user][:end_time]}:#{params[:user][:end_time_s]} #{params[:user][:end_time_ampm]}"
+    st = Time.parse(start_time)
+    et = Time.parse(end_time)
+
+    if !CoachAvailability.valid_availibility(current_user.id, params[:user][:day], st, et)
       flash[:alert] = "Invalid Time"
       redirect_to availabilities_path
       return
     end
-    
+
+    avail = CoachAvailability.new(:day => params[:user][:day], :start_time => start_time, :end_time => end_time)
     
     avail.coach_id = current_user.id
 

@@ -16,15 +16,15 @@ RSpec.describe CoachAvailability, type: :model do
     end
 
     it 'can add a valid time' do
-      expect(CoachAvailability.valid_availibility(1, "Sunday", "9am", "12pm")).to be(true)
+      expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("9am"), Time.parse("12pm"))).to be(true)
     end
 
     it 'cannot add an invalid time' do
-      expect(CoachAvailability.valid_availibility(1, "Sunday", "6am", "7am")).to be(false)
-      expect(CoachAvailability.valid_availibility(1, "Sunday", "6am", "8am")).to be(false)
-      expect(CoachAvailability.valid_availibility(1, "Sunday", "6am", "9am")).to be(false)
-      expect(CoachAvailability.valid_availibility(1, "Sunday", "6am", "2pm")).to be(false)
-      expect(CoachAvailability.valid_availibility(1, "Sunday", "7am", "2pm")).to be(false)
+      expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("6am"), Time.parse("8am"))).to be(false)
+      expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("6am"), Time.parse("9am"))).to be(false)
+      expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("6am"), Time.parse("7am"))).to be(false)
+      expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("6am"), Time.parse("2pm"))).to be(false)
+      expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("7am"), Time.parse("2pm"))).to be(false)
     end
   end
 end
