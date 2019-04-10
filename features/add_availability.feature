@@ -6,8 +6,8 @@ Feature: Add availability as a coach
 
 Background: Users in the Database
  Given the following users exist:
-  | name            | email                    | password | membership    |
-  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
+  | id | name            | email                    | password | membership    |
+  | 1  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
 And the following availabilities exist:
   | coach_id     | day      | start_time    | end_time  |
   | 1            | Sunday   | 9am           | 12pm      |
@@ -49,7 +49,7 @@ Scenario: Add availibility with no issues with 30 minute blocks
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
   And I go to "Availabilities Page"
   Then I select "Sunday" from "user_day"
-  And I select "9" from "user_start_time"
+  And I select "7" from "user_start_time"
   And I select "00" from "user_start_time_s"
   And I select "AM" from "user_start_time_ampm"
   And I select "12" from "user_end_time"
