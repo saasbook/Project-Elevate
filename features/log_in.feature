@@ -38,6 +38,6 @@ Scenario: log in as an Administrator
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
   Then "Matthew Sie" goes to "My Profile Page" 
-  And he should see membership as "Membership: Administrator"
+  And he should see membership as "Matthew Sie | Administrator"
   
   

@@ -1,6 +1,14 @@
 class UserController < ApplicationController
   before_action :authenticate_user!
 
+  def update_other
+    @other = User.find(params[:id])
+    if !params[:user].blank?
+      @other.update_attributes(params.require(:user).permit(:membership))
+    end
+    redirect_to '/user/profile'
+  end
+
   def booking
     @coaches = User.coaches
     render "booking"
@@ -38,6 +46,7 @@ class UserController < ApplicationController
     # end
     
     # For testing purposes above
+    @name = current_user.name
     @membership = current_user.membership
     if current_user.membership == 'Club Member'
       render "club_member_profile"
