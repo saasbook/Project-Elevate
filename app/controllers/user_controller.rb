@@ -31,10 +31,6 @@ class UserController < ApplicationController
     redirect_to availabilities_path
   end
 
-  def avail_params
-    params.require(:user).permit(:coach_id, :player_id, :day, :start_time, :end_time)
-  end
-
   def member_profile
     # For testing purposes below
     # if !(:current_user.blank?)
