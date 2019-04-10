@@ -4,7 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-
   def self.admin_update_membership_to(curr_user)
     statuses = ['Club Member', 'Coach', 'Manager']
     statuses.delete(curr_user.membership)

@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   
   get 'user/booking' => 'user#booking', :as => 'booking'
 
+  get 'users/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
+  post 'users/profile/availabilities' => 'user#add_availabilities', :as =>'add_availabilities'
+
   root to: "home#index"
   # This needs to be at the end
   match '*path' => 'error#error_404', via: :all
