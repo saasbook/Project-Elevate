@@ -7,15 +7,12 @@ Feature: Add availability as a coach
 Background: Users in the Database
  Given the following users exist:
   | name            | email                    | password | membership    |
-  | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   |
-  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator |
   | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
-  | John Doe        | johndoe@gmail.com        | 12345678 | Manager       |
 And the following availabilities exist:
   | coach_id     | day      | start_time    | end_time  |
-  | 3            | Sunday   | 9am           | 12pm      |
-  | 3            | Sunday   | 12pm          | 3pm       |
-  | 3            | Sunday   | 3pm           | 6pm       |
+  | 1            | Sunday   | 9am           | 12pm      |
+  | 1            | Sunday   | 12pm          | 3pm       |
+  | 1            | Sunday   | 3pm           | 6pm       |
 
 
 Scenario: Add availibility with no issues
