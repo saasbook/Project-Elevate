@@ -23,8 +23,7 @@ Scenario: Buys 2 group lesson credits
   And I select "2" from "user_group_num_credit"
   Then I press "Proceed to Checkout"
   Then I should see "Number of Group Lesson Credits in Cart:"
-  Then I press Pay with Card
-  And I fill in email, card number, expiration date, and csv
+  
   
   
   

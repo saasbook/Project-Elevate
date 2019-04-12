@@ -6,9 +6,9 @@ end
 
 
 Then /I press Pay with Card/ do
-    sess = Capybara::Session.new(:selenium)
-    sess.visit("https://stripe.com/docs/checkout")
-    sess.click_button('Pay with Card')
+    # sess = Capybara::Session.new(:selenium)
+    # sess.visit("https://stripe.com/docs/checkout")
+    # sess.click_button('Pay with Card')
     # click_on(class: 'stripe-button-el')
-    # find("button.stripe-button").click
+    page.driver.browser.find("button.stripe-button").click
 end
