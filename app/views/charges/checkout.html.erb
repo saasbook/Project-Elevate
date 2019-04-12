@@ -5,19 +5,14 @@
         <p><%= flash[:error] %></p>
       </div>
     <% end %>
-  
-  <label class="group">
-    <span>Number of Group Lesson Credits in Cart: <%= @group_num_credit %> ($<%= @group_cost %> per credit)</span> <br />
-  </label>
-  <label class="assigned_private">
-    <span>Number of Assigned Private Lesson Credits in Cart: <%= @assigned_num_credit %> ($<%= @assigned_private_cost %> per credit)</span> <br />
-  </label>
-  <label class="custom_private">
-    <span>Number of Custom Private Lesson Credits in Cart: <%= @custom_num_credit %> ($<%= @custom_private_cost %> per credit)</span> <br />
-  </label>
+  <p>
+  Number of Group Lesson Credits in Cart: <%= @group_num_credit %> ($<%= @group_cost %> per credit)<br />
+  Number of Assigned Private Lesson Credits in Cart: <%= @assigned_num_credit %> ($<%= @assigned_private_cost %> per credit)<br />
+  Number of Custom Private Lesson Credits in Cart: <%= @custom_num_credit %> ($<%= @custom_private_cost %> per credit)<br />
   <label class="amount">
     <span>Total Amount: <%= number_to_currency(@amount) %></span>
   </label>
+  </p>
   </article>
   <article>
   <%= hidden_field_tag(:amount, @amount) %>
