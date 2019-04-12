@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'stripe'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -75,6 +75,7 @@ group :test do
   gem 'factory_girl_rails' # if using FactoryGirl
   gem 'metric_fu'        # collect code metrics
   gem "factory_bot_rails", :require => false
+  gem 'geckodriver-helper'
 end
 
 group :production do

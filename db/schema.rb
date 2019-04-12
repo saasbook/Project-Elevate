@@ -28,6 +28,9 @@ ActiveRecord::Schema.define(version: 2019_04_09_211313) do
     t.string "name", default: "", null: false
     t.string "membership", default: "Club Member", null: false
     t.string "my_admin", default: "", null: false
+    t.string "custom_num_credit", default: "0", null: false
+    t.string "assigned_num_credit", default: "0", null: false
+    t.string "group_num_credit", default: "0", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
