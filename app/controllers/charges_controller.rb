@@ -1,5 +1,8 @@
 class ChargesController < ApplicationController
     def new
+      @possible_group_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
+      @possible_assigned_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
+      @possible_custom_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
     end
     
     def create
@@ -27,9 +30,9 @@ class ChargesController < ApplicationController
       current_user.group_num_credit = @group_num_credit.to_s
       current_user.assigned_num_credit = @assigned_num_credit.to_s
       current_user.save!
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
-      redirect_to new_charge_path
+      rescue Stripe::CardError => e
+        flash[:error] = e.message
+        redirect_to new_charge_path
     
     end
 

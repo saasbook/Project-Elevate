@@ -1,19 +1,20 @@
 
 <%= form_for :user, url: checkout_path do |f| %>
    <article>
+   
     <% if flash[:error].present? %>
-      <div id="error_explanation">
-        <p><%= flash[:error] %></p>
+      <div class="alert alert-danger">
+        <p> <a href="#" class="alert-link"><%= flash[:error] %></a></p>
       </div>
     <% end %>
   </article>
   <div class="credits">
     Group Lesson Credits:
-    <%= f.select :group_num_credit, ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10'] %> <br />
-    Custom Coach Private Lesson Credits: 
-    <%= f.select :custom_num_credit, ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10'] %>  <br />
+    <%= f.select :group_num_credit, @possible_group_credits %> <br />
     Assigned Coach Private Lesson Credits:
-    <%= f.select :assigned_num_credit, ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10'] %>  <br />
+    <%= f.select :assigned_num_credit, @possible_assigned_credits %>  <br />
+    Custom Coach Private Lesson Credits: 
+    <%= f.select :custom_num_credit, @possible_custom_credits %>  <br />
     <%= f.submit value: 'Proceed to Checkout' %>
   </div>
 
