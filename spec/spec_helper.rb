@@ -16,9 +16,7 @@ SimpleCov.start
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'devise'
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :firefox)
-end
+
 RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   # config.include ControllerHelpers, :type => :controller
