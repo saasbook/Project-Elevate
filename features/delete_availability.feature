@@ -31,6 +31,6 @@ Scenario: Delete availibility with a day that has the same time
   And "Pizza" goes to "Availabilities Page"
   Then I should see "12:00PM - 3:00PM"
   And I press "2_delete"
-  Then I should  see "12:00PM - 3:00PM"
-  And I press "2_delete"
+  Then I should see "12:00PM - 3:00PM"
+  And I press "3_delete"
   But I should not see "12:00PM - 3:00PM"
