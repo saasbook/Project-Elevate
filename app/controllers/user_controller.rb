@@ -39,6 +39,12 @@ class UserController < ApplicationController
     redirect_to availabilities_path
   end
 
+  def delete_availabilities
+    CoachAvailability.delete(params[:id])
+    redirect_to availabilities_path
+    return
+  end
+
   def member_profile
     # For testing purposes below
     # if !(:current_user.blank?)
