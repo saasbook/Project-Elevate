@@ -1,0 +1,2 @@
+class MembershipHistory < ApplicationRecord
+end

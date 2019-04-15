@@ -1,0 +1,3 @@
+class MembershipHistoryController < ApplicationController
+    
+end
