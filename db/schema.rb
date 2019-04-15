@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_190140) do
+ActiveRecord::Schema.define(version: 2019_04_09_211313) do
+
+  create_table "coach_availabilities", force: :cascade do |t|
+    t.integer "coach_id", null: false
+    t.integer "player_id"
+    t.string "day", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+  end
 
   create_table "calendars", force: :cascade do |t|
     t.string "name"
