@@ -1,4 +1,4 @@
-<%= form_for :user, url: temp_booking_path do |f| %>
+<%= form_for :user, url: view_booking_path do |f| %>
   <div class="periodicity">
     Choose Periodicity:<br />
     <%= f.radio_button :once, "Once" %>
@@ -18,6 +18,23 @@
     <% options = options_from_collection_for_select(@coaches, 'id', 'name') %>
     <%= f.select :coach,  options %>
   </div>
+
+  <% if flash[:coach] %>
+    <% coach_availabilities = CoachAvailability.where(:coach_id => flash[:coach]) %>
+    <table class="table table-hover">
+      <tbody>
+        <% if coach_availabilities.empty? %>
+          <h3> No Availabilities Found </h3>
+        <% end %>
+        <% coach_availabilities.each do |record| %>
+          <tr>
+            <td><%= f.radio_button :temp_availability, "temp_availability"%></td>
+            <td><%= f.label :temp_availability, record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p"), value: record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
 
   <%= f.submit value: 'View availabilities' %>

@@ -14,10 +14,9 @@ class UserController < ApplicationController
     render "booking"
   end
 
-  def temp_booking
-    chosen_coach = "#{params[:user][:coach]}"
-    @coach_availabilities = CoachAvailability.where(:coach_id => chosen_coach)
-    render "temp_booking"
+  def view_booking
+    flash[:coach] = "#{params[:user][:coach]}"
+    redirect_to booking_path
   end
 
   def calendar
