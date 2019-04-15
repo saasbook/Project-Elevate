@@ -1,15 +1,30 @@
 
-<p> <h5> Membership: <%= @membership %></h5>
+<p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5>
+
 <table class="table table-hover">
+<thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Membership Status</th>
+      <th>Change Status</th>
+    </tr>
+</thead>
 <% @users.each do |user| %>                    
     <tr>
-      <td><%= user.name%><td>
-      <td><%= user.email%></td>
-      <td><%= user.membership %></td>
+      <td class="name"><%= user.name%></td>
+      <td class="email"><%= user.email%></td>
+      <td class="membership"><%= user.membership %></td>
+      <td>
+      <%= form_for :user, :namespace => user.name, :url => '/user/profile/update_other', :html => { :method => 'post'} do |f| %>
+        <%= f.select(:membership, User.manager_update_membership_to(user), {disabled: '', selected: '', required: true})  %>
+        <%= hidden_field_tag(:id, user.id) %>
+        <%= f.button 'Update', value: user.name+'_update', class: 'button', type: 'submit' %>
+      <% end %>
+      </td>
     </tr>
 <% end %>
 </table>
-
 
 <br> <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 </p>

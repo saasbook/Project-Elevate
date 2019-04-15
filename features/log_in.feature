@@ -20,7 +20,7 @@ Scenario: log in as a Manager
   Given "John Doe" is a "Manager"
   And "John Doe" logs in with correct credentials with password "12345678"
   Then "John Doe" goes to "My Profile Page" 
-  And he should see membership as "Membership: Manager"
+  And he should see membership as "John Doe | Manager"
 
 Scenario: log in as a Club Member
   Given "Joe Chen" is a "Club Member"
