@@ -1,5 +1,8 @@
 class ChargesController < ApplicationController
     def new
+      if current_user.membership != "Club Member"
+        redirect_to member_profile_path
+      end
       @possible_group_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
       @possible_assigned_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
       @possible_custom_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
@@ -7,6 +10,9 @@ class ChargesController < ApplicationController
     
     def create
       # Amount in cents
+      if current_user.membership != "Club Member"
+        redirect_to member_profile_path
+      end
       @amount_in_create = params[:amount]
       @amount = params[:amount].to_f*100
       @amount = @amount.to_i
@@ -40,6 +46,9 @@ class ChargesController < ApplicationController
 
     def checkout
         # Let's say assign_private is $50, custom_private is $100, and group is $25
+        if current_user.membership != "Club Member"
+          redirect_to member_profile_path
+        end
         @assigned_private_cost = 50
         @custom_private_cost = 100
         @group_cost = 25
