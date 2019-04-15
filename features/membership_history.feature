@@ -1,8 +1,8 @@
-Feature: (D)elevate other users as Admin
+Feature: Admin can see all membership changes
  
-    As an admin
-    I want to see the correct membership statuses
-    So that I can validly (d)elevate users to other membership statuses
+    As an administrator
+    I want to navigate to a change log
+    So that I see all the membership status changes performed by other admins/managers
 
 Background: Users in the Database
 
@@ -17,14 +17,14 @@ And I go to Login page
 
 # Note that I need to specify passwords here because the authentication process won't let me access user password 
 # All scenarios begin assuming no user is logged in yet
-Scenario: Update Membership as Admin (elevate)
+Scenario: See change log table as admin
   Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
-  And selects status "Manager" for "Joe Chen"
-  When I press "Joe Chen_update"
-  Then he should see attribute "membership" value "Manager" for "Joe Chen"
+  And I follow "User Membership Change Log"
+  Then I should see "User Membership Change Log"
 
-Scenario: Update Membership as Admin (delevate)
+# Using the "admin_elevate_step" for "seeing" correct attributes in table
+Scenario: Update user and see change in log table
   Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
   And selects status "Club Member" for "Roger Destroyer"
   When I press "Roger Destroyer_update"
-  Then he should see attribute "membership" value "Club Member" for "Roger Destroyer"
+  And I follow "User Membership Change Log"
