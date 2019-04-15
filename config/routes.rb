@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   
   get 'user/booking' => 'user#booking', :as => 'booking'
   post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
+
+  # availabilities routes
   get 'users/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
   post 'users/profile/availabilities' => 'user#add_availabilities', :as =>'add_availabilities'
+  delete 'users/profile/availabilities/:id' => 'user#delete_availabilities', :as =>'delete_availabilities'
 
   root to: "home#index"
   # This needs to be at the end

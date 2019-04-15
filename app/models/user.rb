@@ -10,6 +10,13 @@ class User < ApplicationRecord
     statuses_blank = statuses.map{|c| [c, c]}.prepend(['Select...', nil])
     return statuses_blank
   end
+
+  def self.manager_update_membership_to(curr_user)
+    statuses = ['Club Member', 'Coach']
+    statuses.delete(curr_user.membership)
+    statuses_blank = statuses.map{|c| [c, c]}.prepend(['Select...', nil])
+    return statuses_blank
+  end
       
   def self.coaches
     return User.select(:id, :email, :name).where(:membership => ["Coach"])

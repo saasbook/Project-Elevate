@@ -18,6 +18,7 @@ class CoachAvailability < ApplicationRecord
         other_avail.each do |a|
             a_st_time = a.start_time.hour + sec_to_hour(a.start_time.sec)
             a_et_time = a.end_time.hour + sec_to_hour(a.end_time.sec)
+            #bug fix here
             if (new_st_time...new_et_time).overlaps?(a.start_time.hour...a.end_time.hour)
                 valid = false
             end
