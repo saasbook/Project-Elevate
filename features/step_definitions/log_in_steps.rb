@@ -4,6 +4,12 @@ Given /the following users exist/ do |users_table|
       User.create user
     end
   end
+  
+Given /the following calendars exist/ do |calendars_table|
+    calendars_table.hashes.each do |calendar|
+      Calendar.create calendar
+    end
+  end
 
 
 Given /"(.*)" is a "(.*)"/ do |name, membership|
