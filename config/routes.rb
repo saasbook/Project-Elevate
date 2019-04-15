@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'user/profile' => 'user#member_profile', :as => 'member_profile'
  
+  # Route when an admin or manager submits form to update a user's membership status
   post 'user/profile/update_other' => 'user#update_other', :as => 'update_other'
+
+  # Route for admin to view change log of all membership status changes
+  get 'user/profile/membership_history' => 'membership_history#membership_history', :as => 'membership_history'
   
   get 'user/booking' => 'user#booking', :as => 'booking'
 

@@ -6,7 +6,8 @@ class UserController < ApplicationController
     old_membership = @other.membership
     if !params[:user].blank?
       @other.update_attributes(params.require(:user).permit(:membership))
-      Membership_History.create(@other.id, current_user.id, old_membership, @other.membership)
+      MembershipHistory.create(:user_changed_id => @other.id, :changed_by_id => current_user.id, 
+        :old_membership => old_membership, :new_membership => @other.membership)
     end
     redirect_to '/user/profile'
   end
