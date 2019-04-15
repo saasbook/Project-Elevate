@@ -5,7 +5,7 @@
 <h2> Current Availabilities </h2>
 
 <table class="table table-hover">
-  <tbody>
+  <tbody >
     <% if @time_table.empty? %>
       <h3> No Availabilities Found </h3>
     <% end %>
@@ -13,6 +13,9 @@
       <tr>
         <td><%= record.day%></td>
         <td><%= record.start_time.strftime("%l:%M%p")%> - <%= record.end_time.strftime("%l:%M%p") %> </td>
+        <td> <%= form_for :user, url: "/users/profile/availabilities/#{record.id}", method: 'delete' do |f| %>
+          <%= f.submit 'Delete', id: record.id.to_s + '_delete' %>
+        <% end %> </td>
       </tr>
     <% end %>
   </tbody>
