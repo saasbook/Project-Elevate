@@ -22,9 +22,17 @@ Scenario: See change log table as admin
   And I follow "User Membership Change Log"
   Then I should see "User Membership Change Log"
 
-# Using the "admin_elevate_step" for "seeing" correct attributes in table
-Scenario: Update user and see change in log table
+Scenario: Update user and see change at the top of the log table
   Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
   And selects status "Club Member" for "Roger Destroyer"
   When I press "Roger Destroyer_update"
   And I follow "User Membership Change Log"
+  Then I should see the change of "Roger Destroyer" membership from "Coach" to "Club Member" by "Matthew Sie"
+  And I should see these "Roger Destroyer" "Coach" "Club Member" "Matthew Sie" first
+
+Scenario: Redirected to profile page if trying to access change log not as administrator
+  Given "Joe Chen" logs in with correct password "88888888" and goes to profile page
+  Then I should not see "User Membership Change Log"
+  Then my path should be "/user/profile"
+  When I go to User Membership Change Log page
+  Then my path should be "/user/profile"

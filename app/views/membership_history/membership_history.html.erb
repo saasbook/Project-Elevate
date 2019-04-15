@@ -13,10 +13,10 @@
   <tbody >
     <% @histories.each do |record| %>
       <tr>
-        <td><%= record.user_changed_name%></td>
-        <td><%= record.old_membership%></td>
-        <td><%= record.new_membership%></td>
-        <td><%= record.changed_by_name%></td>
+        <td class="changed_name"><%= record.user_changed_name%></td>
+        <td class="old"><%= record.old_membership%></td>
+        <td class="new"><%= record.new_membership%></td>
+        <td class="changed_by_name"><%= record.changed_by_name%></td>
         <td><%= record.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%B %d, %Y %I:%M:%S %p %Z")%></td>
       </tr>
     <% end %>
