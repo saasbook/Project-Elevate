@@ -27,8 +27,8 @@
     <%= f.select :day, Date::DAYNAMES %> <br />
     Start Time: <br />
     <%= f.select :start_time, CoachAvailability.availibility %> :
-    <%= f.select :start_time_s, ['00', '30'] %> 
-    <%= f.select :start_time_ampm, ['AM', 'PM'] %> <br /> 
+    <%= f.select :start_time_s, ['00', '30'] %>
+    <%= f.select :start_time_ampm, ['AM', 'PM'] %> <br />
     End Time: <br />
     <%= f.select :end_time, CoachAvailability.availibility %> :
     <%= f.select :end_time_s, ['00', '30'] %>

@@ -7,11 +7,24 @@
 
 <p class="navbar-text pull-right">
 <% if user_signed_in? %>
-    Hi <strong><%= current_user.name %></strong>! Logged in as <strong><%= current_user.email %></strong>.
+    Hi <strong><%= current_user.name %></strong>, <%= @todayEvents %> actiivities today! Logged in as <strong><%= current_user.email %></strong>.
+    
     <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
     <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %> |
     <%= link_to "Book Lesson", booking_path, :class => 'navbar-link'  %>
     <br> <%= link_to "My Profile Page", member_profile_path %>
+     <table class="table table-hover">
+    <% @calendarsShow.each do |calendar| %>                    
+        <tr>
+          <td><%= calendar.name%></td>
+          <td><%= calendar.start_time%><td>
+        </tr>
+    <% end %>
+    
+    </table>
+    <%= link_to "More...", user_calendar_path, :class => 'navbar-link' %>
+    <p></p>
+    <%= link_to "Manage my Calendar", calendars_path, :class => 'navbar-link' %>
 <% else %>
     <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
     <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>

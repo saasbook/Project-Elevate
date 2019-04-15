@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Calendar</h1>
+
+<%= month_calendar events: @calendars do |date, calendar| %>
+      <%= date.day %>
+
+      <% calendar.each do |calendar| %>
+        <div>
+          <%= calendar.name %>
+        </div>
+      <% end %>
+    <% end %>
+<br>
+
+
+
+<%= link_to 'New Calendar', new_calendar_path %>
+<%= link_to "Back", root_path %>
+  

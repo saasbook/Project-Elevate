@@ -1,6 +1,4 @@
-
-
-<%= form_for :user do |f| %>
+<%= form_for :user, url: temp_booking_path do |f| %>
   <div class="periodicity">
     Choose Periodicity:<br />
     <%= f.radio_button :once, "Once" %>
@@ -18,6 +16,9 @@
   <div class="coaches">
     Choose Coach: <br />
     <% options = options_from_collection_for_select(@coaches, 'id', 'name') %>
-    <%= f.select :all_val,  options %>
+    <%= f.select :coach,  options %>
   </div>
+
+
+  <%= f.submit value: 'View availabilities' %>
 <% end %>
