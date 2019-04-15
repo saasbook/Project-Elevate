@@ -22,7 +22,6 @@ class ChargesController < ApplicationController
         description: 'Rails Stripe customer',
         currency: 'usd',
       })
-      
       @custom_num_credit = params[:custom_num_credit].to_i + current_user.custom_num_credit.to_i
       @group_num_credit = params[:group_num_credit].to_i + current_user.group_num_credit.to_i
       @assigned_num_credit = params[:assigned_num_credit].to_i + current_user.assigned_num_credit.to_i
@@ -30,9 +29,11 @@ class ChargesController < ApplicationController
       current_user.group_num_credit = @group_num_credit.to_s
       current_user.assigned_num_credit = @assigned_num_credit.to_s
       current_user.save!
+     
       rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to new_charge_path
+     
     
     end
 
