@@ -7,7 +7,11 @@
 
 <p class="navbar-text pull-right">
 <% if user_signed_in? %>
+<<<<<<< HEAD
     Hi <strong><%= current_user.name %></strong>, You have <%= @todayEvents %> activities today! Logged in as <strong><%= current_user.email %></strong>.
+=======
+    Hi <strong><%= current_user.name %></strong>, <%= @todayEvents %> actiivities today! Logged in as <strong><%= current_user.email %></strong>.
+>>>>>>> 7b533bea8e79c8399b3971175b9b985a44625fae
     
     <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
     <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %> |

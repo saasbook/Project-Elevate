@@ -4,6 +4,16 @@ class CoachAvailability < ApplicationRecord
         1...13
     end
 
+    def self.this_week(coach_id)
+        res = Hash.new
+        # byebug
+        Date::DAYNAMES.each do |day|
+            res[day] = CoachAvailability.where(:coach_id => coach_id, :day => day)
+        end
+
+        return res
+    end
+
     def self.valid_availibility(id, day, st, et)
         new_st_time =  st.hour + sec_to_hour(st.sec)
         new_et_time = et.hour + sec_to_hour(et.sec)

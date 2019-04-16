@@ -28,6 +28,26 @@ class UserController < ApplicationController
     end
   end 
 
+  def view_booking
+    flash[:coach] = "#{params[:user][:coach]}"
+    redirect_to booking_path
+  end
+
+  def confirmation_booking
+    render "confirmation_booking"
+  end
+
+  def calendar
+    if current_user.membership == "Club Member"
+        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
+    elsif current_user.membership == "Coach"
+        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time) #only booked classes currently
+    else
+        @calendars = Calendar.all
+    #add admin
+    end
+  end
+
   def availabilities
     @time_table = CoachAvailability.where(:coach_id => current_user.id)
     render "availabilities"
@@ -46,7 +66,7 @@ class UserController < ApplicationController
     end
 
     avail = CoachAvailability.new(:day => params[:user][:day], :start_time => start_time, :end_time => end_time)
-    
+
     avail.coach_id = current_user.id
 
     avail.save!
@@ -64,7 +84,7 @@ class UserController < ApplicationController
     # if !(:current_user.blank?)
     #   @membership = :current_user.membership
     # end
-    
+
     # For testing purposes above
     @name = current_user.name
     @membership = current_user.membership
