@@ -21,10 +21,10 @@ Scenario: Update Membership as manager (elevate)
   Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
   And selects status "Coach" for "Joe Chen"
   When I press "Joe Chen_update"
-  Then he should see membership status "Coach" for "Joe Chen"
+  Then he should see attribute "membership" value "Coach" for "Joe Chen"
 
 Scenario: Update Membership as manager (delevate)
   Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
   And selects status "Club Member" for "Roger Destroyer"
   When I press "Roger Destroyer_update"
-  Then he should see membership status "Club Member" for "Roger Destroyer"
+  Then he should see attribute "membership" value "Club Member" for "Roger Destroyer"

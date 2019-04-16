@@ -24,6 +24,9 @@ module NavigationHelpers
     when /^Login page$/i
       new_user_session_path
     
+    when /^User Membership Change Log page$/i
+      membership_history_path
+    
     when /^(.*)'s My Profile Page$/i
       user = User.find_by_name($1)
       member_profile_path :current_user => user 

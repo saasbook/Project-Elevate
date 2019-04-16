@@ -26,6 +26,7 @@
 <% end %>
 </table>
 
+<br> <%= link_to "User Membership Change Log", membership_history_path, method: :get, :class => 'navbar-link'  %>
 <br> <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 </p>
 

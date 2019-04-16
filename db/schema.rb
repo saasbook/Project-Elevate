@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_09_211313) do
+ActiveRecord::Schema.define(version: 2019_04_15_204348) do
 
   create_table "coach_availabilities", force: :cascade do |t|
     t.integer "coach_id", null: false
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 2019_04_09_211313) do
     t.string "day", null: false
     t.time "start_time", null: false
     t.time "end_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "membership_histories", force: :cascade do |t|
+    t.integer "user_changed_id", null: false
+    t.integer "changed_by_id", null: false
+    t.string "old_membership", null: false
+    t.string "new_membership", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
