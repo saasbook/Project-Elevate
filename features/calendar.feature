@@ -47,7 +47,7 @@ Scenario: Log in as Jason Yang a Club Member to see his Calendar
   And "Jason Yang" logs in with correct credentials with password "123456"
   When he follows "Manage my Calendar"
   Then "Jason Yang" should see the events he is a part of for this month
-  And he should see the following: "Back to Profile, New Calendar" 
+  And he should see the following: "Back to Profile" 
   
 Scenario: Log in as Roger Destroyer a Coach with multiple events scheduled
   Given "Roger Destroyer" is a "Coach"
@@ -64,7 +64,7 @@ Scenario: Log in as Roger Destroyer a Coach to see his Calendar
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
   When he follows "Manage my Calendar"
   Then "Roger Destroyer" should see the events he is a part of for this month
-  And he should see the following: "Back to Profile, New Calendar"
+  And he should see the following: "Back to Profile"
   
 Scenario: Log in as Matthew Sie, an Admin
   Given "Matthew Sie" is a "Administrator"
@@ -81,7 +81,7 @@ Scenario: Log in as Matthew Sie, an Admin
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
   When he follows "Manage my Calendar"
   Then he should see the events for this month
-  And he should see the following: "Back to Profile, New Calendar"
+  And he should see the following: "Back to Profile"
   
 
 
