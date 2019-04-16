@@ -53,3 +53,27 @@ And /he should not see the following: "(.*)"/ do |text_lists|
         step %{I should not see "#{text}"}
     end
 end
+
+And /"(.*)" should see all the first five events he is a part of/ do |name|
+    user = User.find_by_name(name)
+    Calendar.all.where(:UserId => [user.id, nil]).order(:start_time).limit(5).each do |calendar|
+        step %{I should see "#{calendar.name}"}
+    end
+end
+
+And /"(.*)" should see the first five events/ do |name|
+    Calendar.all.order(:start_time).limit(5).each do |calendar|
+        step %{I should see "#{calendar.name}"}
+    end
+end
+
+
+
+
+# And /"(.*)" should not see any events he is not a part of/ do |name|
+#     user = User.find_by_name(name)
+#     Calendar.all.where.not(:UserId => [user.id, nil]).each do |calendar|
+#         step %{I should not see "#{calendar.name}"}
+#     end
+# end
+
