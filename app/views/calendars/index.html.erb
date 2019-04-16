@@ -7,7 +7,8 @@
     
       <% calendar.each do |calendar| %>
         <div>
-          <%= link_to calendar.name, edit_calendar_path(calendar), :class => 'navbar-link' %>
+          <%= calendar.name %>
+           <!--link_to calendar.name, edit_calendar_path(calendar), :class => 'navbar-link' %>-->
         </div>
       <% end %>
     <% end %>
@@ -18,5 +19,5 @@
 <%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
 
 
-<!--link_to 'New Calendar', new_calendar_path -->
+<!--link_to 'New Calendar', new_calendar_path %>-->
 
