@@ -9,8 +9,8 @@
   <% end %>
 
 <% if flash[:coach] %>
-  <% CoachAvailability.this_week(flash[:coach].to_i).each do |day, coach_availabilities|  %>
-    <%= form_for :user, url: confirmation_booking_path do |g| %>
+  <%= form_for :user, url: confirmation_booking_path do |g| %>
+    <% CoachAvailability.this_week(flash[:coach].to_i).each do |day, coach_availabilities|  %>
       <table class="table table-hover">
         <tbody>
           <% if coach_availabilities.empty? %>
@@ -25,10 +25,8 @@
           <% end %>
         </tbody>
       </table>
-      <% if !coach_availabilities.empty? %>
-        <%= g.submit value: 'Book Lesson' %>
-      <% end %>
     <% end %>
+  <%= g.submit value: 'Book Lesson(s)' %>
   <% end %>
 <% end %>
 
