@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :calendars
+  
   get 'error/error'
   resources :charges
   # get 'user/member_profile'
   devise_for :users
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'user/profile' => 'user#member_profile', :as => 'member_profile'
  
@@ -14,6 +17,12 @@ Rails.application.routes.draw do
   
   get 'user/booking' => 'user#booking', :as => 'booking'
   post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
+  
+  get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
+  
+  get '/' => 'home#index', :as => 'root'
+  
+  
 
   # availabilities routes
   get 'users/profile/availabilities' => 'user#availabilities', :as =>'availabilities'

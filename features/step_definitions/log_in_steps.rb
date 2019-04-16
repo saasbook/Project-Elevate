@@ -4,6 +4,12 @@ Given /the following users exist/ do |users_table|
       User.create user
     end
   end
+  
+Given /the following calendars exist/ do |calendars_table|
+    calendars_table.hashes.each do |calendar|
+      Calendar.create calendar
+    end
+  end
 
 
 Given /"(.*)" is a "(.*)"/ do |name, membership|
@@ -47,3 +53,14 @@ And /he should not see the following: "(.*)"/ do |text_lists|
         step %{I should not see "#{text}"}
     end
 end
+
+
+
+
+# And /"(.*)" should not see any events he is not a part of/ do |name|
+#     user = User.find_by_name(name)
+#     Calendar.all.where.not(:UserId => [user.id, nil]).each do |calendar|
+#         step %{I should not see "#{calendar.name}"}
+#     end
+# end
+

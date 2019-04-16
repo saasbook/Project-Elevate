@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Calendar</h1>
+
+<%= month_calendar events: @calendars do |date, calendar| %>
+      <%= date%>
+    
+      <% calendar.each do |calendar| %>
+        <div>
+          <%= calendar.name %>
+           <!--link_to calendar.name, edit_calendar_path(calendar), :class => 'navbar-link' %>-->
+        </div>
+      <% end %>
+    <% end %>
+<br>
+
+
+
+<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
+
+
+<!--link_to 'New Calendar', new_calendar_path %>-->
+

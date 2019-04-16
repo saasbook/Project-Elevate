@@ -57,6 +57,10 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+When /he follows "([^"]*)"$/ do |link|
+  click_link(link)
+end
+
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
@@ -252,3 +256,4 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
