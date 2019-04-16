@@ -1,48 +1,35 @@
-<%= form_for :user, url: confirmation_booking_path do |g| %>
-  <%= form_for :user, url: view_booking_path do |f| %>
-    <div class="periodicity">
-      Choose Periodicity:<br />
-      <%= f.radio_button :once, "Once" %>
-      <%= f.label :once, "Once", value: "Once" %>
-      <%= f.radio_button :weekly, "Weekly" %>
-      <%= f.label :weekly, "Weekly", value: "Weekly" %>
-    </div>
-
-    <div class="date">
-      Choose Date: <br />
-      <%= select_month(Date.today, prompt: 'Choose month') %>
-      <%= select_day(Date.today, prompt: 'Choose day') %>
-    </div>
-
+<%= form_for :user, url: view_booking_path do |f| %>
     <div class="coaches">
       Choose Coach: <br />
       <% options = options_from_collection_for_select(@coaches, 'id', 'name') %>
       <%= f.select :coach,  options %>
     </div>
 
-    <% if flash[:coach] %>
-      <% coach_availabilities = CoachAvailability.where(:coach_id => flash[:coach]) %>
-      <table class="table table-hover">
-        <tbody>
-          <% if coach_availabilities.empty? %>
-            <h3> No Availabilities Found </h3>
-          <% end %>
-          <% coach_availabilities.each do |record| %>
-            <tr>
-              <td><%= f.radio_button :temp_availability, "temp_availability"%></td>
-              <td><%= f.label :temp_availability, record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p"), value: record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-
     <%= f.submit value: 'View availabilities' %>
   <% end %>
 
-  <%= g.submit value: 'Book Lesson' %>
+<% if flash[:coach] %>
+  <% CoachAvailability.this_week(flash[:coach].to_i).each do |day, coach_availabilities|  %>
+    <%= form_for :user, url: confirmation_booking_path do |g| %>
+      <table class="table table-hover">
+        <tbody>
+          <% if coach_availabilities.empty? %>
+            <%= 'No Availabilities Found for ' + day %>
+          <% else %>
+            <% coach_availabilities.each do |record| %>
+              <tr>
+                <td><%= g.radio_button :temp_availability, "temp_availability"%></td>
+                <td><%= g.label :temp_availability, record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p"), value: record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p") %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+      <% if !coach_availabilities.empty? %>
+        <%= g.submit value: 'Book Lesson' %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>
-
-
 
 <%= link_to 'Back', root_path %>
