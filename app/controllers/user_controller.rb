@@ -19,6 +19,10 @@ class UserController < ApplicationController
     redirect_to booking_path
   end
 
+  def confirmation_booking
+    render "confirmation_booking"
+  end
+
   def calendar
     if current_user.membership == "Club Member"
         @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)

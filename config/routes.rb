@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   post 'user/profile/update_other' => 'user#update_other', :as => 'update_other'
 
   get 'user/booking' => 'user#booking', :as => 'booking'
-  post 'users/profile/temp_booking' => 'user#temp_booking', :as =>'temp_booking'
+  post 'user/confirmation_booking' => 'user#confirmation_booking', :as => 'confirmation_booking'
+  post 'user/profile/view_booking' => 'user#view_booking', :as =>'view_booking'
 
   get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
 
