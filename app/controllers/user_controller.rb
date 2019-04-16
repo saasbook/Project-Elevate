@@ -3,8 +3,11 @@ class UserController < ApplicationController
 
   def update_other
     @other = User.find(params[:id])
+    old_membership = @other.membership
     if !params[:user].blank?
       @other.update_attributes(params.require(:user).permit(:membership))
+      MembershipHistory.create(:user_changed_id => @other.id, :changed_by_id => current_user.id, 
+        :old_membership => old_membership, :new_membership => @other.membership)
     end
     redirect_to '/user/profile'
   end
@@ -66,6 +69,7 @@ class UserController < ApplicationController
     @name = current_user.name
     @membership = current_user.membership
     if current_user.membership == 'Club Member'
+      @user = current_user
       render "club_member_profile"
       # Add everything else needed here
     elsif current_user.membership == 'Administrator'

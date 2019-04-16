@@ -9,6 +9,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :name,               null: false, default: ""
       t.string :membership,           null: false, default: "Club Member"
       t.string :my_admin,             null: false, default: ""
+      t.string :custom_num_credit, null: false, default: "0"
+      t.string :assigned_num_credit, null: false, default: "0"
+      t.string :group_num_credit, null: false, default: "0"
 
       ## Recoverable
       t.string   :reset_password_token

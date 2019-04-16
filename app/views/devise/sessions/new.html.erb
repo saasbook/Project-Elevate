@@ -8,7 +8,7 @@
     </div>
   <% else %>
     <!-- Style for any warning message -->
-    <div class="flashNotice col last"><%= flash[:alert]%></div>
+    <div class="alert alert-danger"><a href="#" class="alert-link"><%= flash[:alert]%></a></div>
     
   <% end %>
 <% end %>
