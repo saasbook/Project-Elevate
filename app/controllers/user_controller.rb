@@ -55,6 +55,7 @@ class UserController < ApplicationController
     @name = current_user.name
     @membership = current_user.membership
     if current_user.membership == 'Club Member'
+      @user = current_user
       render "club_member_profile"
       # Add everything else needed here
     elsif current_user.membership == 'Administrator'

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'error/error'
+  resources :charges
   # get 'user/member_profile'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
   post 'user/profile/update_other' => 'user#update_other', :as => 'update_other'
   
   get 'user/booking' => 'user#booking', :as => 'booking'
+  post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
 
   # availabilities routes
   get 'users/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
