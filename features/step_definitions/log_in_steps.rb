@@ -54,19 +54,6 @@ And /he should not see the following: "(.*)"/ do |text_lists|
     end
 end
 
-And /"(.*)" should see all the first five events he is a part of/ do |name|
-    user = User.find_by_name(name)
-    Calendar.all.where(:UserId => [user.id, nil]).order(:start_time).limit(5).each do |calendar|
-        step %{I should see "#{calendar.name}"}
-    end
-end
-
-And /"(.*)" should see the first five events/ do |name|
-    Calendar.all.order(:start_time).limit(5).each do |calendar|
-        step %{I should see "#{calendar.name}"}
-    end
-end
-
 
 
 
