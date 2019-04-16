@@ -16,6 +16,7 @@
           <% if coach_availabilities.empty? %>
             <%= 'No Availabilities Found for ' + day %>
           <% else %>
+            <%= 'Availabilities for ' + day%>
             <% coach_availabilities.each do |record| %>
               <tr>
                 <td><%= g.radio_button :temp_availability, "temp_availability"%></td>
