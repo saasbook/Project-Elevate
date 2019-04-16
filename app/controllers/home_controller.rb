@@ -7,10 +7,8 @@ class HomeController < ApplicationController
     def index
         # redirect_to '/users/sign_in'
         
-        if current_user.membership == "Club Member"
+        if current_user.membership == "Club Member" or current_user.membership == "Coach"
             @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
-        elsif current_user.membership == "Coach"
-            @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
         else
             @calendars = Calendar.all
         #add admin
