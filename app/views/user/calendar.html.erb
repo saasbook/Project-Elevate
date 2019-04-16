@@ -12,26 +12,14 @@
     <% @calendars.each do |calendar| %>
       <tr>
         <td><%= calendar.name %></td>
-<<<<<<< HEAD
-        <td><%= calendar.start_time %></td>
-        <td><%= calendar.end_time %></td>
-         <!--link_to 'Edit', edit_calendar_path(calendar)-->
-        <!--link_to 'Delete', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
-=======
-  
+
         <td><%= calendar.start_time %></td>
         <td><%= calendar.end_time %></td>
         <td><%= link_to 'Edit', edit_calendar_path(calendar) %></td>
         <td><%= link_to 'Destroy', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
->>>>>>> 7b533bea8e79c8399b3971175b9b985a44625fae
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<<<<<<< HEAD
-<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
-
-=======
->>>>>>> 7b533bea8e79c8399b3971175b9b985a44625fae
 <br>

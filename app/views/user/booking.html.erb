@@ -19,15 +19,15 @@
             <%= 'Availabilities for ' + day%>
             <% coach_availabilities.each do |record| %>
               <tr>
-                <td><%= g.radio_button :temp_availability, "temp_availability"%></td>
-                <td><%= g.label :temp_availability, record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p"), value: record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p") %></td>
+                <td><%= g.radio_button :temp_availability, record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p"), value: record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p") %></td>
+                
               </tr>
             <% end %>
           <% end %>
         </tbody>
       </table>
     <% end %>
-  <%= g.submit value: 'Book Lesson(s)' %>
+  <%= g.submit value: 'Next' %>
   <% end %>
 <% end %>
 

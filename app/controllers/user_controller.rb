@@ -6,7 +6,7 @@ class UserController < ApplicationController
     old_membership = @other.membership
     if !params[:user].blank?
       @other.update_attributes(params.require(:user).permit(:membership))
-      MembershipHistory.create(:user_changed_id => @other.id, :changed_by_id => current_user.id, 
+      MembershipHistory.create(:user_changed_id => @other.id, :changed_by_id => current_user.id,
         :old_membership => old_membership, :new_membership => @other.membership)
     end
     redirect_to '/user/profile'
@@ -16,7 +16,7 @@ class UserController < ApplicationController
     @coaches = User.coaches
     render "booking"
   end
-  
+
   def calendar
     if current_user.membership == "Club Member"
         @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
@@ -26,7 +26,7 @@ class UserController < ApplicationController
         @calendars = Calendar.all
     #add admin
     end
-  end 
+  end
 
   def view_booking
     flash[:coach] = "#{params[:user][:coach]}"
@@ -34,6 +34,7 @@ class UserController < ApplicationController
   end
 
   def confirmation_booking
+    @available_slot = "#{params[:user][:temp_availability]}"
     render "confirmation_booking"
   end
 

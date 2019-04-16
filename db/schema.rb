@@ -18,17 +18,6 @@ ActiveRecord::Schema.define(version: 2019_04_15_204348) do
     t.integer "OtherId"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string "typeEvent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "calendars", force: :cascade do |t|
-    t.string "name"
-    t.integer "UserId"
-    t.integer "OtherId"
-    t.datetime "start_time"
-    t.datetime "end_time"
     t.boolean "typeEvent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
