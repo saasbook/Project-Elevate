@@ -34,8 +34,51 @@ class UserController < ApplicationController
   end
 
   def confirmation_booking
-    @available_slot = "#{params[:user][:temp_availability]}"
-    render "confirmation_booking"
+    chosen_time_slot = params[:user]
+    if (chosen_time_slot.nil?)
+      redirect_to booking_path
+    else
+      chosen_time_slot = params[:user][:temp_availability]
+
+      available_day = chosen_time_slot.split('/')[1]
+
+      start_time_hour = chosen_time_slot.split('/')[2].split(' ')[0].split(':')[0].to_i
+      start_time_minute = chosen_time_slot.split('/')[2].split(' ')[0].split(':')[1].to_i
+      start_time_ampm = chosen_time_slot.split('/')[2].split(' ')[1]
+      if ((start_time_ampm == "PM") & !(start_time_hour == 12))
+        start_time_hour = start_time_hour + 12
+      end
+
+      end_time_hour = chosen_time_slot.split('/')[3].split(' ')[0].split(':')[0].to_i
+      end_time_minute = chosen_time_slot.split('/')[3].split(' ')[0].split(':')[1].to_i
+      end_time_ampm = chosen_time_slot.split('/')[3].split(' ')[1]
+
+      if ((end_time_ampm == "PM") & !(end_time_hour == 12))
+        end_time_hour = end_time_hour + 12
+      end
+
+      list_of_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+      month = list_of_months.index(params[:user][:month]) + 1
+      day = params[:user][:day].to_i
+      my_id = current_user.id
+      coach_id = chosen_time_slot.split('/')[0].to_i
+      start_date_time = DateTime.new(DateTime.now.year.to_i, month, day, start_time_hour, start_time_minute)
+      end_date_time = DateTime.new(DateTime.now.year.to_i, month, day, end_time_hour, end_time_minute)
+
+
+      my_new_event = Calendar.new(:name => "Coaching", :UserId => my_id, :OtherId => coach_id, :start_time => start_date_time, :end_time => end_date_time, :typeEvent => "Coaching")
+      coach_new_event = Calendar.new(:name => "Coaching", :UserId => coach_id, :OtherId => my_id, :start_time => start_date_time, :end_time => end_date_time, :typeEvent => "Coaching")
+      my_new_event.save!
+      coach_new_event.save!
+      render "confirmation_booking"
+    end
+
+    # avail = Calendar.new(:name =>, :start_time =>, :end_time =>, :typeEvent => "Coaching")
+    #
+    # avail.coach_id = current_user.id
+    #
+    # avail.save!
+
   end
 
   def calendar

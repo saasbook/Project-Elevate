@@ -19,14 +19,21 @@
             <%= 'Availabilities for ' + day%>
             <% coach_availabilities.each do |record| %>
               <tr>
-                <td><%= g.radio_button :temp_availability, record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p"), value: record.day + record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p") %></td>
-                
+                <td><%= g.radio_button :temp_availability, "#{record.coach_id}" + "/" + record.day + "/" + record.start_time.strftime("%l:%M %p") + "/" + record.end_time.strftime("%l:%M %p")%></td>
+                <td><%= g.label :temp_availability, record.start_time.strftime("%l:%M%p") + " - " + record.end_time.strftime("%l:%M%p")%></td>
               </tr>
             <% end %>
           <% end %>
         </tbody>
       </table>
     <% end %>
+
+    <div class="date">
+      Choose Date: <br />
+      <%= g.select :month, ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %>
+      <%= g.select :day, 1..31 %>
+    </div>
+
   <%= g.submit value: 'Next' %>
   <% end %>
 <% end %>
