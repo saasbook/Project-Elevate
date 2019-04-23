@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_204348) do
     t.integer "OtherId"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string "typeEvent"
+    t.boolean "typeEvent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
