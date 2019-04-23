@@ -1,0 +1,24 @@
+<h3 style="text-align:center;"> Payment Package Portal </h3>
+
+<table class="table table-hover">
+<thead>
+    <tr>
+      <th>Package Name</th>
+      <th>Number of Classes</th>
+      <th>Price</th>
+      <th>Updated At</th>
+    </tr>
+</thead>
+  <tbody >
+    <% @packages.each do |record| %>
+      <tr>
+        <td class="package_name"><%= record.name%></td>
+        <td class="num_classes"><%= record.num_classes%></td>
+        <td class="price"><%= '$' + record.price.to_s%></td>
+        <td><%= record.updated_at.in_time_zone("Pacific Time (US & Canada)").strftime("%B %d, %Y %I:%M:%S %p %Z")%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back", :back %>

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   
   get 'user/booking' => 'user#booking', :as => 'booking'
   post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
+
+  get 'user/payments' => 'payment_package#index', :as => 'payment_package'
   
   get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
   
