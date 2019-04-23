@@ -21,4 +21,20 @@
   </tbody>
 </table>
 
+<%= form_for :user, url: add_availabilities_path do |f| %>
+  <div class="date">
+    Choose Date: <br />
+    <%= f.select :day, Date::DAYNAMES %> <br />
+    Start Time: <br />
+    <%= f.select :start_time, CoachAvailability.availibility %> :
+    <%= f.select :start_time_s, ['00', '30'] %> 
+    <%= f.select :start_time_ampm, ['AM', 'PM'] %> <br /> 
+    End Time: <br />
+    <%= f.select :end_time, CoachAvailability.availibility %> :
+    <%= f.select :end_time_s, ['00', '30'] %>
+    <%= f.select :end_time_ampm, ['AM', 'PM'] %><br />
+    <%= f.submit value: 'Add availibility' %>
+  </div>
+<% end %>
+
 <%= link_to "Back", :back %>

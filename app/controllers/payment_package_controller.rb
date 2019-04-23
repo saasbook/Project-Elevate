@@ -12,4 +12,7 @@ class PaymentPackageController < ApplicationController
         @packages = PaymentPackage.all
         # render 'index'
     end
+
+    def create
+    end
 end
