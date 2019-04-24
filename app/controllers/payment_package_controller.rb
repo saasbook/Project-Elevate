@@ -23,4 +23,8 @@ class PaymentPackageController < ApplicationController
         
         redirect_to payment_package_path
     end
+
+    def edit
+        
+    end
 end

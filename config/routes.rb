@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get 'user/payments' => 'payment_package#index', :as => 'payment_package'
   post 'user/payments/add' => 'payment_package#create', :as => 'add_payment_package'
+  get 'user/payments/:id/edit' => 'payment_package#edit', :as => 'edit_payment_package'
+  post 'user/payments/:id/edit' => 'payment_package#update', :as => 'update_payment_package'
   
   get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
   
