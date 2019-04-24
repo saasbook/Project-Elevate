@@ -14,13 +14,13 @@ class PaymentPackageController < ApplicationController
     end
 
     def create
-        params[:payment_package].each do |k, v|
-            if v.empty?
-                flash[:alert] = 'Missing fields or non-unqiue name'
-                redirect_to payment_package_path && return
-            end
+        begin
+            params[:payment_package].require([:name, :num_classes, :price])
+            PaymentPackage.create!(params[:payment_package].permit(:name, :num_classes, :price))
+        rescue => ex
+            flash[:alert] = 'Missing fields or non-unqiue name'
         end
-        PaymentPackage.create!(params[:payment_package].permit(:name, :num_classes, :price))
+        
         redirect_to payment_package_path
     end
 end
