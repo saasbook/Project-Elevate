@@ -7,23 +7,23 @@ Feature: Add payment pacakge as a admin
 Background: Users in the Database
  Given the following users exist:
   | id | name            | email                    | password | membership    |
-  | 6  | Pizza           | pizza@gmail.com       | 12345678 | Admin         |
+  | 6  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         |
 And "Pizza" logs in with correct credentials with password "12345678"
 And I go to Payment Packages Page
-When I fill in "new_package_name" with "Platinum"
-And I fill in "new_package_num_classes" with "10"
-
 
 Scenario: Add package successfully
-  And I fill in "new_package_price" with "200"
+  When I fill in "payment_package_name" with "Platinum"
+  And I fill in "payment_package_num_classes" with "10"
+  And I fill in "payment_package_price" with "200"
   And I press "Add package"
-  Then I should see "Platinum" within "package_1"
-  Then I should see "10" within "package_1"
-  Then I should see "200" within "package_1"
+  Then I should be on Payment Packages Page
+  Then I should see "Platinum"
+  Then I should see "10"
+  Then I should see "200"
 
 Scenario: Add package but fill in form incorrectly
-  And I fill in "new_package_price" with "blahbashdfldsadf"
+  When I fill in "payment_package_name" with "Gold"
   And I press "Add package"
-  Then I should not see "Platinum" within "package_1"
-  Then I should not see "10" within "package_1"
-  Then I should not see "200" within "package_1"
+  Then I should be on Payment Packages Page
+  Then I should not see "Gold"
+  And I should see "Missing fields"

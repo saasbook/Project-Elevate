@@ -1,5 +1,9 @@
 <h3 style="text-align:center;"> Payment Package Portal </h3>
 
+<% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
 <table class="table table-hover">
 <thead>
     <tr>
@@ -11,30 +15,25 @@
 </thead>
   <tbody >
     <% @packages.each do |record| %>
+    <div id=<%= 'package_' + record.id.to_s %>>
       <tr>
         <td class="package_name"><%= record.name%></td>
         <td class="num_classes"><%= record.num_classes%></td>
         <td class="price"><%= '$' + record.price.to_s%></td>
         <td><%= record.updated_at.in_time_zone("Pacific Time (US & Canada)").strftime("%B %d, %Y %I:%M:%S %p %Z")%></td>
+        </div>
       </tr>
+    </div>
     <% end %>
   </tbody>
 </table>
 
-<%= form_for :user, url: add_availabilities_path do |f| %>
-  <div class="date">
-    Choose Date: <br />
-    <%= f.select :day, Date::DAYNAMES %> <br />
-    Start Time: <br />
-    <%= f.select :start_time, CoachAvailability.availibility %> :
-    <%= f.select :start_time_s, ['00', '30'] %> 
-    <%= f.select :start_time_ampm, ['AM', 'PM'] %> <br /> 
-    End Time: <br />
-    <%= f.select :end_time, CoachAvailability.availibility %> :
-    <%= f.select :end_time_s, ['00', '30'] %>
-    <%= f.select :end_time_ampm, ['AM', 'PM'] %><br />
-    <%= f.submit value: 'Add availibility' %>
-  </div>
+<h3>Add Payment Package</h3> <br>
+<%= form_for :payment_package, url: add_payment_package_path do |f| %>
+  Name: <%= f.text_field :name %> <br>
+  Number of Classes: <%= f.number_field :num_classes %> <br>
+  Price: <%= f.number_field :price %> <br>
+  <%= f.submit value: 'Add package' %>
 <% end %>
 
 <%= link_to "Back", :back %>
