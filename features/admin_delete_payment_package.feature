@@ -11,7 +11,7 @@ Background: Users in the Database
   | 7  | Zac             | zac@gmail.com        | asdfjkl; | Club Member         |
 Given the following payment_packages exist:
     |id  | name  |   num_classes |   price   |
-    | 1  | Gold  |   10          |   10      |
+    | 1  | Green  |   10          |   10      |
     | 2  | Red   |   200         |   2000    |
     | 3  | Blue  |   200         |   2000    |
 
@@ -22,7 +22,7 @@ Scenario: Delete package successfully
   And I follow "delete_1"
   Then I should be on Payment Packages Page
   Then I should see "Red"
-  And I should not see "Gold"
+  And I should not see "Green"
   Then I follow "delete_2"
   Then I should not see "Red"
 
