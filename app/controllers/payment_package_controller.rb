@@ -30,7 +30,8 @@ class PaymentPackageController < ApplicationController
     end
 
     def update
-        PaymentPackage.find(params[:id]).update_attributes!(params[:payment_package].permit(:name, :num_classes, :price))
+        par = params[:payment_package].reject{|_, v| v.blank?}
+        PaymentPackage.find(params[:id]).update_attributes!(par.permit(:name, :num_classes, :price))
         redirect_to payment_package_path
     end
 end

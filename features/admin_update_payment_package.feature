@@ -14,7 +14,7 @@ And I fill in "payment_package_name" with "Platinum"
 And I fill in "payment_package_num_classes" with "10"
 And I fill in "payment_package_price" with "200"
 And I press "Add package"
-Then I press "edit_1"
+Then I follow "edit_1"
 
 Scenario: Edit package successfully
   When I fill in "payment_package_name" with "AMAZING DEAL"
@@ -25,15 +25,9 @@ Scenario: Edit package successfully
   Then I should see "AMAZING DEAL"
   Then I should see "15"
   Then I should see "250"
-  And I should not see "Platinum", "10", "200"
-
-Scenario: Add package but fill in form incorrectly
-  When I fill in "payment_package_name" with "Gold"
-  And I fill in "payment_package_num_classes" with ""
-  And I fill in "payment_package_price" with ""
-  And I press "Update package"
-  Then I should be on Payment Packages Page
-  And I should see "Missing fields"
+  And I should not see "Platinum"
+  And I should not see "10"
+  And I should not see "200"
 
 Scenario: Add package but fill only change one form
   When I fill in "payment_package_name" with "Gold"

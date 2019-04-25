@@ -1,3 +1,7 @@
+<% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
 <h3>Edit <%= @name %> Package</h3> <br>
 <%= form_for :payment_package, url: update_payment_package_path do |f| %>
   Name: <%= f.text_field :name, :value => @name %> <br>
