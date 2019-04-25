@@ -1,6 +1,23 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Confirm user account email
+  config.action_mailer.default_url_options = { :host => 'project-elevate.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {:address => "localhost", :port => 1025}
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = 
+  {
+    :address              => 'smtp.gmail.com',
+    :port                 => 587,
+    :domain               => 'gmail.com', #you can also use google.com
+    :authentication       => :plain,
+    :user_name            => 'projectElevateDev@gmail.com',
+    :enable_starttls_auto => true,
+    :password             => 'LetsElevate!'
+  }
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
