@@ -10,7 +10,6 @@ class PaymentPackageController < ApplicationController
 
     def index
         @packages = PaymentPackage.all
-        # render 'index'
     end
 
     def create
@@ -32,6 +31,11 @@ class PaymentPackageController < ApplicationController
     def update
         par = params[:payment_package].reject{|_, v| v.blank?}
         PaymentPackage.find(params[:id]).update_attributes!(par.permit(:name, :num_classes, :price))
+        redirect_to payment_package_path
+    end
+
+    def delete
+        PaymentPackage.destroy(params[:id])
         redirect_to payment_package_path
     end
 end
