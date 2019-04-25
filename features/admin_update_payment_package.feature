@@ -8,13 +8,14 @@ Background: Users in the Database
  Given the following users exist:
   | id | name            | email                    | password | membership    |
   | 6  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         |
+Given the following payment_packages exist:
+    |id  | name  |   num_classes |   price   |
+    | 4  | Green  |   10          |   10      |
+    | 5  | Red   |   200         |   2000    |
+    | 6  | Blue  |   200         |   2000    |
 And "Pizza" logs in with correct credentials with password "12345678"
 And I go to Payment Packages Page
-And I fill in "payment_package_name" with "Red"
-And I fill in "payment_package_num_classes" with "10"
-And I fill in "payment_package_price" with "200"
-And I press "Add package"
-Then I follow "edit_1"
+Then I follow "edit_5"
 
 Scenario: Edit package successfully
   When I fill in "payment_package_name" with "AMAZING DEAL"
@@ -23,11 +24,7 @@ Scenario: Edit package successfully
   And I press "Update package"
   Then I should be on Payment Packages Page
   Then I should see "AMAZING DEAL"
-  Then I should see "15"
-  Then I should see "250"
   And I should not see "Red"
-  And I should not see "10"
-  And I should not see "200"
 
 Scenario: Add package but fill only change one form
   When I fill in "payment_package_name" with "Blue"
