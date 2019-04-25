@@ -22,8 +22,8 @@ Scenario: Add package successfully
   Then I should see "200"
 
 Scenario: Add package but fill in form incorrectly
-  When I fill in "payment_package_name" with "Gold"
+  When I fill in "payment_package_name" with "Red"
   And I press "Add package"
   Then I should be on Payment Packages Page
-  Then I should not see "Gold"
+  Then I should not see "Red"
   And I should see "Missing fields"
