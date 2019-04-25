@@ -1,0 +1,9 @@
+<h3>Edit <%= @name %> Package</h3> <br>
+<%= form_for :payment_package, url: update_payment_package_path do |f| %>
+  Name: <%= f.text_field :name, :value => @name %> <br>
+  Number of Classes: <%= f.number_field :num_classes, :value => @package.num_classes  %> <br>
+  Price: <%= f.number_field :price, :value => @package.price %> <br>
+  <%= f.submit value: 'Update package' %>
+<% end %>
+
+<%= link_to "Back", :back %>

@@ -25,6 +25,12 @@ class PaymentPackageController < ApplicationController
     end
 
     def edit
-        
+        @package = PaymentPackage.find(params[:id])
+        @name = @package.name
+    end
+
+    def update
+        PaymentPackage.find(params[:id]).update_attributes!(params[:payment_package].permit(:name, :num_classes, :price))
+        redirect_to payment_package_path
     end
 end
