@@ -8,17 +8,25 @@ Background: Users in the Database
  Given the following users exist:
   | id | name            | email                    | password | membership    |
   | 6  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         |
+  | 7  | Zac             | zac@gmail.com        | asdfjkl; | Club Member         |
 Given the following payment_packages exist:
     |id  | name  |   num_classes |   price   |
     | 1  | Gold  |   10          |   10      |
     | 2  | Red   |   200         |   2000    |
-And "Pizza" logs in with correct credentials with password "12345678"
-And I go to Payment Packages Page
+    | 3  | Blue  |   200         |   2000    |
+
 
 Scenario: Delete package successfully
+  And "Pizza" logs in with correct credentials with password "12345678"
+  And I go to Payment Packages Page
   And I follow "delete_1"
   Then I should be on Payment Packages Page
   Then I should see "Red"
   And I should not see "Gold"
   Then I follow "delete_2"
   Then I should not see "Red"
+
+Scenario: Try to go to package page not as an admin
+  And "Zac" logs in with correct credentials with password "asdfjkl;"
+  And I go to Payment Packages Page
+  Then I should be on the home page
