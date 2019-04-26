@@ -1,8 +1,16 @@
 class ChargesController < ApplicationController
-    def new
+
+    before_action :check_current_user
+
+    protected 
+    def check_current_user
       if current_user.membership != "Club Member"
         redirect_to member_profile_path
       end
+    end
+
+    public 
+    def new
       @possible_group_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
       @possible_assigned_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
       @possible_custom_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
@@ -10,21 +18,25 @@ class ChargesController < ApplicationController
     
     def create
       # Amount in cents
-      if current_user.membership != "Club Member"
-        redirect_to member_profile_path
-      end
       @amount_in_create = params[:amount]
       @amount = params[:amount].to_f*100
       @amount = @amount.to_i
     
       customer = Stripe::Customer.create({
         email: params[:stripeEmail],
+        # email: current_user.email,
         source: params[:stripeToken],
       })
       
       charge = Stripe::Charge.create({
         customer: customer.id,
-        amount: @amount,
+        amount: @amount
+        # billing_details: {
+        #   city: params[:stripeBillingAddressCity],
+        #   country: params[:stripeBillingAddressCountry],
+        #   postal_code: params[:stripeBillingAddressZip],
+        #   state: params[:stripeBillingAddressState]
+        # },
         description: 'Rails Stripe customer',
         currency: 'usd',
       })
@@ -46,9 +58,6 @@ class ChargesController < ApplicationController
 
     def checkout
         # Let's say assign_private is $50, custom_private is $100, and group is $25
-        if current_user.membership != "Club Member"
-          redirect_to member_profile_path
-        end
         @assigned_private_cost = 50
         @custom_private_cost = 100
         @group_cost = 25
@@ -60,9 +69,9 @@ class ChargesController < ApplicationController
             flash[:error] = "Please select some credit"
             redirect_to new_charge_path
         end
+    end
 
-
-
+    def show
     end
 
 
