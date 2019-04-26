@@ -1,0 +1,2 @@
+class PaymentPackage < ApplicationRecord
+end
