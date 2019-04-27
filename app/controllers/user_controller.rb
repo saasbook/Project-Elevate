@@ -30,55 +30,30 @@ class UserController < ApplicationController
 
   def view_booking
     flash[:coach] = "#{params[:user][:coach]}"
+    flash[:day] = "#{params[:user][:day]}"
+    flash[:month] = "#{params[:user][:month]}"
     redirect_to booking_path
   end
 
   def confirmation_booking
-    chosen_time_slot = params[:user]
-    if (chosen_time_slot.nil?)
+    if (params[:user].nil? || params[:user][:temp_availability].nil?)
+      flash[:alert] = "Please choose a time slot."
       redirect_to booking_path
     else
-      chosen_time_slot = params[:user][:temp_availability]
+      x = params[:user]
+      start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
+      end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
 
-      available_day = chosen_time_slot.split('/')[1]
+      event_start = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute)
+      event_end = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute)
 
-      start_time_hour = chosen_time_slot.split('/')[2].split(' ')[0].split(':')[0].to_i
-      start_time_minute = chosen_time_slot.split('/')[2].split(' ')[0].split(':')[1].to_i
-      start_time_ampm = chosen_time_slot.split('/')[2].split(' ')[1]
-      if ((start_time_ampm == "PM") & !(start_time_hour == 12))
-        start_time_hour = start_time_hour + 12
-      end
-
-      end_time_hour = chosen_time_slot.split('/')[3].split(' ')[0].split(':')[0].to_i
-      end_time_minute = chosen_time_slot.split('/')[3].split(' ')[0].split(':')[1].to_i
-      end_time_ampm = chosen_time_slot.split('/')[3].split(' ')[1]
-
-      if ((end_time_ampm == "PM") & !(end_time_hour == 12))
-        end_time_hour = end_time_hour + 12
-      end
-
-      list_of_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-      month = list_of_months.index(params[:user][:month]) + 1
-      day = params[:user][:day].to_i
-      my_id = current_user.id
-      coach_id = chosen_time_slot.split('/')[0].to_i
-      start_date_time = DateTime.new(DateTime.now.year.to_i, month, day, start_time_hour, start_time_minute)
-      end_date_time = DateTime.new(DateTime.now.year.to_i, month, day, end_time_hour, end_time_minute)
-
-
-      my_new_event = Calendar.new(:name => "Coaching", :UserId => my_id, :OtherId => coach_id, :start_time => start_date_time, :end_time => end_date_time, :typeEvent => "Coaching")
-      coach_new_event = Calendar.new(:name => "Coaching", :UserId => coach_id, :OtherId => my_id, :start_time => start_date_time, :end_time => end_date_time, :typeEvent => "Coaching")
+      my_new_event = Calendar.new(:name => "Coaching", :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
+      coach_new_event = Calendar.new(:name => "Coaching", :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
       my_new_event.save!
       coach_new_event.save!
+
       render "confirmation_booking"
     end
-
-    # avail = Calendar.new(:name =>, :start_time =>, :end_time =>, :typeEvent => "Coaching")
-    #
-    # avail.coach_id = current_user.id
-    #
-    # avail.save!
-
   end
 
   def calendar

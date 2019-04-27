@@ -41,9 +41,14 @@ class CoachAvailability < ApplicationRecord
         if sec == 30
             return 0.5
         end
-        
+
         if sec == 0
             return 0
         end
+    end
+
+
+    def self.valid_time_slots(day)
+      return 0
     end
 end

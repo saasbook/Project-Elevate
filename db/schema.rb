@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2019_04_15_204348) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean "typeEvent"
+    t.string "event_month"
+    t.string "event_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
