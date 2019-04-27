@@ -19,6 +19,11 @@ ActiveRecord::Schema.define(version: 2019_04_23_174402) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean "typeEvent"
+<<<<<<< HEAD
+=======
+    t.string "event_month"
+    t.string "event_day"
+>>>>>>> b26a8b3831051fc71823ce84ae597ea2f8f542ef
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

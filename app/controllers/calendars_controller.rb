@@ -4,82 +4,80 @@ class CalendarsController < ApplicationController
   # GET /calendars
   # GET /calendars.json
   def index
-    
-          if current_user.membership == "Club Member"
-              @calendars =Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
-          elsif current_user.membership == "Coach"
-              @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
-          #add admin
-          else 
-            @calendars = Calendar.all
-          end
-  
+    if current_user #check if user is signed in
+            if current_user.membership == "Club Member"
+                @calendars =Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
+            elsif current_user.membership == "Coach"
+                @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
+            #add admin
+            end
+    end
   end
-  
-    
 
-  # # GET /calendars/1
-  # # GET /calendars/1.json
-  # def show
-  # end
 
-  # # GET /calendars/new
-  # def new
-  #   @calendar = Calendar.new
-  # end
 
-  # # GET /calendars/1/edit
-  # def edit
-  # end
+  # GET /calendars/1
+  # GET /calendars/1.json
+  def show
+  end
 
-  # # POST /calendars
-  # # POST /calendars.json
-  # def create
-  #   @calendar = Calendar.new(calendar_params)
+  # GET /calendars/new
+  def new
+    @calendar = Calendar.new
+  end
 
-  #   respond_to do |format|
-  #     if @calendar.save
-  #       format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
-  #       format.json { render :show, status: :created, location: @calendar }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @calendar.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  # GET /calendars/1/edit
+  def edit
+  end
 
-  # # PATCH/PUT /calendars/1
-  # # PATCH/PUT /calendars/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @calendar.update(calendar_params)
-  #       format.html { redirect_to @calendar, notice: 'Calendar was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @calendar }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @calendar.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  # POST /calendars
+  # POST /calendars.json
+  def create
+    @calendar = Calendar.new(calendar_params)
 
-  # # DELETE /calendars/1
-  # # DELETE /calendars/1.json
-  # def destroy
-  #   @calendar.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to calendars_url, notice: 'Calendar was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+    respond_to do |format|
+      if @calendar.save
+        format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
+        format.json { render :show, status: :created, location: @calendar }
+      else
+        format.html { render :new }
+        format.json { render json: @calendar.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-  # private
-  #   # Use callbacks to share common setup or constraints between actions.
-  #   def set_calendar
-  #     @calendar = Calendar.find(params[:id])
-  #   end
+  # PATCH/PUT /calendars/1
+  # PATCH/PUT /calendars/1.json
+  def update
+    respond_to do |format|
+      if @calendar.update(calendar_params)
+        format.html { redirect_to @calendar, notice: 'Calendar was successfully updated.' }
+        format.json { render :show, status: :ok, location: @calendar }
+      else
+        format.html { render :edit }
+        format.json { render json: @calendar.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-  #   # Never trust parameters from the scary internet, only allow the white list through.
-  #   def calendar_params
-  #     params.require(:calendar).permit(:name, :UserId, :OtherId, :start_time, :end_time, :typeEvent)
-  #   end
+  # DELETE /calendars/1
+  # DELETE /calendars/1.json
+  def destroy
+    @calendar.destroy
+    respond_to do |format|
+      format.html { redirect_to calendars_url, notice: 'Calendar was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_calendar
+      @calendar = Calendar.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def calendar_params
+      params.require(:calendar).permit(:name, :UserId, :OtherId, :start_time, :end_time, :typeEvent, :event_day, :event_month)
+    end
 end
