@@ -30,7 +30,7 @@ class ChargesController < ApplicationController
       
       charge = Stripe::Charge.create({
         customer: customer.id,
-        amount: @amount
+        amount: @amount,
         # billing_details: {
         #   city: params[:stripeBillingAddressCity],
         #   country: params[:stripeBillingAddressCountry],
@@ -40,6 +40,19 @@ class ChargesController < ApplicationController
         description: 'Rails Stripe customer',
         currency: 'usd',
       })
+      Stripe::InvoiceItem.create({
+          amount: @amount,
+          currency: 'usd',
+          customer: customer.id,
+          description: 'Lesson fee',
+      })
+      invoice = Stripe::Invoice.create({
+        customer: customer.id,
+        billing: 'send_invoice',
+        days_until_due: 30,
+      })
+      invoice.send_invoice
+      
       @custom_num_credit = params[:custom_num_credit].to_i + current_user.custom_num_credit.to_i
       @group_num_credit = params[:group_num_credit].to_i + current_user.group_num_credit.to_i
       @assigned_num_credit = params[:assigned_num_credit].to_i + current_user.assigned_num_credit.to_i
