@@ -85,13 +85,7 @@ Scenario: Log in as Matthew Sie, an Admin
   
 
 
-# Note that I need to specify passwords here because the authentication process won't let me access user password 
 
-
-# Note that I need to specify passwords here because the authentication process won't let me access user password 
-
-
-  
   
 
   

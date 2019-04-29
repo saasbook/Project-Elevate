@@ -47,3 +47,5 @@ And /he should see the first five events/ do
     end
 end
 
+
+
