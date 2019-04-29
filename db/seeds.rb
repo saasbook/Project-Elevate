@@ -35,7 +35,8 @@ calendars.each do |calendar|
   Calendar.create!(calendar)
 end
 
-payment_packages = [{:name => "Bronze", :num_classes => 5, :price => 100}, 
+payment_packages = [{:name => "Single", :num_classes => 1, :price => 20}, 
+                    {:name => "Bronze", :num_classes => 5, :price => 100}, 
                     {:name => "Silver", :num_classes => 10, :price => 175}, 
                     {:name => "Gold", :num_classes => 20, :price => 300}]
 
