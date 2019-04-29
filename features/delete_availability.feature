@@ -6,8 +6,9 @@ Feature: Delete availability as a coach
 
 Background: Users in the Database
  Given the following users exist:
-  | id | name            | email                    | password | membership    |
-  | 6  | Pizza           | pizza@gmail.com       | 12345678 | Coach         |
+  | id | name            | email                    | password | membership    | confirmed_at |
+  | 6  | Pizza           | pizza@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
+  
 And the following availabilities exist:
   | coach_id     | day      | start_time    | end_time  |
   | 6            | Sunday   | 9am           | 12pm      |
