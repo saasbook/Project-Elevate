@@ -35,7 +35,9 @@ class PaymentPackageController < ApplicationController
     end
 
     def delete
-        PaymentPackage.destroy(params[:id])
+        if params[:id] != 1
+            PaymentPackage.destroy(params[:id])
+        end
         redirect_to payment_package_path
     end
 end

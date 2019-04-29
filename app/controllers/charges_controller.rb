@@ -82,9 +82,9 @@ class ChargesController < ApplicationController
 
     def checkout
         # Let's say assign_private is $50, custom_private is $100, and group is $25
-        @assigned_private_cost = 50
-        @custom_private_cost = 100
-        @group_cost = 25
+        @assigned_private_cost = PaymentPackage.single_class_price
+        @custom_private_cost = PaymentPackage.single_class_price
+        @group_cost = PaymentPackage.single_class_price
         @custom_num_credit = params[:user][:custom_num_credit].to_i
         @group_num_credit = params[:user][:group_num_credit].to_i
         @assigned_num_credit = params[:user][:assigned_num_credit].to_i
