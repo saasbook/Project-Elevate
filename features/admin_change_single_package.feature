@@ -16,7 +16,4 @@ And I go to Payment Packages Page
 
 
 Scenario: Cannot delete package
-    Then I should not see "delete_1"
-    When I follow "edit_5"
-  Then I should not see "payment_package_name"
-  And I should not see "payment_package_num_classes"
+    Then I should not see "delete_5"

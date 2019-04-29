@@ -22,7 +22,7 @@ Scenario: Delete package successfully
   And I follow "delete_6"
   Then I should be on Payment Packages Page
   Then I should see "Red"
-  And I should not see "Green"
+  And I should not see "Blue"
   Then I follow "delete_5"
   Then I should not see "Red"
 
