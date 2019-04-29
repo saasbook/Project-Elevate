@@ -36,8 +36,10 @@ end
 #   Calendar.create!(calendar)
 # end
 
-# <% if (user.my_admin.eql?(current_user.full_name)) %>
-  # <%= user.full_name %><br />
-  # <%= f.label "User membership" %><br />
-  # <%= f.text_field :membership, autofocus: true, autocomplete: "user_membership" %><br />
-# <% end %>
+payment_packages = [{:name => "Bronze", :num_classes => 5, :price => 100}, 
+                    {:name => "Silver", :num_classes => 10, :price => 175}, 
+                    {:name => "Gold", :num_classes => 20, :price => 300}]
+
+payment_packages.each do |pp|
+  PaymentPackage.create!(pp)
+end
