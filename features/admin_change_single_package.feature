@@ -1,8 +1,8 @@
-Feature: Update payment pacakge as a admin
+Feature: Update single payment pacakge as a admin
  
     As a Admin
-    I want update package credits
-    So that I can offer discounts for buying credits in bulk
+    I want update the single package
+    So that I can change prices
 
 Background: Users in the Database
  Given the following users exist:
