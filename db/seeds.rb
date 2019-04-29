@@ -25,8 +25,8 @@ calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId 
             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-13 10:00:00", :end_time => "2019-04-13 12:00:00"},
             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"},
             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-21 10:00:00", :end_time => "2019-04-21 12:00:00"},
-            {:name => "Play with Joe Chen", :UserId => 5, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-28 10:00:00", :end_time => "2019-04-28 12:00:00"},
-            {:name => "Play with Jason Yang", :UserId => 1, :OtherId => 5,  :typeEvent => "Play", :start_time => "2019-04-28 10:00:00", :end_time => "2019-04-28 12:00:00"},
+            {:name => "Play with Joe Chen", :UserId => 5, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00"},
+            {:name => "Play with Jason Yang", :UserId => 1, :OtherId => 5,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00"},
             {:name => "Coach Jason Yang", :UserId =>2, :OtherId => 5, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"}, 
             {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"}]
 
@@ -35,8 +35,10 @@ calendars.each do |calendar|
   Calendar.create!(calendar)
 end
 
-# <% if (user.my_admin.eql?(current_user.full_name)) %>
-  # <%= user.full_name %><br />
-  # <%= f.label "User membership" %><br />
-  # <%= f.text_field :membership, autofocus: true, autocomplete: "user_membership" %><br />
-# <% end %>
+payment_packages = [{:name => "Bronze", :num_classes => 5, :price => 100}, 
+                    {:name => "Silver", :num_classes => 10, :price => 175}, 
+                    {:name => "Gold", :num_classes => 20, :price => 300}]
+
+payment_packages.each do |pp|
+  PaymentPackage.create!(pp)
+end

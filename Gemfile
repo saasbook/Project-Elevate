@@ -45,6 +45,7 @@ gem 'activerecord-session_store', '~> 1.0'
 gem 'dotenv', '~> 2.2.1'
 # figaro
 gem 'figaro'
+gem 'font-awesome-sass', '~> 5.8.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -76,6 +77,7 @@ group :test do
   gem 'factory_girl_rails' # if using FactoryGirl
   gem 'metric_fu'        # collect code metrics
   gem "factory_bot_rails", :require => false
+  gem 'rails-controller-testing'
 end
 
 group :production do

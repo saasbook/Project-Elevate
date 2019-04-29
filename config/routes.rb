@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :calendars
   
-  get 'error/error'
+  get 'error/error_404' => 'error#error_404', :as => 'error_404'
   resources :charges
   # get 'user/member_profile'
   devise_for :users
@@ -17,6 +17,12 @@ Rails.application.routes.draw do
   
   get 'user/booking' => 'user#booking', :as => 'booking'
   post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
+
+  get 'user/payments' => 'payment_package#index', :as => 'payment_package'
+  post 'user/payments/add' => 'payment_package#create', :as => 'add_payment_package'
+  get 'user/payments/:id/edit' => 'payment_package#edit', :as => 'edit_payment_package'
+  post 'user/payments/:id/edit' => 'payment_package#update', :as => 'update_payment_package'
+  delete 'user/payments/:id' => 'payment_package#delete', :as => 'delete_payment_package'
   
   get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
   
