@@ -10,13 +10,13 @@ Background: Users in the Database
   | 6  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         |
 Given the following payment_packages exist:
     |id  | name  |   num_classes |   price   |
-    | 4  | Single  |   1          |   10      |
-And "Pizza" logs in with correct credentials with password "12345678"
+    | 5  | Single  |   1          |   10      |
+And "Pizza" logs in with correct credentials with password "12355678"
 And I go to Payment Packages Page
 
 
 Scenario: Cannot delete package
     Then I should not see "delete_1"
-    When I follow "edit_4"
+    When I follow "edit_5"
   Then I should not see "payment_package_name"
   And I should not see "payment_package_num_classes"
