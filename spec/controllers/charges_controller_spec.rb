@@ -48,13 +48,11 @@ RSpec.describe ChargesController, type: :controller do
 
     end 
 
-    # it "can pay" do
-    #     sign_in(User.find_by_name("Joe Chen"))
-    #     post "checkout", params: {:user => {:custom_num_credit => "1", :group_num_credit => "0", :assigned_num_credit => "0"}}
-
-
-
-    # end
+    it "cant pay without using external stripe API" do
+        sign_in(User.find_by_name("Joe Chen"))
+        post "create", params: {:user => {:custom_num_credit => "1", :group_num_credit => "0", :assigned_num_credit => "0"}}
+        expect(response).to redirect_to new_charge_path
+    end
 
     
 

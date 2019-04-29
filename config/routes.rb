@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :calendars
   
-  get 'error/error'
+  get 'error/error_404' => 'error#error_404', :as => 'error_404'
   resources :charges
   # get 'user/member_profile'
   devise_for :users
