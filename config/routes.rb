@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'user/confirmation_booking' => 'user#confirmation_booking', :as => 'confirmation_booking'
   post 'user/profile/view_booking' => 'user#view_booking', :as =>'view_booking'
 
+  post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
 
   post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
   get 'user/payments' => 'payment_package#index', :as => 'payment_package'

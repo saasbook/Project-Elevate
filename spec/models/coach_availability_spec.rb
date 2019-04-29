@@ -26,5 +26,10 @@ RSpec.describe CoachAvailability, type: :model do
       expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("6am"), Time.parse("2pm"))).to be(false)
       expect(CoachAvailability.valid_availibility(1, "Sunday", Time.parse("7am"), Time.parse("2pm"))).to be(false)
     end
+
+    it 'can return a coaches availability' do
+      sample = CoachAvailability.this_week(1)["Sunday"].pluck(:id)
+      expect(sample).to include(1, 2, 3)
+    end
   end
 end
