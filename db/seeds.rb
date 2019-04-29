@@ -12,32 +12,33 @@ users = [{:name => 'Joe Chen', :email => 'chenjoe@gmail.com', :password => '8888
         {:name => 'coach_2', :email => 'testing@gmail.com', :password => '12345678', :membership => 'Coach'},
 				{:name => 'Matthew Sie', :email => 'matthew.sie@berkeley.edu', :password => 'dabaka22', :membership => 'Administrator'},
 				{:name => 'John Doe', :email => 'johndoe@gmail.com', :password => '12345678', :membership => 'Manager'},
-				{:name => 'Jason Yang', :email => 'jason@gmail.com', :password => '123456', :membership => 'Club Member'}
+				{:name => 'Jason Yang', :email => 'jason@gmail.com', :password => '123456', :membership => 'Club Member'},
+        {:name => 'Kenneth Ahne', :email => 'kenneth@gmail.com', :password => '123456', :membership => 'Club Member'}
   	 ]
 
 users.each do |user|
   User.create!(user)
 end
 
-# calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId => 2,  :typeEvent => "Coaching", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
-#             {:name => "Coach Joe Chen", :UserId => 2, :OtherId => 1,  :typeEvent => "Coaching", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
-#             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-11 10:00:00", :end_time => "2019-04-11 12:00:00"},
-#             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
-#             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-13 10:00:00", :end_time => "2019-04-13 12:00:00"},
-#             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"},
-#             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-21 10:00:00", :end_time => "2019-04-21 12:00:00"},
-#             {:name => "Play with Joe Chen", :UserId => 5, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-28 10:00:00", :end_time => "2019-04-28 12:00:00"},
-#             {:name => "Play with Jason Yang", :UserId => 1, :OtherId => 5,  :typeEvent => "Play", :start_time => "2019-04-28 10:00:00", :end_time => "2019-04-28 12:00:00"},
-#             {:name => "Coach Jason Yang", :UserId =>2, :OtherId => 5, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"},
-#             {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"}]
-#
-#
-# calendars.each do |calendar|
-#   Calendar.create!(calendar)
-# end
+calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId => 2,  :typeEvent => "Coaching", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
+            {:name => "Coach Joe Chen", :UserId => 2, :OtherId => 1,  :typeEvent => "Coaching", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
+            {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-11 10:00:00", :end_time => "2019-04-11 12:00:00"},
+            {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
+            {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-13 10:00:00", :end_time => "2019-04-13 12:00:00"},
+            {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"},
+            {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-21 10:00:00", :end_time => "2019-04-21 12:00:00"},
+            {:name => "Play with Joe Chen", :UserId => 5, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-28 10:00:00", :end_time => "2019-04-28 12:00:00"},
+            {:name => "Play with Jason Yang", :UserId => 1, :OtherId => 5,  :typeEvent => "Play", :start_time => "2019-04-28 10:00:00", :end_time => "2019-04-28 12:00:00"},
+            {:name => "Coach Jason Yang", :UserId =>2, :OtherId => 5, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"},
+            {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"}]
 
-payment_packages = [{:name => "Bronze", :num_classes => 5, :price => 100}, 
-                    {:name => "Silver", :num_classes => 10, :price => 175}, 
+
+calendars.each do |calendar|
+  Calendar.create!(calendar)
+end
+
+payment_packages = [{:name => "Bronze", :num_classes => 5, :price => 100},
+                    {:name => "Silver", :num_classes => 10, :price => 175},
                     {:name => "Gold", :num_classes => 20, :price => 300}]
 
 payment_packages.each do |pp|

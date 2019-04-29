@@ -14,7 +14,7 @@ Then /"(.*)" should see the events he is a part of for this month/ do |name|
   end
 end
 
-Then /he should see all the events/ do 
+Then /he should see all the events/ do
   Calendar.all.order(:start_time).each do |calendar|
         step %{I should see "#{calendar.name}"}
   end
@@ -46,4 +46,3 @@ And /he should see the first five events/ do
         step %{I should see "#{calendar.name}"}
     end
 end
-

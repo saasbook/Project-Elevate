@@ -38,7 +38,7 @@
             <tr>
               <% if Booking.check_time_slot(start_slot, end_slot, flash[:coach].to_i, month_index, flash[:day]) %>
                 <td><%= g.radio_button :temp_availability, start_slot.to_s + "," + end_slot.to_s%></td>
-                <td><%= g.label :temp_availability, start_slot.strftime("%l:%M%p") + " - " + end_slot.strftime("%l:%M%p")%></td>
+                <td><%= g.label :temp_availability, start_slot.strftime("%l:%M%p") + " - " + end_slot.strftime("%l:%M%p").strip%></td>
                 <td><%= hidden_field_tag(:month, month_index) %></td>
                 <td><%= hidden_field_tag(:day, flash[:day]) %></td>
                 <td><%= hidden_field_tag(:coach_id, flash[:coach]) %></td>
