@@ -9,7 +9,7 @@ Background: Users in the Database
  | id   | name            | email                    | password | membership    | confirmed_at |
  | 198  | Kenneth Ahne    | kenneth@gmail.com        | 123456   | Club Member   | 2013-02-02 01:00:00 UTC |
  | 199  | Jason Yang      | jason@gmail.com          | 123456   | Club Member   | 2013-02-02 01:00:00 UTC |
- | 200  | Roger Destroyer | roger@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
+ | 200  | Roger           | roger@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
 
  And the following availabilities exist:
  | id  | coach_id     | day      | start_time    | end_time  |
@@ -20,7 +20,7 @@ Scenario: Display availabilities
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
   And "Jason Yang" goes to "Booking Page"
-  When I select "Roger Destroyer" from "user_coach"
+  When I select "Roger" from "user_coach"
   And I select "April" from "user_month"
   And I select "28" from "user_day"
   And I press "View availabilities"
