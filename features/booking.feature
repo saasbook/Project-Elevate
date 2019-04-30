@@ -34,7 +34,7 @@ Scenario: Successfully book a lesson
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
   And "Jason Yang" goes to "Booking Page"
-  Then I select "Roger Destroyer" from "user_coach"
+  Then I select "Roger" from "user_coach"
   And I select "April" from "user_month"
   And I select "28" from "user_day"
   And I press "View availabilities"
