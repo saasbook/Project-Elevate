@@ -107,13 +107,7 @@ Scenario: Log in as Matthew Sie a Administrator and wants to view the details of
   
 
 
-# Note that I need to specify passwords here because the authentication process won't let me access user password 
 
-
-# Note that I need to specify passwords here because the authentication process won't let me access user password 
-
-
-  
   
 
   

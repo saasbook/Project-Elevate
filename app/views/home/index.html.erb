@@ -7,7 +7,6 @@
 
 <p class="navbar-text pull-right">
 
-
     <% if user_signed_in? %>
         Hi <strong><%= current_user.name %></strong>, You have <%= @todayEvents %> activities today! Logged in as <strong><%= current_user.email %></strong>.
         
@@ -61,5 +60,4 @@
             
         </div>
     <% end %>    
-
 
