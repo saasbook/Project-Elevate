@@ -7,11 +7,11 @@ Feature: Admin can see all membership changes
 Background: Users in the Database
 
  Given the following users exist:
-  | name            | email                    | password | membership    |
-  | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   |
-  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator |
-  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
-  | John Doe        | johndoe@gmail.com        | 12345678 | Manager       |
+  | name            | email                    | password | membership    | confirmed_at             |
+  | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   | 2013-02-02 01:00:00 UTC  |
+  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator | 2013-02-02 01:00:00 UTC  |
+  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC  |
+  | John Doe        | johndoe@gmail.com        | 12345678 | Manager       | 2013-02-02 01:00:00 UTC  |
 
 And I go to Login page
 
