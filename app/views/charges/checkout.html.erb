@@ -25,5 +25,7 @@
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Class Credits"
           data-amount=@amount
+          data-zip-code="true"
+          data-billing-address="true"
           data-locale="auto"></script>
 <% end %>

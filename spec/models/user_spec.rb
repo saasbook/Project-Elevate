@@ -22,6 +22,32 @@ RSpec.describe User, type: :model do
       expect(User.coaches).not_to include(User.find(1))
       expect(User.coaches).not_to include(User.find(4))
     end
+
+    it 'gets everyone except admin' do
+      @users = User.all_users_except_admin
+      expect(@users).not_to include(User.find(3))
+    end
+
+    it 'get everyone except admin and managers' do
+      @users = User.manager_users_view
+      expect(@users).to include(User.find(1))
+      expect(@users).to include(User.find(2))
+      expect(@users).not_to include(User.find(3))
+      expect(@users).not_to include(User.find(4))
+    end
+
+    it 'updates membership in admin view' do
+      @updated_membership_list = User.admin_update_membership_to(User.find(1))
+      expect(@updated_membership_list).not_to include(User.find(1).membership)
+
+    end
+
+    it 'updates membership in manager view' do
+      @updated_membership_list = User.manager_update_membership_to(User.find(1))
+      expect(@updated_membership_list).not_to include(User.find(1).membership)
+
+    end
+
   end
 
   describe 'elevate users' do

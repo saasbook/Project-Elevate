@@ -20,7 +20,7 @@ Then /he should see all the events/ do
   end
 end
 
-Then /he should see the events for this month/ do 
+Then /he should see the events for this month/ do
   Calendar.all.each do |calendar|
       if (calendar.start_time.month == Time.now.month and calendar.start_time.year == Time.now.year)
         step %{I should see "#{calendar.name}"}

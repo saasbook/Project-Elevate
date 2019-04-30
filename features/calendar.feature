@@ -35,7 +35,7 @@ And I go to Login page
 Scenario: Log in as Jason Yang a Club Member with multiple events scheduled
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
-  And he should see the following: "Hi Jason Yang, you have 0 activities today!"
+  And he should see the following: "Hi Jason Yang, You have 0 activities today!"
   And he should see the following: "More..., Manage my Calendar"
   And "Jason Yang" should see all the first five events he is a part of
   When he follows "More..."
@@ -52,7 +52,7 @@ Scenario: Log in as Jason Yang a Club Member to see his Calendar
 Scenario: Log in as Roger Destroyer a Coach with multiple events scheduled
   Given "Roger Destroyer" is a "Coach"
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
-  And he should see the following: "Hi Roger Destroyer, you have 0 activities today!"
+  And he should see the following: "Hi Roger Destroyer, You have 0 activities today!"
   And he should see the following: "More..., Manage my Calendar"
   And "Roger Destroyer" should see all the first five events he is a part of
   When he follows "More..."
@@ -65,11 +65,11 @@ Scenario: Log in as Roger Destroyer a Coach to see his Calendar
   When he follows "Manage my Calendar"
   Then "Roger Destroyer" should see the events he is a part of for this month
   And he should see the following: "Back to Profile"
-
+  
 Scenario: Log in as Matthew Sie, an Admin
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
-  And he should see the following: "Hi Matthew Sie, you have 0 activities today!"
+  And he should see the following: "Hi Matthew Sie, You have 0 activities today!"
   And he should see the following: "More..., Manage my Calendar"
   And he should see the first five events
   When he follows "More..."
@@ -82,10 +82,3 @@ Scenario: Log in as Matthew Sie, an Admin
   When he follows "Manage my Calendar"
   Then he should see the events for this month
   And he should see the following: "Back to Profile"
-
-
-
-# Note that I need to specify passwords here because the authentication process won't let me access user password
-
-
-# Note that I need to specify passwords here because the authentication process won't let me access user password
