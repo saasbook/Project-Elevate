@@ -7,7 +7,7 @@ Feature: Delete payment pacakge as a admin
 Background: Users in the Database
  Given the following users exist:
   | id | name            | email                    | password | membership    | confirmed_at |
-  | 500  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         | 2013-02-02 01:00:00 UTC |
+  | 500  | Pizza           | pizz@gmail.com       | 12345678 | Administrator         | 2013-02-02 01:00:00 UTC |
   | 501  | Zac             | zac@gmail.com        | asdfjkl; | Club Member         | 2013-02-02 01:00:00 UTC |
 
 Given the following payment_packages exist:
