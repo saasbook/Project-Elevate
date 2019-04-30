@@ -1,6 +1,6 @@
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:show, :edit, :update, :destroy]
-
+  helper_method :userFinder
   # GET /calendars
   # GET /calendars.json
   def index
@@ -15,6 +15,32 @@ class CalendarsController < ApplicationController
           end
   
   end
+  
+  def all 
+    if current_user.membership == "Administrator"
+      # if not params[:UserId].nil?
+      #   @calendars = Calendar.all.where(:UserId => [params[:UserId], nil])
+      # else 
+      #   @
+      #   @calendars = Calendar.all.where.not(:UserId => nil, :OtherId => nil)
+      # end
+      @users = User.all
+    else
+      render error_404_path
+    end
+  end
+  
+  def viewall 
+    if current_user.membership == "Administrator"
+      @calendars = Calendar.all.where(:UserId => params[:UserId])
+    else
+      render error_404_path
+    end
+  end
+  
+  # def userFinder(userId)
+  #   User.all.where(:id => userId).first
+  # end
   
     
 
@@ -72,14 +98,14 @@ class CalendarsController < ApplicationController
   #   end
   # end
 
-  # private
-  #   # Use callbacks to share common setup or constraints between actions.
-  #   def set_calendar
-  #     @calendar = Calendar.find(params[:id])
-  #   end
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_calendar
+      @calendar = Calendar.find(params[:id])
+    end
 
-  #   # Never trust parameters from the scary internet, only allow the white list through.
-  #   def calendar_params
-  #     params.require(:calendar).permit(:name, :UserId, :OtherId, :start_time, :end_time, :typeEvent)
-  #   end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def calendar_params
+      params.require(:calendar).permit(:name, :UserId, :OtherId, :start_time, :end_time, :typeEvent)
+    end
 end

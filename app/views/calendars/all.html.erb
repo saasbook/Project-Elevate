@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Email</th>
+      <th>Calendar</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to 'View Calendar', viewall_calendar_path(user.id), :class => 'navbar-link' %></td>
+         
+         <!--link_to 'Delete', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
+
+
+<!--link_to 'New Calendar', new_calendar_path %>-->
+

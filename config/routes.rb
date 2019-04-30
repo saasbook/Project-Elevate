@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   
   get '/' => 'home#index', :as => 'root'
   
+  get 'calendar/viewall' => 'calendars#all', :as => 'all_calendar'
+  get 'calendar/viewall/:UserId' => 'calendars#viewall', :as => 'viewall_calendar'
   
 
   # availabilities routes
