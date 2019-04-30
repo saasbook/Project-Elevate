@@ -16,11 +16,6 @@ And the following availabilities exist:
   | 3            | Sunday   | 1pm           | 3pm       |
   | 3            | Sunday   | 4pm           | 7pm       |
 
-And the following calendars exist:
-  | name         | UserId  | OtherId  | start_time          | end_time              | event_day  | event_month |
-  | Coaching     | 3       | 2        | 2019-04-07 13:00:00 | 2019-04-07 14:00:00   | 7          | 4           |
-  | Coaching     | 2       | 3        | 2019-04-07 13:00:00 | 2019-04-07 14:00:00   | 7          | 4           |
-
 Scenario: Display availabilities
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
@@ -54,15 +49,3 @@ Scenario: Fail to select an availability
   And I press "View availabilities"
   And I press "Next"
   Then I should see "Please choose a time slot."
-
-Scenario: Cant double book
-  Given "Kenneth Ahne" is a "Club Member"
-  And "Kenneth Ahne" logs in with correct credentials with password "123456"
-  And "Kenneth Ahne" goes to "Booking Page"
-  Then I select "Roger Destroyer" from "user_coach"
-  And I select "April" from "user_month"
-  And I select "7" from "user_day"
-  And I press "View availabilities"
-  Then I should not see "1:00PM - 2:00PM"
-  And I should not see "1:30PM - 2:30PM"
-  And I should see "2:00PM - 3:00PM"
