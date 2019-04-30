@@ -41,4 +41,10 @@ payment_packages = [{:name => "Bronze", :num_classes => 5, :price => 100},
 
 payment_packages.each do |pp|
   PaymentPackage.create!(pp)
+end 
+
+availabilities = [{:coach_id => "2", :day => "Sunday", :start_time => "1pm", :end_time  => "3pm"}, {:coach_id => "2", :day => "Sunday", :start_time => "4pm", :end_time => "7pm"}]
+
+availabilities.each do |avail|
+  CoachAvailability.create!(avail)
 end
