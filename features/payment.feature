@@ -12,6 +12,9 @@ Background: Users in the Database
   | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator |
   | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
   | John Doe        | johndoe@gmail.com        | 12345678 | Manager       |
+Given the following payment_packages exist:
+  |  name  |   num_classes |   price   |
+  | Single  |   1          |   10      |
 
 And I go to Login page
 

@@ -19,6 +19,8 @@ RSpec.describe ChargesController, type: :controller do
         users.each do |user|
           User.create!(user)
         end
+
+        PaymentPackage.create!({:name => 'Single', :num_classes => '1', :price => 1})
     end
     it "signs in to new page to select credits if club member" do 
         sign_in(User.find_by_name("Joe Chen"))
