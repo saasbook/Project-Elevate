@@ -10,7 +10,7 @@ Background: Users in the Database
   | 6  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         | 2013-02-02 01:00:00 UTC |
 Given the following payment_packages exist:
     |id  | name  |   num_classes |   price   |
-    | 4  | Green  |   10          |   10      |
+    | 7  | Green  |   10          |   10      |
     | 5  | Red   |   200         |   2000    |
     | 6  | Blue  |   200         |   2000    |
 And "Pizza" logs in with correct credentials with password "12345678"
