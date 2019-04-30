@@ -11,7 +11,7 @@ Background: Users in the Database
   | 7  | Zac             | zac@gmail.com        | asdfjkl; | Club Member         |
 Given the following payment_packages exist:
     |id  | name  |   num_classes |   price   |
-    | 7  | Green  |   10          |   10      |
+    | 4  | Green  |   10          |   10      |
     | 5  | Red   |   200         |   2000    |
     | 6  | Blue  |   200         |   2000    |
 
@@ -19,10 +19,10 @@ Given the following payment_packages exist:
 Scenario: Delete package successfully
   And "Pizza" logs in with correct credentials with password "12345678"
   And I go to Payment Packages Page
-  And I follow "delete_6"
+  And I follow "delete_4"
   Then I should be on Payment Packages Page
   Then I should see "Red"
-  And I should not see "Blue"
+  And I should not see "Green"
   Then I follow "delete_5"
   Then I should not see "Red"
 

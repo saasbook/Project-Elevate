@@ -1,6 +1,6 @@
 class PaymentPackageController < ApplicationController
-    before_action :authenticate_user!    
     before_action :require_admin_priv
+    before_action :authenticate_user!
 
     def require_admin_priv
         if current_user.membership != 'Administrator'
@@ -35,9 +35,7 @@ class PaymentPackageController < ApplicationController
     end
 
     def delete
-        if params[:id] != 1
-            PaymentPackage.destroy(params[:id])
-        end
+        PaymentPackage.destroy(params[:id])
         redirect_to payment_package_path
     end
 end

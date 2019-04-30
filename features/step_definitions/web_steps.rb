@@ -57,6 +57,14 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+# When /^he follows the "([^"]*)" "([^"]*)"$/ do |number, button|
+#   page.all(:text => "Details")[number.to_i].click
+# end
+
+When("he follows the {int} {string}") do |int, string|
+  page.all(:text => string)[int].click
+end
+
 When /he follows "([^"]*)"$/ do |link|
   click_link(link)
 end
