@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @calendar.name %>
+</p>
+
+<p>
+  <strong>Userid:</strong>
+  <%= @calendar.UserId %>
+</p>
+
+<p>
+  <strong>Otherid:</strong>
+  <%= @calendar.OtherId %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @calendar.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @calendar.end_time %>
+</p>
+
+<p>
+  <strong>Typeevent:</strong>
+  <%= @calendar.typeEvent %>
+</p>
+
+<%= link_to 'View Calendar', calendars_path %> |
+<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
