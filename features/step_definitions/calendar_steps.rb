@@ -14,13 +14,13 @@ Then /"(.*)" should see the events he is a part of for this month/ do |name|
   end
 end
 
-Then /he should see all the events/ do 
+Then /he should see all the events/ do
   Calendar.all.where("start_time > ?", Time.now.beginning_of_day).order(:start_time).each do |calendar|
         step %{I should see "#{calendar.name}"}
   end
 end
 
-Then /he should see the events for this month/ do 
+Then /he should see the events for this month/ do
   Calendar.all.each do |calendar|
       if (calendar.start_time.month == Time.now.month and calendar.start_time.year == Time.now.year)
         step %{I should see "#{calendar.name}"}
@@ -51,5 +51,3 @@ When("he follows the {string} {string}") do |string, string2|
   first(:link, 'Details').click
   # pending # Write code here that turns the phrase above into concrete actions
 end
-
-

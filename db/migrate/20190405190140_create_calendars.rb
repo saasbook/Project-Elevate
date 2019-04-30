@@ -7,6 +7,8 @@ class CreateCalendars < ActiveRecord::Migration[5.2]
       t.datetime :start_time
       t.datetime :end_time
       t.boolean :typeEvent
+      t.string :event_day
+      t.string :event_month
 
       t.timestamps
     end

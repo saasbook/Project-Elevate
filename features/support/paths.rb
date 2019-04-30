@@ -23,17 +23,21 @@ module NavigationHelpers
     #     user_profile_path(User.find_by_login($1))
     when /^Login page$/i
       new_user_session_path
-    
+
     when /^User Membership Change Log page$/i
       membership_history_path
-    
+
     when /^(.*)'s My Profile Page$/i
       user = User.find_by_name($1)
-      member_profile_path :current_user => user 
+      member_profile_path :current_user => user
 
     when /^(.*)'s Availabilities Page$/i
       user = User.find_by_name($1)
-      availabilities_path :current_user => user 
+      availabilities_path :current_user => user
+
+    when /^(.*)'s Booking Page$/i
+      user = User.find_by_name($1)
+      booking_path :current_user => user
 
     when /^Buy Credits page$/i
       new_charge_path

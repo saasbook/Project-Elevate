@@ -12,6 +12,7 @@
     <% @calendars.each do |calendar| %>
       <tr>
         <td><%= calendar.name %></td>
+
         <td><%= calendar.start_time %></td>
         <td><%= calendar.end_time %></td>
         <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
@@ -21,6 +22,7 @@
     <% end %>
   </tbody>
 </table>
+<br>
 
 <%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
 

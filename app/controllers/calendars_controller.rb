@@ -10,15 +10,13 @@ class CalendarsController < ApplicationController
           elsif current_user.membership == "Coach"
               @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
           #add admin
-          
-          else 
+
+          else
             @calendars = Calendar.all
             @admin = true
           end
-  
+
   end
-  
-    
 
   # GET /calendars/1
   # GET /calendars/1.json
@@ -30,25 +28,35 @@ class CalendarsController < ApplicationController
   #   @calendar = Calendar.new
   # end
 
-  # # GET /calendars/1/edit
-  # def edit
-  # end
+  # GET /calendars/1
+  # GET /calendars/1.json
+  def show
+  end
+
+  # GET /calendars/new
+  def new
+    @calendar = Calendar.new
+  end
+
+  # GET /calendars/1/edit
+  def edit
+  end
 
   # POST /calendars
   # POST /calendars.json
   # def create
   #   @calendar = Calendar.new(calendar_params)
 
-  #   respond_to do |format|
-  #     if @calendar.save
-  #       format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
-  #       format.json { render :show, status: :created, location: @calendar }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @calendar.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      if @calendar.save
+        format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
+        format.json { render :show, status: :created, location: @calendar }
+      else
+        format.html { render :new }
+        format.json { render json: @calendar.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # PATCH/PUT /calendars/1
   # PATCH/PUT /calendars/1.json
