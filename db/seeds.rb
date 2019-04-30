@@ -18,11 +18,11 @@ users.each do |user|
   User.create!(user)
 end
 
-calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId => 2,  :typeEvent => "Coaching", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
-            {:name => "Coach Joe Chen", :UserId => 2, :OtherId => 1,  :typeEvent => "Coaching", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
+calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId => 2,  :typeEvent => "Coaching", :start_time => "2020-04-05 10:00:00", :end_time => "2020-04-05 12:00:00"},
+            {:name => "Coach Joe Chen", :UserId => 2, :OtherId => 1,  :typeEvent => "Coaching", :start_time => "2020-04-05 10:00:00", :end_time => "2020-04-05 12:00:00"},
             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-11 10:00:00", :end_time => "2019-04-11 12:00:00"},
             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-05 10:00:00", :end_time => "2019-04-05 12:00:00"},
-            {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-13 10:00:00", :end_time => "2019-04-13 12:00:00"},
+            {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2020-04-13 10:00:00", :end_time => "2020-04-13 12:00:00"},
             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00"},
             {:name => "Club Event", :UserId => nil, :OtherId => nil,  :typeEvent => "Event", :start_time => "2019-04-21 10:00:00", :end_time => "2019-04-21 12:00:00"},
             {:name => "Play with Joe Chen", :UserId => 5, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00"},
