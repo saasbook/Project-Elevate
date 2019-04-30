@@ -20,7 +20,7 @@
 
 <%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %> 
 <% if current_user.membership == 'Administrator'%>
-    | <%= link_to "View All Calendar", all_calendar_path, :class => 'navbar-link'  %> 
+    | <%= link_to "View Other's Calendars", all_calendar_path, :class => 'navbar-link'  %> 
 <% end %>
 
 <!--link_to 'New Calendar', new_calendar_path %>-->

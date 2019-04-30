@@ -21,7 +21,7 @@ class UserController < ApplicationController
     if current_user.membership == "Club Member" or current_user.membership == "Coach"
         @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
     else
-        @calendars = Calendar.all
+        @calendars = Calendar.all.where(:UserId => nil)
     #add admin
     end
   end 

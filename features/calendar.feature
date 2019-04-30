@@ -9,8 +9,8 @@ Background: Users in the Database
  Given the following users exist:
   | name            | email                    | password | membership    |
   | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   |
-  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator |
   | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
+  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator |
   | John Doe        | johndoe@gmail.com        | 12345678 | Manager       |
   | Jason Yang      | jason@gmail.com          | 123456   | Club Member   |
   
@@ -18,15 +18,15 @@ Background: Users in the Database
   | name                       | UserId  | OtherId | start_time          | end_time            |
   | Train with Roger Destroyer | 1       | 2       | 2020-04-05 10:00:00 | 2020-04-05 12:00:00 |
   | Coach Joe Chen             | 2       | 1       | 2020-04-05 10:00:00 | 2020-04-05 10:00:00 |
-  | Club Event                 | nil     | nil     | 2020-04-11 10:00:00 | 2020-04-11 12:00:00 |
-  | Club Event                 | nil     | nil     | 2020-04-05 10:00:00 | 2020-04-05 12:00:00 |
+  | Club Event                 | nil     | nil     | 2019-04-11 10:00:00 | 2019-04-11 12:00:00 |
+  | Club Event                 | nil     | nil     | 2019-04-05 10:00:00 | 2019-04-05 12:00:00 |
   | Club Event                 | nil     | nil     | 2020-04-13 10:00:00 | 2020-04-13 12:00:00 |
   | Club Event                 | nil     | nil     | 2020-04-14 10:00:00 | 2020-04-14 12:00:00 |
-  | Club Event                 | nil     | nil     | 2020-04-21 10:00:00 | 2020-04-21 12:00:00 |
-  | Play with Joe Chen         | 5       | 1       | 2020-04-28 10:00:00 | 2020-04-28 12:00:00 |
-  | Play with Jason Yang       | 1       | 5       | 2020-04-28 10:00:00 | 2020-04-28 12:00:00 |
-  | Coach Jason Yang           | 2       | 5       | 2020-04-14 10:00:00 | 2020-04-14 12:00:00 |
-  | Train with Roger Destroyer | 5       | 2       | 2020-04-14 10:00:00 | 2020-04-14 12:00:00 |
+  | Club Event                 | nil     | nil     | 2019-04-21 10:00:00 | 2019-04-21 12:00:00 |
+  | Play with Joe Chen         | 5       | 1       | 2019-04-23 10:00:00 | 2019-04-23 12:00:00 |
+  | Play with Jason Yang       | 1       | 5       | 2019-04-23 10:00:00 | 2019-04-23 12:00:00 |
+  | Coach Jason Yang           | 2       | 5       | 2019-04-14 10:00:00 | 2019-04-14 12:00:00 |
+  | Train with Roger Destroyer | 5       | 2       | 2019-04-14 10:00:00 | 2019-04-14 12:00:00 |
 
 And I go to Login page
 
@@ -52,7 +52,7 @@ Scenario: Log in as Jason Yang a Club Member to see his Calendar
 Scenario: Log in as Jason Yang a Club member and wants to view the details of the first event shown on the profile page
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
-  Then he should see "Details"
+  Then he should see the following: "Details"
   When he follows the "1" "Details"
   And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
   
@@ -72,13 +72,14 @@ Scenario: Log in as Roger Destroyer a Coach to see his Calendar
   When he follows "Manage my Calendar"
   Then "Roger Destroyer" should see the events he is a part of for this month
   And he should see the following: "Back to Profile"
+  And he should not see the following: "View Other's Calendars"
   
-# Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the first event shown on the profile page
-#   Given "Roger Destroyer" is a "Coach"
-#   And "Roger Destroyer" logs in with correct credentials with password "12345678"
-#   Then he should see "Details"
-#   When he follows the "1" "Details"
-#   And he should see the following: "Name, Start time, End time, Edit, View Calendar, Back to Profile"
+Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the first event shown on the profile page
+  Given "Roger Destroyer" is a "Coach"
+  And "Roger Destroyer" logs in with correct credentials with password "12345678"
+  Then he should see the following: "Details"
+  When he follows the "1" "Details"
+  And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
   
 Scenario: Log in as Matthew Sie, an Admin to go to List of events
   Given "Matthew Sie" is a "Administrator"
@@ -100,7 +101,7 @@ Scenario: Log in as Matthew Sie, an Admin to see his Calendar
 Scenario: Log in as Matthew Sie a Administrator and wants to view the details of the first event shown on the profile page
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
-  Then he should see "Details"
+  Then he should see the following: "Details"
   When he follows the "1" "Details"
   And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
   

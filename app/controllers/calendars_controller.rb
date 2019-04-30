@@ -11,7 +11,7 @@ class CalendarsController < ApplicationController
           #add admin
           
           else 
-            @calendars = Calendar.all
+            @calendars = Calendar.all.where(:UserId => nil)
             @admin = true
           end
   
