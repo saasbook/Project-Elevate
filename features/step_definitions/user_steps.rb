@@ -1,8 +1,8 @@
 ### UTILITY METHODS ###
 
-def create_visitor(name="Joe Chen", email="chenjoe@gmail.com", password="88888888", password_confirmation="88888888", membership="Club Member")
+def create_visitor(name="Joe Chen", email="chenjoe@gmail.com", password="88888888", password_confirmation="88888888", membership="Club Member", confirmed_at=Time.now.utc)
     @visitor ||= { :name => name, :email => email,
-    :password => password, :password_confirmation => password_confirmation, :membership => membership }
+    :password => password, :password_confirmation => password_confirmation, :membership => membership, :confirmed_at => confirmed_at}
 end
   
 def find_user
@@ -17,8 +17,8 @@ def create_unconfirmed_user
 end
 
 
-def create_user(name="Joe Chen", email="chenjoe@gmail.com", password="88888888", password_confirmation="88888888", membership="Club Member")
-    create_visitor(name, email, password, password_confirmation, membership)
+def create_user(name="Joe Chen", email="chenjoe@gmail.com", password="88888888", password_confirmation="88888888", membership="Club Member", confirmed_at=Time.now.utc)
+    create_visitor(name, email, password, password_confirmation, membership, confirmed_at)
     delete_user
     @user = FactoryBot.create(:user, @visitor)
 end
@@ -72,7 +72,7 @@ end
 ### WHEN ###
 When /^I sign in with valid credentials with "(.*)" account with password: "(.*)"$/ do |name, password|
     user = User.find_by_name(name)
-    create_visitor(user.name, user.email, password, password, user.membership)
+    create_visitor(user.name, user.email, password, password, user.membership, user.confirmed_at)
     sign_in
 end
 

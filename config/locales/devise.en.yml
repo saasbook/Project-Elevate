@@ -18,15 +18,15 @@ en:
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "[Project Elevate] Confirm Your Email"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "[Project Elevate] Reset password instructions"
       unlock_instructions:
-        subject: "Unlock instructions"
+        subject: "[Project Elevate] Unlock instructions"
       email_changed:
-        subject: "Email Changed"
+        subject: "[Project Elevate] Email Changed"
       password_change:
-        subject: "Password Changed"
+        subject: "[Project Elevate] Password Changed"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
