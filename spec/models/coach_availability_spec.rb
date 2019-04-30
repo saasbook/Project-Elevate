@@ -5,9 +5,9 @@ RSpec.describe CoachAvailability, type: :model do
     before(:each) do
       User.create!({:id => 100, :name => 'Roger Destroyer', :email => 'bbb@gmail.com', :password => '12345678', :membership => 'Coach'})
       avails = [
-        {:coach_id => 100, :day => "Sunday", :start_time => '6am', :end_time => '9am'},
-        {:coach_id => 100, :day => "Sunday", :start_time => '12pm', :end_time => '3pm'},
-        {:coach_id => 100, :day => "Sunday", :start_time => '6pm', :end_time => '9pm'},
+        {:id => 100, :coach_id => 100, :day => "Sunday", :start_time => '6am', :end_time => '9am'},
+        {:id => 101, :coach_id => 100, :day => "Sunday", :start_time => '12pm', :end_time => '3pm'},
+        {:id => 102, :coach_id => 100, :day => "Sunday", :start_time => '6pm', :end_time => '9pm'},
       ]
       
       avails.each do |avail|
@@ -29,7 +29,7 @@ RSpec.describe CoachAvailability, type: :model do
 
     it 'can return a coaches availability' do
       sample = CoachAvailability.this_week(100)["Sunday"].pluck(:id)
-      expect(sample).to include(1, 2, 3)
+      expect(sample).to include(100,101, 102)
     end
   end
 end
