@@ -4,6 +4,7 @@
       <th>User</th>
       <th>Email</th>
       <th>Calendar</th>
+      <th>Event List</th>
 
     </tr>
   </thead>
@@ -14,7 +15,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= link_to 'View Calendar', viewall_calendar_path(user.id), :class => 'navbar-link' %></td>
-         
+        <td><%= link_to 'Event List', eventList_calendar_path(user.id), :class => 'navbar-link' %></td>
          <!--link_to 'Delete', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>

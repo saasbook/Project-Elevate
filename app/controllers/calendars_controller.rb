@@ -1,6 +1,5 @@
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:show, :edit, :update, :destroy]
-  helper_method :userFinder
   # GET /calendars
   # GET /calendars.json
   def index
@@ -18,12 +17,6 @@ class CalendarsController < ApplicationController
   
   def all 
     if current_user.membership == "Administrator"
-      # if not params[:UserId].nil?
-      #   @calendars = Calendar.all.where(:UserId => [params[:UserId], nil])
-      # else 
-      #   @
-      #   @calendars = Calendar.all.where.not(:UserId => nil, :OtherId => nil)
-      # end
       @users = User.all
     else
       render error_404_path
@@ -31,18 +24,22 @@ class CalendarsController < ApplicationController
   end
   
   def viewall 
+    setAdminCalendars
+  end
+  
+  def eventList
+    
+    setAdminCalendars
+  end 
+  
+  def setAdminCalendars
     if current_user.membership == "Administrator"
-      @calendars = Calendar.all.where(:UserId => params[:UserId])
+      @calendars = Calendar.all.where(:UserId => [params[:UserId], nil])
+      @user = User.all.where(:id => params[:UserId]).first
     else
       render error_404_path
     end
   end
-  
-  # def userFinder(userId)
-  #   User.all.where(:id => userId).first
-  # end
-  
-    
 
   # # GET /calendars/1
   # # GET /calendars/1.json

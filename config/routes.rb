@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   
   get 'calendar/viewall' => 'calendars#all', :as => 'all_calendar'
   get 'calendar/viewall/:UserId' => 'calendars#viewall', :as => 'viewall_calendar'
-  
+  get 'calendar/viewall/eventlist/:UserId' => 'calendars#eventList', :as => 'eventList_calendar'
 
   # availabilities routes
   get 'users/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
