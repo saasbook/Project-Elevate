@@ -6,15 +6,15 @@ Feature: Delete availability as a coach
 
 Background: Users in the Database
  Given the following users exist:
-  | id | name            | email                    | password | membership    | confirmed_at |
-  | 6  | Pizza           | pizza@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
+  | id   | name            | email                 | password | membership    | confirmed_at |
+  | 200  | Pizza           | pizza@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
 
 And the following availabilities exist:
   | id  | coach_id     | day      | start_time    | end_time  |
-  | 101 | 6            | Sunday   | 9am           | 12pm      |
-  | 102 | 6            | Monday   | 12pm          | 3pm       |
-  | 103 | 6            | Sunday   | 12pm          | 3pm       |
-  | 104 | 6            | Sunday   | 3pm           | 6pm       |
+  | 101 | 200          | Sunday   | 9am           | 12pm      |
+  | 102 | 200          | Monday   | 12pm          | 3pm       |
+  | 103 | 200          | Sunday   | 12pm          | 3pm       |
+  | 104 | 200          | Sunday   | 3pm           | 6pm       |
 
 
 Scenario: Delete availibility

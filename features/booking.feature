@@ -6,14 +6,15 @@ Feature: Book a lesson as a member
 
 Background: Users in the Database
  Given the following users exist:
-  | name            | email                    | password | membership    | confirmed_at |
-  | Kenneth Ahne    | kenneth@gmail.com        | 123456   | Club Member   | 2013-02-02 01:00:00 UTC |
-  | Jason Yang      | jason@gmail.com          | 123456   | Club Member   | 2013-02-02 01:00:00 UTC |
-  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
-And the following availabilities exist:
-  | coach_id     | day      | start_time    | end_time  |
-  | 3            | Sunday   | 1pm           | 3pm       |
-  | 3            | Sunday   | 4pm           | 7pm       |
+ | id   | name            | email                    | password | membership    | confirmed_at |
+ | 198  | Kenneth Ahne    | kenneth@gmail.com        | 123456   | Club Member   | 2013-02-02 01:00:00 UTC |
+ | 199  | Jason Yang      | jason@gmail.com          | 123456   | Club Member   | 2013-02-02 01:00:00 UTC |
+ | 200  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
+
+ And the following availabilities exist:
+ | id  | coach_id     | day      | start_time    | end_time  |
+ | 101 | 200          | Sunday   | 1pm           | 3pm       |
+ | 102 | 200          | Sunday   | 4pm           | 7pm       |
 
 Scenario: Display availabilities
   Given "Jason Yang" is a "Club Member"

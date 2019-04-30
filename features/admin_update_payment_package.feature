@@ -1,21 +1,21 @@
 Feature: Update payment pacakge as a admin
- 
+
     As a Admin
     I want update package credits
     So that I can offer discounts for buying credits in bulk
 
 Background: Users in the Database
  Given the following users exist:
-  | id | name            | email                    | password | membership    | confirmed_at |
-  | 6  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         | 2013-02-02 01:00:00 UTC |
+  | id   | name            | email                    | password | membership    | confirmed_at |
+  | 400  | Pizza           | pizza@gmail.com       | 12345678 | Administrator         | 2013-02-02 01:00:00 UTC |
 Given the following payment_packages exist:
-    |id  | name  |   num_classes |   price   |
-    | 7  | Green  |   10          |   10      |
-    | 5  | Red   |   200         |   2000    |
-    | 6  | Blue  |   200         |   2000    |
+    |id    | name  |   num_classes |   price   |
+    | 401  | Green |   10          |   10      |
+    | 402  | Red   |   200         |   2000    |
+    | 403  | Blue  |   200         |   2000    |
 And "Pizza" logs in with correct credentials with password "12345678"
 And I go to Payment Packages Page
-Then I follow "edit_5"
+Then I follow "edit_402"
 
 Scenario: Edit package successfully
   When I fill in "payment_package_name" with "AMAZING DEAL"
