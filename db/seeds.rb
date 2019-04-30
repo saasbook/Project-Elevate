@@ -50,3 +50,4 @@ availabilities = [{:coach_id => "2", :day => "Sunday", :start_time => "1pm", :en
 availabilities.each do |avail|
   CoachAvailability.create!(avail)
 end
+
