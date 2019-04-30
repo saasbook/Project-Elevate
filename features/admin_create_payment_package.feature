@@ -7,7 +7,7 @@ Feature: Add payment pacakge as a admin
 Background: Users in the Database
  Given the following users exist:
   | id    | name            | email                 | password | membership| confirmed_at |
-  | 300   | Pizza           | pizza@gmail.com       | 12345678 | Administrator| 2013-02-02 01:00:00 UTC |
+  | 300   | Pizza           | pizz@gmail.com       | 12345678 | Administrator| 2013-02-02 01:00:00 UTC |
 And "Pizza" logs in with correct credentials with password "12345678"
 And I go to Payment Packages Page
 

@@ -20,6 +20,7 @@ Given the following payment_packages exist:
 Scenario: Delete package successfully
   And "Pizza" logs in with correct credentials with password "12345678"
   And I go to Payment Packages Page
+  Then I should be on Payment Packages Page
   And I follow "delete_504"
   Then I should be on Payment Packages Page
   Then I should see "Red"
