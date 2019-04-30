@@ -31,14 +31,15 @@ calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId 
             {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"}]
 
 
-calendars.each do |calendar|
-  Calendar.create!(calendar)
-end
+            calendars.each do |calendar|
+              Calendar.create!(calendar)
+            end
 
-payment_packages = [{:name => "Bronze", :num_classes => 5, :price => 100},
-                    {:name => "Silver", :num_classes => 10, :price => 175},
-                    {:name => "Gold", :num_classes => 20, :price => 300}]
+            payment_packages = [{:name => "Single", :num_classes => 1, :price => 20},
+                                {:name => "Bronze", :num_classes => 5, :price => 100},
+                                {:name => "Silver", :num_classes => 10, :price => 175},
+                                {:name => "Gold", :num_classes => 20, :price => 300}]
 
-payment_packages.each do |pp|
-  PaymentPackage.create!(pp)
-end
+            payment_packages.each do |pp|
+              PaymentPackage.create!(pp)
+            end
