@@ -3,17 +3,19 @@
 <h1>Calendar</h1>
 
 <%= month_calendar events: @calendars do |date, calendar| %>
-      <%= date%>
+      <strong></strong></string><%=date.day%></strong>
     
       <% calendar.each do |calendar| %>
         <div>
-          <%= calendar.name %>
-           <!--link_to calendar.name, edit_calendar_path(calendar), :class => 'navbar-link' %>-->
+          <%= link_to calendar.name, calendar_path(calendar), :class => 'navbar-link' %>
         </div>
       <% end %>
     <% end %>
 <br>
 
+<% if @admin %>
+     <!--link_to "Create Event", new_calendar_path, :class => 'navbar-link'  %>-->
+<% end %> 
 
 
 <%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>

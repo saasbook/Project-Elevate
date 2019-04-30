@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   
   get '/' => 'home#index', :as => 'root'
   
+  get '/pass' => 'home#pass', :as => 'pass'
+  
   
 
   # availabilities routes

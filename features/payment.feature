@@ -7,11 +7,14 @@ Feature: Purchase Credits as a Club Member
 Background: Users in the Database
 
  Given the following users exist:
-  | name            | email                    | password | membership    |
-  | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   |
-  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator |
-  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
-  | John Doe        | johndoe@gmail.com        | 12345678 | Manager       |
+  | name            | email                    | password | membership    | confirmed_at |
+  | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   | 2013-02-02 01:00:00 UTC |
+  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator | 2013-02-02 01:00:00 UTC |
+  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         | 2013-02-02 01:00:00 UTC |
+  | John Doe        | johndoe@gmail.com        | 12345678 | Manager       | 2013-02-02 01:00:00 UTC |
+Given the following payment_packages exist:
+  |  name  |   num_classes |   price   |
+  | Single  |   1          |   10      |
 
 And I go to Login page
 
@@ -20,6 +23,7 @@ And I go to Login page
 Scenario: Buys 2 group lesson credits
   Given "Joe Chen" logs in with correct password "88888888" and goes to profile page
   And I go to Buy Credits page
+  Then I should be on Buy Credits page
   And I select "2" from "user_group_num_credit"
   Then I press "Proceed to Checkout"
   Then I should see "Number of Group Lesson Credits in Cart: 2"
