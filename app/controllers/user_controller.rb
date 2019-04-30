@@ -18,10 +18,8 @@ class UserController < ApplicationController
   end
   
   def calendar
-    if current_user.membership == "Club Member"
+    if current_user.membership == "Club Member" or current_user.membership == "Coach"
         @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
-    elsif current_user.membership == "Coach"
-        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time) #only booked classes currently
     else
         @calendars = Calendar.all
     #add admin

@@ -4,13 +4,11 @@ class CalendarsController < ApplicationController
   # GET /calendars
   # GET /calendars.json
   def index
-          
+          @admin = false
           if current_user.membership == "Club Member"
               @calendars =Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
-              @admin = false
           elsif current_user.membership == "Coach"
               @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
-              @admin = false
           #add admin
           
           else 
