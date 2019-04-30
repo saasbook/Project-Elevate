@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :calendars
+  resources :charges
   get 'error/error'
   # get 'user/member_profile'
   devise_for :users
@@ -8,6 +9,10 @@ Rails.application.routes.draw do
 
   post 'user/profile/update_other' => 'user#update_other', :as => 'update_other'
 
+  # Route for admin to view change log of all membership status changes
+  get 'user/profile/membership_history' => 'membership_history#membership_history', :as => 'membership_history'
+
+  # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
   post 'user/confirmation_booking' => 'user#confirmation_booking', :as => 'confirmation_booking'
   post 'user/profile/view_booking' => 'user#view_booking', :as =>'view_booking'
