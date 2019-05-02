@@ -34,7 +34,7 @@
           <% start_slot = record.start_time%>
           <% end_slot = start_slot + 1.hours %>
 
-          <% while (!(start_slot == record.end_time) & !(end_slot > record.end_time)) %>
+          <% while (!(start_slot.seconds_since_midnight.to_i == record.end_time.seconds_since_midnight.to_i) & !(end_slot.seconds_since_midnight.to_i > record.end_time.seconds_since_midnight.to_i)) %>
             <tr>
               <% if Booking.check_time_slot(start_slot, end_slot, flash[:coach].to_i, month_index, flash[:day]) %>
                 <td><%= g.radio_button :temp_availability, start_slot.to_s + "," + end_slot.to_s%></td>
