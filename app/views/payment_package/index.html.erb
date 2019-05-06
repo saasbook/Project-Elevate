@@ -1,4 +1,4 @@
-<h3 style="text-align:center;"> Payment Package Portal </h3>
+<h3 style="text-align:center;"> Payment Packages </h3>
 
 <% if alert %>
     <p class="alert alert-danger"><%= alert %></p>
@@ -32,13 +32,19 @@
     <% end %>
   </tbody>
 </table>
+<br>
 
-<h3>Add Payment Package</h3> <br>
+<div class="card mx-auto w-50">
+    <h5 class="card-title">Add Payment Package</h5>
+  <div class="card-body">
 <%= form_for :payment_package, url: add_payment_package_path do |f| %>
-  Name: <%= f.text_field :name %> <br>
-  Number of Classes: <%= f.number_field :num_classes %> <br>
-  Price: <%= f.number_field :price %> <br>
-  <%= f.submit value: 'Add package' %>
+  Name: <%= f.text_field :name, class:'form-control' %> <br>
+  Number of Classes: <%= f.number_field :num_classes, class:'form-control' %> <br>
+  Price: <%= f.number_field :price, class:'form-control ' %> <br>
+  <%= f.submit value: 'Add package', class: 'button btn-primary btn ' %>
 <% end %>
+</div>
+</div>
+
 
 <%= link_to "Back", :back %>

@@ -23,6 +23,15 @@ class CalendarsController < ApplicationController
   # GET /calendars/1
   # GET /calendars/1.json
   def show
+    if !@calendar.UserId.nil? and !@calendar.OtherId.nil?
+      if current_user.membership == 'Club Member'
+        @student = User.find(@calendar.UserId).name
+        @instructor = User.find(@calendar.OtherId).name
+      else
+        @instructor = User.find(@calendar.UserId).name
+        @student = User.find(@calendar.OtherId).name
+      end
+    end
   end
 
   # GET /calendars/new

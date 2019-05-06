@@ -66,7 +66,7 @@ class UserController < ApplicationController
   end
 
   def availabilities
-    @time_table = CoachAvailability.where(:coach_id => current_user.id)
+    @time_table = CoachAvailability.sorted_avail_for_coach(current_user.id)
     render "availabilities"
   end
 
@@ -105,6 +105,14 @@ class UserController < ApplicationController
     # For testing purposes above
     @name = current_user.name
     @membership = current_user.membership
+    if current_user.membership == "Club Member" or current_user.membership == "Coach"
+        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
+    else
+        @calendars = Calendar.all.where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
+    #add admin
+    end
+    @calendarsShow = @calendars.limit(5)
+    @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
     if current_user.membership == 'Club Member'
       @user = current_user
       render "club_member_profile"
@@ -122,6 +130,14 @@ class UserController < ApplicationController
       # Add everything else needed here
     end
 
+  end
+
+  def membership_statuses
+    @name = current_user.name
+    @membership = current_user.membership
+
+    @users = User.all_users_except_admin
+    render 'membership_status'    
   end
 
 end

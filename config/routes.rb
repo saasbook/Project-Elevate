@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   # Route for admin to view change log of all membership status changes
   get 'user/profile/membership_history' => 'membership_history#membership_history', :as => 'membership_history'
+  get 'user/profile/membership_statuses' => 'user#membership_statuses', :as => 'membership_status'
 
   # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
@@ -44,6 +45,6 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   # This needs to be at the end
-  match '*path' => 'error#error_404', via: :all
+  # match '*path' => 'error#error_404', via: :all
 
 end

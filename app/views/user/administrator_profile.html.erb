@@ -1,32 +1,12 @@
 
 <p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5>
 
-<table class="table table-hover">
-<thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Membership Status</th>
-      <th>Change Status</th>
-    </tr>
-</thead>
-<% @users.each do |user| %>                    
-    <tr>
-      <td class="name"><%= user.name%></td>
-      <td class="email"><%= user.email%></td>
-      <td class="membership"><%= user.membership %></td>
-      <td>
-      <%= form_for :user, :namespace => user.name, :url => '/user/profile/update_other', :html => { :method => 'post'} do |f| %>
-        <%= f.select(:membership, User.admin_update_membership_to(user), {disabled: '', selected: '', required: true})  %>
-        <%= hidden_field_tag(:id, user.id) %>
-        <%= f.button 'Update', value: user.name+'_update', class: 'button', type: 'submit' %>
-      <% end %>
-      </td>
-    </tr>
-<% end %>
-</table>
+<div class="text-center">
+  <a href="<%= membership_status_path %>" class="btn btn-primary active" role="button" aria-pressed="true">Edit Membership Statuses</a>  
+  <a href="<%= payment_package_path %>" class="btn btn-primary active" role="button" aria-pressed="true">Edit Payment Packages</a>  
+</div>
 
-<br> <%= link_to "User Membership Change Log", membership_history_path, method: :get, :class => 'navbar-link'  %>
-<br> <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+
+<br> <%= link_to "Back", root_path %>
 </p>
 
