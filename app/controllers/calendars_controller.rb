@@ -10,15 +10,15 @@ class CalendarsController < ApplicationController
           elsif current_user.membership == "Coach"
               @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
           #add admin
-          
-          else 
+
+          else
             @calendars = Calendar.all
             @admin = true
           end
-  
+
   end
-  
-    
+
+
 
   # GET /calendars/1
   # GET /calendars/1.json

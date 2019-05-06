@@ -49,4 +49,27 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  describe 'elevate users' do
+    before(:each) do
+      users = [{:name => 'Joe Chen', :email => 'aaa@gmail.com', :password => '88888888', :membership => 'Club Member'},
+    	  {:name => 'Roger Destroyer', :email => 'bbb@gmail.com', :password => '12345678', :membership => 'Coach'},
+				{:name => 'Matthew Sie', :email => 'ccc@berkeley.edu', :password => 'dabaka22', :membership => 'Administrator'},
+				{:name => 'John Doe', :email => 'ddd@gmail.com', :password => '12345678', :membership => 'Manager'}
+  	 ]
+
+      users.each do |user|
+        User.create!(user)
+      end
+    end
+
+    it 'correct update options' do
+      admin_options = User.admin_update_membership_to(User.find(1))
+      expect(admin_options).to include(["Coach", "Coach"])
+      expect(admin_options).to include(["Manager", "Manager"])
+      
+      manager_options = User.manager_update_membership_to(User.find(1))
+      expect(manager_options).to include(["Coach", "Coach"])
+    end
+  end
 end
