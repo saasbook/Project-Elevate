@@ -9,9 +9,9 @@ class UserController < ApplicationController
       MembershipHistory.create(:user_changed_id => @other.id, :changed_by_id => current_user.id,
         :old_membership => old_membership, :new_membership => @other.membership)
     end
-    redirect_to '/user/profile'
+    redirect_to membership_status_path
   end
-
+  
   def booking
     @coaches = User.coaches
     render "booking"
