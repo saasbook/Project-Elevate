@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
   # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
-  post 'user/confirmation_booking' => 'user#confirmation_booking', :as => 'confirmation_booking'
   post 'user/profile/view_booking' => 'user#view_booking', :as =>'view_booking'
 
 

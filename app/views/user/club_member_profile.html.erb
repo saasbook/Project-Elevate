@@ -1,10 +1,7 @@
 
 <p> <h5> Membership: <%= @membership %></h5>
-<br>  <span>Group Lesson Credits: <%= @user.group_num_credit %> </span> 
-<br> <span>Assigned Private Lesson Credits: <%= @user.assigned_num_credit %> </span> 
-<br> <span>Custom Private Lesson Credits: <%= @user.custom_num_credit %> </span> 
  
-<br> <%= link_to "Buy Credits", new_charge_path, :class => 'navbar-link'  %>
+<br> <%= link_to "Back to Home Page", root_path, :class => 'navbar-link'  %>
 <br> <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 </p>
 

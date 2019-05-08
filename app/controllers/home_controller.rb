@@ -14,7 +14,7 @@ class HomeController < ApplicationController
             @calendars = Calendar.all.where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
         #add admin
         end
-         @calendarsShow = @calendars.limit(5)
+        @calendarsShow = @calendars.limit(5)
         @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
 
 
