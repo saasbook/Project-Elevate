@@ -61,6 +61,24 @@ Scenario: Log in as Jason Yang a Club member and wants to view the details of th
   When he follows the "1" "Details"
   And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
 
+Scenario: Log in as Jason Yang a Club Member and tries to go to the URL pages he shouldn't be able to 
+  Given "Jason Yang" is a "Club Member"
+  And "Jason Yang" logs in with correct credentials with password "123456"
+  And he visits "/calendar/viewall"
+  Then he should see the following: "Error 404"
+  Then he should see the following: "Error 404"
+  And he visits "/calendar/"
+  Then he should see the following: "Error 404"
+  And he visits "/calendar/viewall/1"
+  Then he should see the following: "Error 404"
+  And he visits "/calendars/new"
+  Then he should see the following: "Error 404"
+  And he visits "/calendars/1"
+  Then he should see the following: "Error 404"
+    And he visits "/calendars/edit/4"
+  Then he should see the following: "Error 404"
+  
+
 Scenario: Log in as Roger Destroyer a Coach with multiple events scheduled
   Given "Roger Destroyer" is a "Coach"
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
@@ -79,29 +97,21 @@ Scenario: Log in as Roger Destroyer a Coach to see his Calendar
   And he should see the following: "Back to Profile"
   And he should not see the following: "View Other's Calendars"
   
-Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the first event shown on the profile page
-  Given "Roger Destroyer" is a "Coach"
-  And "Roger Destroyer" logs in with correct credentials with password "12345678"
-  Then he should see the following: "Details"
-  When he follows the "1" "Details"
-  And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
-
-# Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the first event shown on the profile page
-#   Given "Roger Destroyer" is a "Coach"
-#   And "Roger Destroyer" logs in with correct credentials with password "12345678"
-#   Then he should see "Details"
-#   When he follows the "1" "Details"
-#   And he should see the following: "Name, Start time, End time, Edit, View Calendar, Back to Profile"
-
 Scenario: Log in as Matthew Sie, an Admin to go to List of events
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
   And he should see the following: "Hi Matthew Sie, You have 0 activities today!"
-  And he should see the following: "More..., Manage my Calendar"
+  And he should see the following: "More..., Manage my Calendar, Create an Event"
   And he should see the first five events
   When he follows "More..."
   Then he should see all the events
   And he should see the following: "Back to Profile, View Calendar"
+
+Scenario: Log in as Matthew Sie, and create an event
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  And he follows "Create an Event"
+
 
 Scenario: Log in as Matthew Sie, an Admin to see his Calendar
   Given "Matthew Sie" is a "Administrator"
@@ -116,3 +126,56 @@ Scenario: Log in as Matthew Sie a Administrator and wants to view the details of
   Then he should see the following: "Details"
   When he follows the "1" "Details"
   And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
+
+Scenario: Log in as Matthew Sie an Administrator and wants to View Roger Destroyer's Calendar
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  When he follows "Manage my Calendar"
+  Then he should see the following: "View Other's Calendars"
+  When he follows "View Other's Calendars"
+  Then "Matthew Sie" should see every member and coach except himself
+  When he goes to "Joe Chen" calendar
+  Then he should be able to see "Joe Chen" events for this month
+  
+Scenario: Log in as Matthew Sie an Administrator and wants to View Roger Destroyer's Event List
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  When he follows "Manage my Calendar"
+  Then he should see the following: "View Other's Calendars"
+  When he follows "View Other's Calendars"
+  Then "Matthew Sie" should see every member and coach except himself
+  When he goes to "Joe Chen" event list
+  Then he should be able to see all of "Joe Chen" events
+  
+Scenario: Log in as Matthew Sie an Administrator to create a new event
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  When he follows "Create an Event"
+  When I fill in "Name" with "Testing"
+  Then I fill in "Details" with "Testing Create"
+  When I click "Submit" 
+  Then I should see "The event was successfully created."
+  
+  
+Scenario: Log in as Matthew Sie an Administrator to edit an event
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  When he follows the "1" "Details"
+  Then he should see the following: "Edit Calendar"
+  When he follows "Edit Calendar"
+  Then I fill in "Name" with "Change name"
+  When I click "Submit"
+  Then I should see "The event was successfully updated."
+  
+Scenario: Log in as Matthew Sie an Administrator to edit an event
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  When he follows the "1" "Details"
+  Then he should see the following: "Delete"
+  When he follows "Delete"
+  Then I hit the alert button
+  
+  
+  
+  
+  

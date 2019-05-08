@@ -18,14 +18,7 @@ class UserController < ApplicationController
   end
 
   def calendar
-    if current_user.membership == "Club Member"
-        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
-    elsif current_user.membership == "Coach"
-        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time) #only booked classes currently
-    else
-        @calendars = Calendar.all
-    #add admin
-    end
+     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
   end
 
   def view_booking
@@ -57,7 +50,11 @@ class UserController < ApplicationController
   end
 
   def calendar
-    @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
+    if current_user.membership == "Administrator"
+      @calendars = Calendar.all.where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
+    else 
+      @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
+    end
   end 
 
 

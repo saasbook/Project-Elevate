@@ -11,37 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" "style = width: 50px">
     <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :UserId %>
-    <%= form.number_field :UserId %>
-  </div>
-
-  <div class="field">
-    <%= form.label :OtherId %>
-    <%= form.number_field :OtherId %>
+    <%= form.text_field :name, :required => true%>
   </div>
 
   <div class="field">
     <%= form.label :start_time %>
-    <%= form.datetime_select :start_time %>
+    <%= form.datetime_select :start_time%>
   </div>
 
   <div class="field">
     <%= form.label :end_time %>
     <%= form.datetime_select :end_time %>
   </div>
-
+  
   <div class="field">
-    <%= form.label :typeEvent %>
-    <%= form.check_box :typeEvent %>
+    <%= form.label :details %>
+    <%= form.text_field :details, :required => true%>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :Submit, :id => "Submit" %>
   </div>
 <% end %>

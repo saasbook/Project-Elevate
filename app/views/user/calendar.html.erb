@@ -24,8 +24,13 @@
 </table>
 <br>
 
-<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
+<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %> |
 
- <%= link_to "View Calendar", calendars_path, :class => 'navbar-link' %>
+ <%= link_to "View Calendar", calendars_path, :class => 'navbar-link' %> |
+ 
+ <% if current_user.membership == "Administrator" || current_user.membership == "Manager" %>
+  <%= link_to 'New Event', new_calendar_path %>
+<% end %>
+
 
 <br>

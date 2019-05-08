@@ -52,3 +52,55 @@ When("he follows the {string} {string}") do |string, string2|
     first(:link, "Details").click
   # pending # Write code here that turns the phrase above into concrete actions
 end
+
+Then /"(.*)" should see every member and coach except himself/ do |name|
+  user = User.find_by_name(name)
+  User.all.where.not(:id => user.id).each do |users|
+    step %{I should see "#{users.name}"}
+  end
+  step %{I should not see "#{user.name}"}
+end 
+
+When /he goes to "(.*)" calendar/ do |name|
+
+  find(:id => name + "calendar").click
+end 
+
+When /he goes to "(.*)" event list/ do |name|
+
+  find(:id => name + "list").click
+end 
+
+
+Then /he should be able to see "(.*)" events for this month/ do |name|
+  user = User.find_by_name(name)
+  Calendar.all.where(:userId => [user.id, nil]).each do |calendar|
+      if (calendar.start_time.month == Time.now.month and calendar.start_time.year == Time.now.year)
+        step %{I should see "#{calendar.name}"}
+      end
+    end
+end
+
+Then /he should be able to see all of "(.*)" events/ do |name|
+  user = User.find_by_name(name)
+  Calendar.all.where(:UserId => [user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time).each do |calendar|
+      if (calendar.start_time.month == Time.now.month and calendar.start_time.year == Time.now.year)
+        step %{I should see "#{calendar.name}"}
+      end
+    end
+end
+
+And /he visits "(.*)"/ do |url|
+  visit (url)
+end
+
+
+When /I submit the form and press "(.*)"/ do |button|
+  click_button(button)
+end
+
+Then /I hit the alert button/ do
+  page.accept_confirm { click_button "OK" }
+end
+
+  

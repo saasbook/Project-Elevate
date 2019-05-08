@@ -3,12 +3,13 @@
 <h1><%= "#{@user.name}'s Calendar" %></h1>
 
 <%= month_calendar events: @calendars do |date, calendar| %>
-      <%= date%>
+      <div style = "font-size: 15px"><strong></strong></string><%=date.day%></strong></div>
     
       <% calendar.each do |calendar| %>
         <div>
           <%= link_to calendar.name, calendar_path(calendar), :class => 'navbar-link' %>
         </div>
+        <p><%= calendar.start_time.strftime("%H:%M") + " - " + calendar.end_time.strftime("%H:%M")%></p>
       <% end %>
     <% end %>
 <br>

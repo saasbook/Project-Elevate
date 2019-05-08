@@ -22,7 +22,7 @@
         <% @calendarsShow.each do |calendar| %>
             <tr>
               <td><%= calendar.name%></td>
-              <td><%= calendar.start_time%></td>
+              <td><%= calendar.start_time.rfc2822()%></td>
               <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link', :id => calendar.id.to_s + "Details" %> </td>
             </div>
             </tr>
@@ -30,8 +30,10 @@
 
         </table>
         <%= link_to "More...", user_calendar_path, :class => 'navbar-link' %>
-        <p></p>
-        <%= link_to "Manage my Calendar", calendars_path, :class => 'navbar-link' %>
+        <p></p> <%= link_to "Manage my Calendar", calendars_path, :class => 'navbar-link' %>
+        <% if current_user.membership == "Administrator" %>
+            <p></p> <%= link_to "Create an Event", new_calendar_path %>
+        <% end %> 
     <% else %>
         <div id = "container">
             <div id = "navbar">

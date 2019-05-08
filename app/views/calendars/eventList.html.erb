@@ -14,8 +14,8 @@
     <% @calendars.each do |calendar| %>
       <tr>
         <td><%= calendar.name %></td>
-        <td><%= calendar.start_time %></td>
-        <td><%= calendar.end_time %></td>
+        <td><%= calendar.start_time.rfc2822() %></td>
+        <td><%= calendar.end_time.rfc2822() %></td>
         <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
          <!--link_to 'Edit', edit_calendar_path(calendar)-->
         <!--link_to 'Delete', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
