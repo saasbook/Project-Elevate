@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 
 <h1>Calendar</h1>
@@ -15,13 +16,17 @@
 
 <% if @admin %>
      <!--link_to "Create Event", new_calendar_path, :class => 'navbar-link'  %>-->
+<<<<<<< HEAD
 <% end %> 
 
 
 <%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %> 
 <% if current_user.membership == 'Administrator'%>
     | <%= link_to "View Other's Calendars", all_calendar_path, :class => 'navbar-link'  %> 
+=======
+>>>>>>> 64c7c8c5ff6f0434324cc37393be7bcf6e81f24b
 <% end %>
 
-<!--link_to 'New Calendar', new_calendar_path %>-->
 
+<%= link_to 'New Calendar', new_calendar_path %>
+<%= link_to "Back to Profile", root_path %>

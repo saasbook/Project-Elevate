@@ -10,15 +10,17 @@ end
 
 RSpec.describe ChargesController, type: :controller do
     before(:each) do
-        users = [{:name => 'Joe Chen', :email => 'aaa@gmail.com', :password => '88888888', :membership => 'Club Member'},
-                 {:name => 'Roger Destroyer', :email => 'bbb@gmail.com', :password => '12345678', :membership => 'Coach'},
-                  {:name => 'Matthew Sie', :email => 'ccc@berkeley.edu', :password => 'dabaka22', :membership => 'Administrator'},
-                  {:name => 'John Doe', :email => 'ddd@gmail.com', :password => '12345678', :membership => 'Manager'}
+        users = [{:name => 'Joe Chen', :email => 'aaa@gmail.com', :password => '88888888', :membership => 'Club Member', :confirmed_at => Time.now.utc},
+                 {:name => 'Roger Destroyer', :email => 'bbb@gmail.com', :password => '12345678', :membership => 'Coach', :confirmed_at => Time.now.utc},
+                  {:name => 'Matthew Sie', :email => 'ccc@berkeley.edu', :password => 'dabaka22', :membership => 'Administrator', :confirmed_at => Time.now.utc},
+                  {:name => 'John Doe', :email => 'ddd@gmail.com', :password => '12345678', :membership => 'Manager', :confirmed_at => Time.now.utc}
          ]
   
         users.each do |user|
           User.create!(user)
         end
+
+        PaymentPackage.create!({:name => 'Single', :num_classes => '1', :price => 1})
     end
     it "signs in to new page to select credits if club member" do 
         sign_in(User.find_by_name("Joe Chen"))

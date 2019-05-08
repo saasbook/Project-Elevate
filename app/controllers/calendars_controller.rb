@@ -9,13 +9,20 @@ class CalendarsController < ApplicationController
           elsif current_user.membership == "Coach"
               @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
           #add admin
+<<<<<<< HEAD
           
           else 
             @calendars = Calendar.all.where(:UserId => nil)
+=======
+
+          else
+            @calendars = Calendar.all
+>>>>>>> 64c7c8c5ff6f0434324cc37393be7bcf6e81f24b
             @admin = true
           end
-  
+
   end
+<<<<<<< HEAD
   
   def all 
     if current_user.membership == "Administrator"
@@ -42,6 +49,10 @@ class CalendarsController < ApplicationController
       render error_404_path
     end
   end
+=======
+
+
+>>>>>>> 64c7c8c5ff6f0434324cc37393be7bcf6e81f24b
 
   # GET /calendars/1
   # GET /calendars/1.json

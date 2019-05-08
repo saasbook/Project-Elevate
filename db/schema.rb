@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_23_174402) do
+ActiveRecord::Schema.define(version: 2019_04_25_213247) do
 
   create_table "calendars", force: :cascade do |t|
     t.string "name"
@@ -18,8 +18,14 @@ ActiveRecord::Schema.define(version: 2019_04_23_174402) do
     t.integer "OtherId"
     t.datetime "start_time"
     t.datetime "end_time"
+<<<<<<< HEAD
     t.string "typeEvent"
     t.string "details"
+=======
+    t.boolean "typeEvent"
+    t.string "event_day"
+    t.string "event_month"
+>>>>>>> 64c7c8c5ff6f0434324cc37393be7bcf6e81f24b
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,6 +71,11 @@ ActiveRecord::Schema.define(version: 2019_04_23_174402) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
