@@ -26,7 +26,7 @@
 
 
 <% if flash[:coach] %>
-  <%= form_for :user, url: confirmation_booking_path do |g| %>
+  <%= form_for :user, url: checkout_path do |g| %>
     <% month_index = Date::MONTHNAMES.index(flash[:month]) %>
     <% CoachAvailability.where(:coach_id => flash[:coach].to_i, :day => DateTime.new(DateTime.now.year.to_i, month_index, flash[:day].to_i).strftime("%A")).each do |record| %>
       <table class="table table-hover">

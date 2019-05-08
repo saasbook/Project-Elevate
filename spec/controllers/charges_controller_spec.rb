@@ -22,11 +22,6 @@ RSpec.describe ChargesController, type: :controller do
 
         PaymentPackage.create!({:name => 'Single', :num_classes => '1', :price => 1})
     end
-    it "signs in to new page to select credits if club member" do 
-        sign_in(User.find_by_name("Joe Chen"))
-        get "new"
-        expect(subject).to render_template(:new)
-    end
 
     it "doesnt get to charges new page if not club member" do
         sign_in(User.find_by_name("Roger Destroyer"))
@@ -38,22 +33,41 @@ RSpec.describe ChargesController, type: :controller do
 
     it "renders checkout page" do 
         sign_in(User.find_by_name("Joe Chen"))
-        post "checkout", params: {:user => {:custom_num_credit => "100", :group_num_credit => "25", :assigned_num_credit => "50"}}
+        post "checkout", params: {:user => {:temp_availability => "2100-01-01 23:59:00 -0800,2100-01-01 00:00:00 -0800"},  :month => "12", :day => "31"}
         expect(subject).to render_template(:checkout)
     end
 
-    it "doesnt render checkout but redirects if no credit is bought" do
+    it "doesnt render checkout if the booked time is before current time" do
         sign_in(User.find_by_name("Joe Chen"))
-        post "checkout", params: {:user => {:custom_num_credit => "0", :group_num_credit => "0", :assigned_num_credit => "0"}}
+        post "checkout", params: {:user => {:temp_availability => "2000-01-01 00:00:00 -0800,2000-01-01 00:01:00 -0800"},  :month => "1", :day => "1"}
         expect(subject).to_not render_template(:checkout)
-        expect(response).to redirect_to new_charge_path
+        expect(response).to redirect_to booking_path
+    end
+
+    it "doesnt render checkout but redirects if there is no availability" do
+        sign_in(User.find_by_name("Joe Chen"))
+        post "checkout", params: {:user => {:nothing => nil}}
+        expect(subject).to_not render_template(:checkout)
+        expect(response).to redirect_to booking_path
 
     end 
 
-    it "cant pay without using external stripe API" do
+    it "cant pay without without external stripe API and without valid param availabilities" do
         sign_in(User.find_by_name("Joe Chen"))
         post "create", params: {:user => {:custom_num_credit => "1", :group_num_credit => "0", :assigned_num_credit => "0"}}
         expect(response).to redirect_to new_charge_path
+    end
+
+    it "doesnt save lesson in Calendar after charging without external stripe API even with valid param availabilities" do
+        sign_in(User.find_by_name("Joe Chen"))
+        temp = "2100-01-01 01:00:00 -0800,2100-01-01 02:00:00 -0800"
+        start_time = DateTime.parse(temp.split(',')[0])
+        end_time = DateTime.parse(temp.split(',')[1])
+        event_start = DateTime.new(DateTime.now.year.to_i, 12.to_i, 31.to_i, start_time.hour, start_time.minute, 0, "-07:00")
+        event_end = DateTime.new(DateTime.now.year.to_i, 12.to_i, 31.to_i, end_time.hour, end_time.minute, 0, "-07:00")
+        post "create", params: {:amount => 20, :event_start => event_start, :event_end => event_end, :event_start_time => event_start.strftime("%I:%M%p"), :event_end_time => event_end.strftime("%I:%M%p"), :month => "12", :day => "31"}
+        expect(response).to redirect_to new_charge_path
+
     end
 
     
