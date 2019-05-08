@@ -1,0 +1,69 @@
+<% if flash[:alert] %>
+  <p class="alert alert-danger"><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_for :user, url: view_multiple_booking_path do |f| %>
+  <div class="coaches">
+    Choose Coach: <br />
+    <% coach_options = options_from_collection_for_select(@coaches, 'id', 'name') %>
+    <%= f.select :coach,  coach_options %>
+  </div>
+  <br />
+
+  <div class="packages">
+    Choose Package: <br />
+    <% temp_packages = PaymentPackage.where("num_classes > '1'").first.num_classes %>
+    <% if flash[:packages] %>
+      <% temp_packages = flash[:packages] %>
+    <% end %>
+    <% package_options = options_from_collection_for_select(@packages, 'num_classes', 'num_classes', temp_packages) %>
+    <%= f.select :packages, package_options, :selected => temp_packages %>
+  </div>
+  <br />
+
+  <div class="date">
+    Choose Date: <br />
+    <% temp_month = DateTime.now.strftime("%B") %>
+    <% temp_day = DateTime.now.day %>
+    <% if flash[:month] %>
+      <% temp_month = flash[:month] %>
+      <% temp_day = flash[:day] %>
+    <% end %>
+    <%= f.select :month, Date::MONTHNAMES, :selected => temp_month %>
+    <%= f.select :day, 1..31, :selected => temp_day %>
+  </div>
+
+  <%= f.submit value: 'View availabilities' %>
+<% end %>
+
+
+<% if flash[:coach] %>
+  <%= form_for :user, url: multiple_confirmation_booking_path do |g| %>
+    <% month_index = Date::MONTHNAMES.index(flash[:month]) %>
+    <% CoachAvailability.where(:coach_id => flash[:coach].to_i, :day => DateTime.new(DateTime.now.year.to_i, month_index, flash[:day].to_i).strftime("%A")).each do |record| %>
+      <table class="table table-hover">
+        <tbody>
+          <% start_slot = record.start_time%>
+          <% end_slot = start_slot + 1.hours %>
+
+          <% while (!(start_slot.seconds_since_midnight.to_i == record.end_time.seconds_since_midnight.to_i) & !(end_slot.seconds_since_midnight.to_i > record.end_time.seconds_since_midnight.to_i)) %>
+            <tr>
+              <td><%= g.radio_button :temp_availability, start_slot.to_s + "," + end_slot.to_s%></td>
+              <td><%= g.label :temp_availability, start_slot.strftime("%l:%M%p") + " - " + end_slot.strftime("%l:%M%p").strip%></td>
+              <td><%= hidden_field_tag(:month, month_index) %></td>
+              <td><%= hidden_field_tag(:day, flash[:day]) %></td>
+              <td><%= hidden_field_tag(:coach_id, flash[:coach]) %></td>
+              <td><%= hidden_field_tag(:packages, flash[:packages]) %></td>
+            </tr>
+            <% start_slot = start_slot + 30.minutes %>
+            <% end_slot = end_slot + 30.minutes %>
+          <% end %>
+
+        </tbody>
+      </table>
+    <% end %>
+  <%= g.submit value: 'Next' %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Back', root_path %>
