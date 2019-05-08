@@ -1,3 +1,5 @@
 <h2>Thanks, you paid <strong> <%= number_to_currency(@amount_in_create) %></strong>!</h2>
-<br> <%= link_to "Back to My Profile Page", member_profile_path %>
+<p>Thank you for booking a lesson!<br /></p>
+<%= link_to 'Book another lesson', booking_path %>
+<br> <%= link_to "Back to Home Page", root_path %>
 
