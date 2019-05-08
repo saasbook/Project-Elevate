@@ -1,0 +1,7 @@
+<% if flash[:alert] %>
+  <p class="alert alert-danger"><%= flash[:alert] %></p>
+<% end %>
+
+Thank you for booking a lesson!
+<%= link_to 'Book another package', multiple_booking_path %>
+<%= link_to 'Back', root_path %>
