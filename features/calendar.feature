@@ -18,8 +18,8 @@ Background: Users in the Database
   | name                       | UserId  | OtherId | start_time          | end_time            |
   | Train with Roger Destroyer | 1       | 2       | 2020-04-05 10:00:00 | 2020-04-05 12:00:00 |
   | Coach Joe Chen             | 2       | 1       | 2020-04-05 10:00:00 | 2020-04-05 10:00:00 |
-  | Club Event                 | nil     | nil     | 2019-04-11 10:00:00 | 2019-04-11 12:00:00 |
-  | Club Event                 | nil     | nil     | 2019-04-05 10:00:00 | 2019-04-05 12:00:00 |
+  | Club Event                 | nil     | nil     | 2020-04-11 10:00:00 | 2020-04-11 12:00:00 |
+  | Club Event                 | nil     | nil     | 2020-04-05 10:00:00 | 2020-04-05 12:00:00 |
   | Club Event                 | nil     | nil     | 2020-04-13 10:00:00 | 2020-04-13 12:00:00 |
   | Club Event                 | nil     | nil     | 2020-04-14 10:00:00 | 2020-04-14 12:00:00 |
   | Club Event                 | nil     | nil     | 2019-04-21 10:00:00 | 2019-04-21 12:00:00 |
@@ -27,6 +27,11 @@ Background: Users in the Database
   | Play with Jason Yang       | 1       | 5       | 2019-04-23 10:00:00 | 2019-04-23 12:00:00 |
   | Coach Jason Yang           | 2       | 5       | 2019-04-14 10:00:00 | 2019-04-14 12:00:00 |
   | Train with Roger Destroyer | 5       | 2       | 2019-04-14 10:00:00 | 2019-04-14 12:00:00 |
+  | Play with Joe Chen         | 5       | 1       | 2020-04-23 10:00:00 | 2020-04-23 12:00:00 |
+  | Play with Jason Yang       | 1       | 5       | 2020-04-23 10:00:00 | 2020-04-23 12:00:00 |
+  | Coach Jason Yang           | 2       | 5       | 2020-04-14 10:00:00 | 2020-04-14 12:00:00 |
+  | Train with Roger Destroyer | 5       | 2       | 2020-04-14 10:00:00 | 2020-04-14 12:00:00 |
+  | Talk with Coaches          | 3       | nil     | 2020-04-14 10:00:00 | 2020-04-14 12:00:00 |
 
 And I go to Login page
 

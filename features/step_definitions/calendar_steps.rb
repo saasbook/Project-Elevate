@@ -48,7 +48,7 @@ And /he should see the first five events/ do
 end
 
 When("he follows the {string} {string}") do |string, string2|
-    first(:link, 'Details').click
+    first(:link, "Details").click
   # pending # Write code here that turns the phrase above into concrete actions
 end
 

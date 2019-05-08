@@ -19,7 +19,7 @@
             <tr>
               <td><%= calendar.name%></td>
               <td><%= calendar.start_time%></td>
-              <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
+              <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link', :id => calendar.id.to_s + "Details" %> </td>
             </div>
             </tr>
         <% end %>
