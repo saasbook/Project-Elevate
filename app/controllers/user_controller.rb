@@ -57,18 +57,9 @@ class UserController < ApplicationController
   end
 
   def calendar
-<<<<<<< HEAD
     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
   end 
-=======
-    if current_user.membership == "Club Member" or current_user.membership == "Coach"
-        @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
-    else
-        @calendars = Calendar.all
-    #add admin
-    end
-  end
->>>>>>> 64c7c8c5ff6f0434324cc37393be7bcf6e81f24b
+
 
   def availabilities
     @time_table = CoachAvailability.where(:coach_id => current_user.id)

@@ -7,15 +7,6 @@ Feature: View Calendar list and buttons
 Background: Users in the Database
 
  Given the following users exist:
-<<<<<<< HEAD
-  | name            | email                    | password | membership    |
-  | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   |
-  | Roger Destroyer | rogerahh@gmail.com       | 12345678 | Coach         |
-  | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator |
-  | John Doe        | johndoe@gmail.com        | 12345678 | Manager       |
-  | Jason Yang      | jason@gmail.com          | 123456   | Club Member   |
-  
-=======
   | name            | email                    | password | membership    | confirmed_at             |
   | Joe Chen        | chenjoe@gmail.com        | 88888888 | Club Member   | 2013-02-02 01:00:00 UTC  |
   | Matthew Sie     | matthew.sie@berkeley.edu | dabaka22 | Administrator | 2013-02-02 01:00:00 UTC  |
@@ -23,7 +14,6 @@ Background: Users in the Database
   | John Doe        | johndoe@gmail.com        | 12345678 | Manager       | 2013-02-02 01:00:00 UTC  |
   | Jason Yang      | jason@gmail.com          | 123456   | Club Member   | 2013-02-02 01:00:00 UTC  |
 
->>>>>>> 64c7c8c5ff6f0434324cc37393be7bcf6e81f24b
  Given the following calendars exist:
   | name                       | UserId  | OtherId | start_time          | end_time            |
   | Train with Roger Destroyer | 1       | 2       | 2020-04-05 10:00:00 | 2020-04-05 12:00:00 |
@@ -87,7 +77,6 @@ Scenario: Log in as Roger Destroyer a Coach to see his Calendar
   When he follows "Manage my Calendar"
   Then "Roger Destroyer" should see the events he is a part of for this month
   And he should see the following: "Back to Profile"
-<<<<<<< HEAD
   And he should not see the following: "View Other's Calendars"
   
 Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the first event shown on the profile page
@@ -96,8 +85,6 @@ Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the
   Then he should see the following: "Details"
   When he follows the "1" "Details"
   And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
-  
-=======
 
 # Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the first event shown on the profile page
 #   Given "Roger Destroyer" is a "Coach"
@@ -106,7 +93,6 @@ Scenario: Log in as Roger Destroyer a Coach and wants to view the details of the
 #   When he follows the "1" "Details"
 #   And he should see the following: "Name, Start time, End time, Edit, View Calendar, Back to Profile"
 
->>>>>>> 64c7c8c5ff6f0434324cc37393be7bcf6e81f24b
 Scenario: Log in as Matthew Sie, an Admin to go to List of events
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
