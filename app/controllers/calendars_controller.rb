@@ -1,13 +1,13 @@
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:show, :edit, :update, :destroy]
   # GET /calendars
-  # GET /calendars.json
   def index
-          @admin = false
-          if not coach_member
-            @admin = true
-          end
-          @calendars =Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
+
+    @admin = false
+      if not coach_member
+        @admin = true
+      end
+    @calendars =Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
   end
   
   def all 
@@ -38,19 +38,39 @@ class CalendarsController < ApplicationController
     else
       redirect_to root_path
     end
+
+      # @admin = false
+      # if current_user.membership == "Club Member"
+      #     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where.not(:typeEvent => [nil, ""]).order(:start_time)
+      # elsif current_user.membership == "Coach"
+      #     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
+      # #add admin
+
+      # else
+      #   @calendars = Calendar.all
+      #   @admin = true
+      # end
+
   end
 
   # GET /calendars/1
-  # GET /calendars/1.json
   def show
     if coach_member
-    
       if @calendar.UserId != current_user.id and @calendar.UserId != nil
-        redirect_to root_path
+          redirect_to root_path
+      end
+    end 
+    if !@calendar.UserId.nil? and !@calendar.OtherId.nil?
+      if current_user.membership == 'Club Member'
+        @student = User.find(@calendar.UserId).name
+        @instructor = User.find(@calendar.OtherId).name
+      else
+        @instructor = User.find(@calendar.UserId).name
+        @student = User.find(@calendar.OtherId).name
+
       end
     end
   end
-
   # GET /calendars/new
   def new
     @calendar = Calendar.new
@@ -108,18 +128,20 @@ class CalendarsController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calendar
       @calendar = Calendar.find(params[:id])
     end
-    
 
     # Never trust parameters from the scary internet, only allow the white list through.
 
     def calendar_params
       params.require(:calendar).permit(:name, :UserId, :OtherId, :start_time, :end_time, :details)
     end
-
-
 end
+
+
+
+

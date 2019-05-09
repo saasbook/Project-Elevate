@@ -1,6 +1,33 @@
 
-<p> <h5> Membership: <%= @membership %></h5>
-<br> <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-<br> <%= link_to "Edit Availibilities", availabilities_path, method: :get, :class => 'navbar-link'  %>
+<p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5> </p>
+<div class="text-center">
+ <%= link_to "Edit Availibilities", availabilities_path, method: :get, :class => 'button btn btn-primary'  %>
+</div>
+
+<br>
+
+<div class="card mx-auto w-75">
+  <div class="card-body">
+    <h5 class="card-title">Upcoming Events</h5>
+        <table class="table table-hover">
+        <% @calendarsShow.each do |calendar| %>
+            <tr>
+              <td><%= calendar.name%></td>
+              <td><%= calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
+              <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
+            </div>
+            </tr>
+        <% end %>
+
+        </table>
+        <%= link_to "More...", user_calendar_path, :class => 'navbar-link' %>
+        <br>
+        <%= link_to "Manage my Calendar", calendars_path, :class => 'navbar-link' %>
+        <br> <%= link_to 'Home', root_path %>
+  </div>
+</div>
+</div>
+
+<br> <%= link_to 'Back', :back %>
 </p>
 

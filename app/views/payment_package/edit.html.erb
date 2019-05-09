@@ -1,15 +1,17 @@
 <% if alert %>
     <p class="alert alert-danger"><%= alert %></p>
 <% end %>
-
-<h3>Edit <%= @name %> Package</h3> <br>
+<br>
+<div class="card mx-auto w-50">
+    <h5 class="card-title">Edit "<%= @name %>" Package</h5>
+  <div class="card-body">
 <%= form_for :payment_package, url: update_payment_package_path do |f| %>
   <% if @name != 'Single' %>
-    Name: <%= f.text_field :name, :value => @name %> <br>
-    Number of Classes: <%= f.number_field :num_classes, :value => @package.num_classes  %> <br>
+    Name: <%= f.text_field :name, :value => @name, class: 'form-control' %> <br>
+    Number of Classes: <%= f.number_field :num_classes, :value => @package.num_classes, class: 'form-control'  %> <br>
   <% end %>
-  Price: <%= f.number_field :price, :value => @package.price %> <br>
-  <%= f.submit value: 'Update package' %>
+  Price: <%= f.number_field :price, :value => @package.price, class: 'form-control' %> <br>
+  <%= f.submit value: 'Update package', class: 'button btn btn-primary' %>
 <% end %>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back", payment_package_path %>

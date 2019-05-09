@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-    before_action :authenticate_user!
+    # before_action :authenticate_user!
 
     # def user_params
 
@@ -19,8 +19,4 @@ class HomeController < ApplicationController
 
     def home
     end
-
-
-
-
 end
