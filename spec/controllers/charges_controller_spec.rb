@@ -15,7 +15,7 @@ RSpec.describe ChargesController, type: :controller do
                   {:name => 'Matthew Sie', :email => 'ccc@berkeley.edu', :password => 'dabaka22', :membership => 'Administrator', :confirmed_at => Time.now.utc},
                   {:name => 'John Doe', :email => 'ddd@gmail.com', :password => '12345678', :membership => 'Manager', :confirmed_at => Time.now.utc}
          ]
-  
+
         users.each do |user|
           User.create!(user)
         end
@@ -32,7 +32,7 @@ RSpec.describe ChargesController, type: :controller do
 
     end
 
-    it "renders checkout page" do 
+    it "renders checkout page" do
         sign_in(User.find_by_name("Joe Chen"))
         post "checkout", params: {:user => {:temp_availability => "2100-01-01 23:59:00 -0800,2100-01-01 00:00:00 -0800"},  :month => "12", :day => "31"}
         expect(subject).to render_template(:checkout)
@@ -51,7 +51,7 @@ RSpec.describe ChargesController, type: :controller do
         expect(subject).to_not render_template(:checkout)
         expect(response).to redirect_to booking_path
 
-    end 
+    end
 
     it "cant pay without without external stripe API and without valid param availabilities" do
         sign_in(User.find_by_name("Joe Chen"))
@@ -79,7 +79,7 @@ RSpec.describe ChargesController, type: :controller do
         coach = User.find_by_membership("Coach")
         event_start = DateTime.new(DateTime.now.year.to_i, 12.to_i, 31.to_i, start_time.hour, start_time.minute, 0, "-07:00")
         event_end = DateTime.new(DateTime.now.year.to_i, 12.to_i, 31.to_i, end_time.hour, end_time.minute, 0, "-07:00")
-        post "create", params: {:amount => 20, :event_start => event_start, :event_end => event_end, 
+        post "create", params: {:amount => 20, :event_start => event_start, :event_end => event_end,
                                 :event_start_time => event_start.strftime("%I:%M%p"), :event_end_time => event_end.strftime("%I:%M%p"),
                                 :month_index => "12", :day_index => "1", :multiple_booking => "true", :coach_id => coach.id, :num_classes => "2"}
         expect(response).to redirect_to new_charge_path
@@ -91,7 +91,7 @@ RSpec.describe ChargesController, type: :controller do
         expect(response).to redirect_to new_charge_path
     end
 
-    it "renders checkout_multiple page" do 
+    it "renders checkout_multiple page" do
         sign_in(User.find_by_name("Joe Chen"))
         coach = User.find_by_membership("Coach")
         post "checkout_multiple", params: {:user => {:temp_availability => "2100-01-01 23:59:00 -0800,2100-01-01 00:00:00 -0800"},  :month => "11", :day => "1", :coach_id => coach.id, :packages => "2" }
@@ -111,9 +111,8 @@ RSpec.describe ChargesController, type: :controller do
         post "checkout_multiple", params: {:user => {:nothing => nil}}
         expect(subject).to_not render_template(:checkout_multiple)
         expect(response).to redirect_to multiple_booking_path
+    end
 
-    end 
 
 
-    
 end
