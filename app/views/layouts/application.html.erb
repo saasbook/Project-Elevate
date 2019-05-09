@@ -26,11 +26,11 @@
 
 <% if user_signed_in? %>
 
-      <% if current_user.membership == 'Club Member'%>
+
       <li class="nav-item">
         <a class="nav-link" href="<%= booking_path %>">Book Lesson</a>
       </li>
-      <% end %>
+      
       <li class="nav-item">
         <a class="nav-link" href="<%= member_profile_path %>">View Profile</a>
       </li>

@@ -6,7 +6,7 @@ class CalendarsController < ApplicationController
   def index
           @admin = false
           if current_user.membership == "Club Member"
-              @calendars =Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
+              @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where.not(:typeEvent => [nil, ""]).order(:start_time)
           elsif current_user.membership == "Coach"
               @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
           #add admin
@@ -23,15 +23,6 @@ class CalendarsController < ApplicationController
   # GET /calendars/1
   # GET /calendars/1.json
   def show
-    if !@calendar.UserId.nil? and !@calendar.OtherId.nil?
-      if current_user.membership == 'Club Member'
-        @student = User.find(@calendar.UserId).name
-        @instructor = User.find(@calendar.OtherId).name
-      else
-        @instructor = User.find(@calendar.UserId).name
-        @student = User.find(@calendar.OtherId).name
-      end
-    end
   end
 
   # GET /calendars/new
