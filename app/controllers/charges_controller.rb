@@ -120,6 +120,11 @@ class ChargesController < ApplicationController
   
           # incrementing by 7 days and updating month and day
           day_index, month_index = update_day_month(day_index, month_index)
+          # day_index += 7
+          # if (day_index > Time.days_in_month(month_index, year = DateTime.now.year.to_i))
+          #   day_index = day_index - Time.days_in_month(month_index, year = DateTime.now.year.to_i)
+          #   month_index += 1
+          # end
         end
 
       else
@@ -132,6 +137,7 @@ class ChargesController < ApplicationController
 
 
       # Amount in cents
+      @amount_in_create = params[:amount]
       @amount = params[:amount].to_f*100
       @amount = @amount.to_i
       
