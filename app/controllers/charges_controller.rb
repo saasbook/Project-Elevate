@@ -94,7 +94,6 @@ class ChargesController < ApplicationController
     def create
 
       event_arr = []
-
       event_start_time, event_end_time = params[:event_start_time], params[:event_end_time]
       my_new_event_name, coach_new_event_name = "Lesson: #{event_start_time} to #{event_end_time}", "Coaching: #{event_start_time} to #{event_end_time}"
       # Storing booked lessons in the database for multiple booking
@@ -121,7 +120,6 @@ class ChargesController < ApplicationController
           # incrementing by 7 days and updating month and day
           day_index, month_index = update_day_month(day_index, month_index)
         end
-
       else
          # Storing booked lesson in the database for single booking
         my_new_event = Calendar.new(:name => my_new_event_name, :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => params[:event_start], :end_time => params[:event_end], :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
@@ -129,8 +127,6 @@ class ChargesController < ApplicationController
         event_arr << my_new_event
         event_arr << coach_new_event
       end
-
-
       # Amount in cents
       @amount_in_create = params[:amount]
       @amount = params[:amount].to_f*100
@@ -141,10 +137,10 @@ class ChargesController < ApplicationController
       invoice = create_invoice(@amount, customer)
       #Actually sending customer invoices through email
       invoice.send_invoice
-
       #Actually save in database
       event_arr.each do |event| 
         event.save!
+
       end
 
       
