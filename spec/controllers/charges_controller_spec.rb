@@ -21,6 +21,7 @@ RSpec.describe ChargesController, type: :controller do
         end
 
         PaymentPackage.create!({:name => 'Single', :num_classes => '1', :price => 1})
+        PaymentPackage.create!({:name => 'Penta', :num_classes => '5', :price => 5})
     end
 
     it "doesnt get to charges new page if not club member" do
@@ -68,6 +69,20 @@ RSpec.describe ChargesController, type: :controller do
         post "create", params: {:amount => 20, :event_start => event_start, :event_end => event_end, :event_start_time => event_start.strftime("%I:%M%p"), :event_end_time => event_end.strftime("%I:%M%p"), :month => "12", :day => "31"}
         expect(response).to redirect_to new_charge_path
 
+    end
+
+    it "doesnt save lesson in Calendar for multibooking after charging wihtout external stripe API even with valid param availabilities" do
+        sign_in(User.find_by_name("Joe Chen"))
+        temp = "2100-01-01 01:00:00 -0800,2100-01-01 02:00:00 -0800"
+        start_time = DateTime.parse(temp.split(',')[0])
+        end_time = DateTime.parse(temp.split(',')[1])
+        coach = User.find_by_membership("Coach")
+        event_start = DateTime.new(DateTime.now.year.to_i, 12.to_i, 31.to_i, start_time.hour, start_time.minute, 0, "-07:00")
+        event_end = DateTime.new(DateTime.now.year.to_i, 12.to_i, 31.to_i, end_time.hour, end_time.minute, 0, "-07:00")
+        post "create", params: {:amount => 20, :event_start => event_start, :event_end => event_end, 
+                                :event_start_time => event_start.strftime("%I:%M%p"), :event_end_time => event_end.strftime("%I:%M%p"),
+                                :month_index => "12", :day_index => "1", :multiple_booking => "true", :coach_id => coach.id, :num_classes => "5"}
+        expect(response).to redirect_to new_charge_path
     end
 
     

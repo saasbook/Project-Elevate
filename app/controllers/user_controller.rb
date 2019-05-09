@@ -38,30 +38,6 @@ class UserController < ApplicationController
     redirect_to booking_path
   end
 
-<<<<<<< HEAD
-=======
-  def confirmation_booking
-    if (params[:user].nil? || params[:user][:temp_availability].nil?)
-      flash[:alert] = "Please choose a time slot."
-      redirect_to booking_path
-    else
-      x = params[:user]
-      start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
-      end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
-
-      event_start = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-      event_end = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-
-      my_new_event = Calendar.new(:name => "Coaching", :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
-      coach_new_event = Calendar.new(:name => "Coaching", :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
-      my_new_event.save!
-      coach_new_event.save!
-      @temp_month = params[:month]
-      @temp_day = params[:day]
-      render "confirmation_booking"
-    end
-  end
-
   def multiple_booking
     @coaches = User.coaches
     @packages = PaymentPackage.where("num_classes > '1'")
@@ -76,56 +52,10 @@ class UserController < ApplicationController
     redirect_to multiple_booking_path
   end
 
-  def multiple_confirmation_booking
-    if (params[:user].nil? || params[:user][:temp_availability].nil?)
-      flash[:alert] = "Please choose a time slot."
-      redirect_to multiple_booking_path
-    else
-      conflicting_lessons = ""
-
-      num_classes = params[:packages]
-
-      start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
-      end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
-
-      day_index = params[:day].to_i
-      month_index = params[:month].to_i
-      for i in 1..num_classes.to_i do
-        x = params[:user]
-        event_start = DateTime.new(DateTime.now.year.to_i, month_index, day_index, start_time.hour, start_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-        event_end = DateTime.new(DateTime.now.year.to_i, month_index.to_i, day_index, end_time.hour, end_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-
-        temp_type_event = "Coaching"
-        if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index]))
-          conflicting_lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
-          temp_type_event = ""
-        end
-
-        my_new_event = Calendar.new(:name => "Coaching", :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s)
-        coach_new_event = Calendar.new(:name => "Coaching", :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s)
-        my_new_event.save!
-        coach_new_event.save!
-
-
-        day_index += 7
-        if (day_index > Time.days_in_month(month_index, year = DateTime.now.year.to_i))
-          day_index = day_index - Time.days_in_month(month_index, year = DateTime.now.year.to_i)
-          month_index += 1
-        end
-      end
-      if (conflicting_lessons != "")
-        flash.now[:alert] = conflicting_lessons.prepend("Conflicting lessons on ")[0...-2]
-      end
-      render "multiple_confirmation_booking"
-    end
-  end
-
   #==================================
   #=         END BOOKING            =
   #==================================
 
-
->>>>>>> bb09df6d5e38729664e3a13ce4a76b6e459dd614
   def calendar
     if current_user.membership == "Club Member" or current_user.membership == "Coach"
         @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
