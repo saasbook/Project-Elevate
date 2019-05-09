@@ -97,6 +97,6 @@ RSpec.describe UserController, type: :controller do
     it "redirects properly for an admin updating someone else's membership" do
         sign_in(User.find_by_name("Matthew Sie"))
         post "update_other", params: {:id => 200}
-        expect(response).to redirect_to member_profile_path
+        expect(response).to redirect_to membership_status_path
     end
 end

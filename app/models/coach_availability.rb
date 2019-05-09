@@ -51,4 +51,8 @@ class CoachAvailability < ApplicationRecord
     def self.valid_time_slots(day)
       return 0
     end
+
+    def self.sorted_avail_for_coach(id)
+        CoachAvailability.where(:coach_id => id)
+    end
 end

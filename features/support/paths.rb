@@ -45,6 +45,12 @@ module NavigationHelpers
     when /^Payment Packages Page$/i
       payment_package_path
 
+    when /^elevate page$/i
+      membership_status_path
+
+    when /^profile page$/i
+      member_profile_path
+
     else
       begin
         page_name =~ /^the (.*) page$/

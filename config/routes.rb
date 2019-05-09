@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   # Route for admin to view change log of all membership status changes
   get 'user/profile/membership_history' => 'membership_history#membership_history', :as => 'membership_history'
+  get 'user/profile/membership_statuses' => 'user#membership_statuses', :as => 'membership_status'
 
   # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
@@ -38,9 +39,9 @@ Rails.application.routes.draw do
 
 
   # availabilities routes
-  get 'users/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
-  post 'users/profile/availabilities' => 'user#add_availabilities', :as =>'add_availabilities'
-  delete 'users/profile/availabilities/:id' => 'user#delete_availabilities', :as =>'delete_availabilities'
+  get 'user/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
+  post 'user/profile/availabilities' => 'user#add_availabilities', :as =>'add_availabilities'
+  delete 'user/profile/availabilities/:id' => 'user#delete_availabilities', :as =>'delete_availabilities'
 
 
   root to: "home#index"
