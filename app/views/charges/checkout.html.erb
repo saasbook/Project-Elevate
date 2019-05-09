@@ -6,7 +6,7 @@
       </div>
     <% end %>
   <p>
-  Single Class Price (1 hour): $<%= @single_class_price %><br />
+  Single Class Price (1 hour): <%= number_to_currency(@amount)  %><br />
   Number of Hours Booked: <%= @number_hours %><br />
   Event Start: <%= @event_start.strftime("%m/%d/%Y")%> at <%= @event_start.strftime("%I:%M%p") %><br />
   Event End:  <%= @event_end.strftime("%m/%d/%Y")%> at <%= @event_end.strftime("%I:%M%p") %><br />

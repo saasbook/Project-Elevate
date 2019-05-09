@@ -9,12 +9,7 @@ class UserController < ApplicationController
       MembershipHistory.create(:user_changed_id => @other.id, :changed_by_id => current_user.id,
         :old_membership => old_membership, :new_membership => @other.membership)
     end
-    redirect_to '/user/profile'
-  end
-
-  def booking
-    @coaches = User.coaches
-    render "booking"
+    redirect_to membership_status_path
   end
 
   def calendar
@@ -28,12 +23,38 @@ class UserController < ApplicationController
     end
   end
 
+  #==================================
+  #=         START   BOOKING        =
+  #==================================
+  def booking
+    @coaches = User.coaches
+    render "booking"
+  end
+
   def view_booking
     flash[:coach] = "#{params[:user][:coach]}"
     flash[:day] = "#{params[:user][:day]}"
     flash[:month] = "#{params[:user][:month]}"
     redirect_to booking_path
   end
+
+  def multiple_booking
+    @coaches = User.coaches
+    @packages = PaymentPackage.where("num_classes > '1'")
+    render "multiple_booking"
+  end
+
+  def view_multiple_booking
+    flash[:coach] = "#{params[:user][:coach]}"
+    flash[:day] = "#{params[:user][:day]}"
+    flash[:month] = "#{params[:user][:month]}"
+    flash[:packages] = "#{params[:user][:packages]}"
+    redirect_to multiple_booking_path
+  end
+
+  #==================================
+  #=         END BOOKING            =
+  #==================================
 
   def calendar
     if current_user.membership == "Club Member" or current_user.membership == "Coach"
@@ -45,7 +66,7 @@ class UserController < ApplicationController
   end
 
   def availabilities
-    @time_table = CoachAvailability.where(:coach_id => current_user.id)
+    @time_table = CoachAvailability.sorted_avail_for_coach(current_user.id)
     render "availabilities"
   end
 
@@ -76,14 +97,12 @@ class UserController < ApplicationController
   end
 
   def member_profile
-    # For testing purposes below
-    # if !(:current_user.blank?)
-    #   @membership = :current_user.membership
-    # end
-
-    # For testing purposes above
     @name = current_user.name
     @membership = current_user.membership
+    @calendars = current_user.get_calendar
+    @calendarsShow = @calendars.limit(5)
+    @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
+
     if current_user.membership == 'Club Member'
       @user = current_user
       render "club_member_profile"
@@ -100,7 +119,14 @@ class UserController < ApplicationController
       render "manager_profile"
       # Add everything else needed here
     end
+  end
 
+  def membership_statuses
+    @name = current_user.name
+    @membership = current_user.membership
+
+    @users = User.all_users_except_admin
+    render 'membership_status'    
   end
 
 end

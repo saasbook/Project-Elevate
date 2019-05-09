@@ -18,13 +18,13 @@ And I go to Login page
 # Note that I need to specify passwords here because the authentication process won't let me access user password 
 # All scenarios begin assuming no user is logged in yet
 Scenario: Update Membership as Admin (elevate)
-  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
+  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to elevate page
   And selects status "Manager" for "Joe Chen"
   When I press "Joe Chen_update"
   Then he should see attribute "membership" value "Manager" for "Joe Chen"
 
 Scenario: Update Membership as Admin (delevate)
-  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
+  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to elevate page
   And selects status "Club Member" for "Roger Destroyer"
   When I press "Roger Destroyer_update"
   Then he should see attribute "membership" value "Club Member" for "Roger Destroyer"
