@@ -1,7 +1,6 @@
 Then /I should see the change of "(.*)" membership from "(.*)" to "(.*)" by "(.*)"/ do |changed, old, new_m, by|
-    # td = page.find(:css, 'td.changed_name', text: changed)
-    print page.body
-    tr = page.find(:xpath, "/html/body/div[1]/div/div/table/tbody/tr")
+    td = page.find(:css, 'td.changed_name', text: changed)
+    tr = td.find(:xpath, './parent::tr')
     expect(tr).to have_css('td.old', text: old)
     expect(tr).to have_css('td.new', text: new_m)
     expect(tr).to have_css('td.changed_by_name', text: by)
