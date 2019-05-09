@@ -16,11 +16,13 @@ Rails.application.routes.draw do
 
   # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
+  get 'user/multiple_booking' => 'user#multiple_booking', :as => 'multiple_booking'
   post 'user/profile/view_booking' => 'user#view_booking', :as =>'view_booking'
+  post 'user/multiple_confirmation_booking' => 'user#multiple_confirmation_booking', :as => 'multiple_confirmation_booking'
+  post 'user/profile/view_multiple_booking' => 'user#view_multiple_booking', :as =>'view_multiple_booking'
 
-
+  post 'charges/checkout_multiple' => 'charges#checkout_multiple', :as => 'checkout_multiple'
   post 'charges/checkout' => 'charges#checkout', :as => 'checkout'
-
   get 'user/payments' => 'payment_package#index', :as => 'payment_package'
   post 'user/payments/add' => 'payment_package#create', :as => 'add_payment_package'
   get 'user/payments/:id/edit' => 'payment_package#edit', :as => 'edit_payment_package'

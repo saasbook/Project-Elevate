@@ -12,11 +12,6 @@ class UserController < ApplicationController
     redirect_to '/user/profile'
   end
 
-  def booking
-    @coaches = User.coaches
-    render "booking"
-  end
-
   def calendar
     if current_user.membership == "Club Member"
         @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
@@ -28,12 +23,38 @@ class UserController < ApplicationController
     end
   end
 
+  #==================================
+  #=         START   BOOKING        =
+  #==================================
+  def booking
+    @coaches = User.coaches
+    render "booking"
+  end
+
   def view_booking
     flash[:coach] = "#{params[:user][:coach]}"
     flash[:day] = "#{params[:user][:day]}"
     flash[:month] = "#{params[:user][:month]}"
     redirect_to booking_path
   end
+
+  def multiple_booking
+    @coaches = User.coaches
+    @packages = PaymentPackage.where("num_classes > '1'")
+    render "multiple_booking"
+  end
+
+  def view_multiple_booking
+    flash[:coach] = "#{params[:user][:coach]}"
+    flash[:day] = "#{params[:user][:day]}"
+    flash[:month] = "#{params[:user][:month]}"
+    flash[:packages] = "#{params[:user][:packages]}"
+    redirect_to multiple_booking_path
+  end
+
+  #==================================
+  #=         END BOOKING            =
+  #==================================
 
   def calendar
     if current_user.membership == "Club Member" or current_user.membership == "Coach"
