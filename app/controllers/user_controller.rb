@@ -12,13 +12,16 @@ class UserController < ApplicationController
     redirect_to '/user/profile'
   end
 
+  def calendar
+     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
+  end
+
+  #==================================
+  #=         START   BOOKING        =
+  #==================================
   def booking
     @coaches = User.coaches
     render "booking"
-  end
-
-  def calendar
-     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
   end
 
   def view_booking
@@ -28,26 +31,23 @@ class UserController < ApplicationController
     redirect_to booking_path
   end
 
-  def confirmation_booking
-    if (params[:user].nil? || params[:user][:temp_availability].nil?)
-      flash[:alert] = "Please choose a time slot."
-      redirect_to booking_path
-    else
-      x = params[:user]
-      start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
-      end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
-
-      event_start = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-      event_end = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-
-      my_new_event = Calendar.new(:name => "Coaching", :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
-      coach_new_event = Calendar.new(:name => "Coaching", :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
-      my_new_event.save!
-      coach_new_event.save!
-
-      render "confirmation_booking"
-    end
+  def multiple_booking
+    @coaches = User.coaches
+    @packages = PaymentPackage.where("num_classes > '1'")
+    render "multiple_booking"
   end
+
+  def view_multiple_booking
+    flash[:coach] = "#{params[:user][:coach]}"
+    flash[:day] = "#{params[:user][:day]}"
+    flash[:month] = "#{params[:user][:month]}"
+    flash[:packages] = "#{params[:user][:packages]}"
+    redirect_to multiple_booking_path
+  end
+
+  #==================================
+  #=         END BOOKING            =
+  #==================================
 
   def calendar
     if current_user.membership == "Administrator"
