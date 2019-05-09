@@ -68,16 +68,8 @@ class ChargesController < ApplicationController
     end
     
     def create
-      # Amount in cents
-      @amount_in_create = params[:amount]
-      @amount = params[:amount].to_f*100
-      @amount = @amount.to_i
-      
-      customer = create_stripe_customer(params[:stripeEmail], params[:stripeToken])
-      charge = create_stripe_charges(@amount, customer)
-      invoice = create_invoice(@amount, customer)
-      #Actually sending customer invoices through email
-      invoice.send_invoice
+
+      event_arr = []
 
       event_start_time = params[:event_start_time]
       event_end_time = params[:event_end_time]
@@ -106,10 +98,12 @@ class ChargesController < ApplicationController
   
           my_new_event = Calendar.new(:name => my_new_event_name, :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s, :conflict => conflict)
           coach_new_event = Calendar.new(:name => coach_new_event_name, :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s,  :conflict => conflict)
-          my_new_event.save!
-          coach_new_event.save!
+          event_arr << my_new_event
+          event_arr << coach_new_event
+          # my_new_event.save!
+          # coach_new_event.save!
   
-  
+          # incrementing by 7 days and updating month and day
           day_index += 7
           if (day_index > Time.days_in_month(month_index, year = DateTime.now.year.to_i))
             day_index = day_index - Time.days_in_month(month_index, year = DateTime.now.year.to_i)
@@ -121,9 +115,29 @@ class ChargesController < ApplicationController
          # Storing booked lesson in the database for single booking
         my_new_event = Calendar.new(:name => my_new_event_name, :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => params[:event_start], :end_time => params[:event_end], :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
         coach_new_event = Calendar.new(:name => coach_new_event_name, :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => params[:event_start], :end_time => params[:event_end], :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
-        my_new_event.save!
-        coach_new_event.save!
+        event_arr << my_new_event
+        event_arr << coach_new_event
+        # my_new_event.save!
+        # coach_new_event.save!
       end
+
+
+      # Amount in cents
+      @amount_in_create = params[:amount]
+      @amount = params[:amount].to_f*100
+      @amount = @amount.to_i
+      
+      customer = create_stripe_customer(params[:stripeEmail], params[:stripeToken])
+      charge = create_stripe_charges(@amount, customer)
+      invoice = create_invoice(@amount, customer)
+      #Actually sending customer invoices through email
+      invoice.send_invoice
+
+      #Actually save in database
+      event_arr.each do |event| 
+        event.save!
+      end
+
       
       
 
@@ -174,9 +188,17 @@ class ChargesController < ApplicationController
         event_start = DateTime.new(DateTime.now.year.to_i, month_index, day_index, start_time.hour, start_time.minute, 0, "-07:00")
         event_end = DateTime.new(DateTime.now.year.to_i, month_index, day_index, end_time.hour, end_time.minute, 0, "-07:00")
         lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
+        # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error
+        if event_start.past?
+          flash[:alert] = "Please choose a future time slot."
+          redirect_to :controller => "user", :action => "multiple_booking"
+          return
+        end
+        # Checking if there are conflicted lessons and add the dates into a string
         if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index]))
           conflicting_lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
         end
+        # incrementing by 7 days and updating month and day
         day_index += 7
         if (day_index > Time.days_in_month(month_index, year = DateTime.now.year.to_i))
           day_index = day_index - Time.days_in_month(month_index, year = DateTime.now.year.to_i)
@@ -198,10 +220,9 @@ class ChargesController < ApplicationController
       @event_start = event_start
       @event_end = event_end
       @lessons = lessons
-      
 
     end
-    
+
     def show
     end
 
