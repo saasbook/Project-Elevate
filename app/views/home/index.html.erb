@@ -17,6 +17,7 @@
         <br> <%= link_to "My Profile Page", member_profile_path %>
         <% if current_user.membership == 'Administrator' %>
             <br> <%= link_to "View Payment Packages", payment_package_path %>
+            <br> <%= link_to "Resolve Booking Conflicts", conflict_path %>
         <% end %>
          <table class="table table-hover">
         <% @calendarsShow.each do |calendar| %>

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # Route for admin to view change log of all membership status changes
   get 'user/profile/membership_history' => 'membership_history#membership_history', :as => 'membership_history'
 
+  # Route for admin to resolve conflicts that arise from recurring booking
+  get 'user/conflicts' => 'conflicts#index', :as => 'conflict'
+
   # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
   post 'user/profile/view_booking' => 'user#view_booking', :as =>'view_booking'
