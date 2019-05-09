@@ -97,20 +97,9 @@ class UserController < ApplicationController
   end
 
   def member_profile
-    # For testing purposes below
-    # if !(:current_user.blank?)
-    #   @membership = :current_user.membership
-    # end
-
-    # For testing purposes above
     @name = current_user.name
     @membership = current_user.membership
-    if current_user.membership == "Club Member" or current_user.membership == "Coach"
-      @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
-    else
-        @calendars = Calendar.all.where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
-    #add admin
-    end
+    @calendars = current_user.get_calendar
     @calendarsShow = @calendars.limit(5)
     @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
 
