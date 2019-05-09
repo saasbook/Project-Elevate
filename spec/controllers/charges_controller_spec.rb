@@ -108,7 +108,7 @@ RSpec.describe ChargesController, type: :controller do
 
     it "doesnt render checkout_multiple but redirects if there is no availability" do
         sign_in(User.find_by_name("Joe Chen"))
-        post "checkout_multiple", params: {:user => {:nothing => nil}}
+        post "checkout_multiple", params: {:user => {:nothing => nil}, :packages => "5"}
         expect(subject).to_not render_template(:checkout_multiple)
         expect(response).to redirect_to multiple_booking_path
     end
