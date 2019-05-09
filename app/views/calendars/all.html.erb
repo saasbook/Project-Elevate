@@ -13,7 +13,10 @@
 
     </tr>
   </thead>
-
+    <%= form_tag(all_calendar_path method: :get) do %>
+    Store <%= text_field_tag :name, params[:name] %>
+    <%= submit_tag 'Search', name: nil %>
+  <% end %>
   <tbody>
     <% @users.each do |user| %>
       <tr>

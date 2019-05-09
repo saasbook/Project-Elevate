@@ -12,9 +12,13 @@ class CalendarsController < ApplicationController
   
   def all 
     if not coach_member
-      @users = User.all.where.not(:id => current_user.id)
+      if params[:name] != nil
+        @users = User.all
+      else
+        @users = User.all.where.not(:id => current_user.id)
+      end
     else
-      render error_404_path
+      redirect_to root_path
     end
   end
   
@@ -32,7 +36,7 @@ class CalendarsController < ApplicationController
       @calendars = Calendar.all.where(:UserId => [params[:UserId], nil]).order(:start_time)
       @user = User.all.where(:id => params[:UserId]).first
     else
-      render error_404_path
+      redirect_to root_path
     end
   end
 
@@ -42,7 +46,7 @@ class CalendarsController < ApplicationController
     if coach_member
     
       if @calendar.UserId != current_user.id and @calendar.UserId != nil
-        render error_404_path
+        redirect_to root_path
       end
     end
   end
@@ -52,7 +56,7 @@ class CalendarsController < ApplicationController
     @calendar = Calendar.new
     if coach_member
     
-      render error_404_path
+      redirect_to root_path
     end
   end
 
@@ -99,7 +103,7 @@ class CalendarsController < ApplicationController
   def destroy
     @calendar.destroy
     respond_to do |format|
-      format.html { redirect_to calendars_path , notice: 'The event was successfully destroyed.' }
+      format.html { redirect_to root_path , notice: 'The event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -65,16 +65,16 @@ Scenario: Log in as Jason Yang a Club Member and tries to go to the URL pages he
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
   And he visits "/calendar/viewall"
-  Then he should see the following: "Error 404"
-  Then he should see the following: "Error 404"
+  Then he should see the following: "Hi Jason Yang"
+  Then he should see the following: "Hi Jason Yang"
   And he visits "/calendar/"
   Then he should see the following: "Error 404"
   And he visits "/calendar/viewall/1"
-  Then he should see the following: "Error 404"
+  Then he should see the following: "Hi Jason Yang"
   And he visits "/calendars/new"
-  Then he should see the following: "Error 404"
+  Then he should see the following: "Hi Jason Yang"
   And he visits "/calendars/1"
-  Then he should see the following: "Error 404"
+  Then he should see the following: "Hi Jason Yang"
     And he visits "/calendars/edit/4"
   Then he should see the following: "Error 404"
   
@@ -161,8 +161,8 @@ Scenario: Log in as Matthew Sie an Administrator to edit an event
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
   When he follows the "1" "Details"
-  Then he should see the following: "Edit Calendar"
-  When he follows "Edit Calendar"
+  Then he should see the following: "Edit Event"
+  When he follows "Edit Event"
   Then I fill in "Name" with "Change name"
   When I click "Submit"
   Then I should see "The event was successfully updated."
@@ -173,7 +173,7 @@ Scenario: Log in as Matthew Sie an Administrator to edit an event
   When he follows the "1" "Details"
   Then he should see the following: "Delete"
   When he follows "Delete"
-  Then I hit the alert button
+  
   
   
   
