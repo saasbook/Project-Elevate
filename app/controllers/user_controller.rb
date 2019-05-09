@@ -53,50 +53,6 @@ class UserController < ApplicationController
     redirect_to multiple_booking_path
   end
 
-  def multiple_confirmation_booking
-    if (params[:user].nil? || params[:user][:temp_availability].nil?)
-      flash[:alert] = "Please choose a time slot."
-      redirect_to multiple_booking_path
-    else
-      conflicting_lessons = ""
-
-      num_classes = params[:packages]
-
-      start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
-      end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
-
-      day_index = params[:day].to_i
-      month_index = params[:month].to_i
-      for i in 1..num_classes.to_i do
-        x = params[:user]
-        event_start = DateTime.new(DateTime.now.year.to_i, month_index, day_index, start_time.hour, start_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-        event_end = DateTime.new(DateTime.now.year.to_i, month_index.to_i, day_index, end_time.hour, end_time.minute, 0, ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.utc_offset))
-
-        temp_type_event = "Coaching"
-        if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index]))
-          conflicting_lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
-          temp_type_event = ""
-        end
-
-        my_new_event = Calendar.new(:name => "Coaching", :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s)
-        coach_new_event = Calendar.new(:name => "Coaching", :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s)
-        my_new_event.save!
-        coach_new_event.save!
-
-
-        day_index += 7
-        if (day_index > Time.days_in_month(month_index, year = DateTime.now.year.to_i))
-          day_index = day_index - Time.days_in_month(month_index, year = DateTime.now.year.to_i)
-          month_index += 1
-        end
-      end
-      if (conflicting_lessons != "")
-        flash.now[:alert] = conflicting_lessons.prepend("Conflicting lessons on ")[0...-2]
-      end
-      render "multiple_confirmation_booking"
-    end
-  end
-
   #==================================
   #=         END BOOKING            =
   #==================================

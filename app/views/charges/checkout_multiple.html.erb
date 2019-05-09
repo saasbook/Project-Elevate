@@ -1,0 +1,48 @@
+<%= form_tag charges_path do %>
+    <article>
+    <% if flash.now[:alert] %>
+    <p class="alert alert-warning"><%= flash.now[:alert] %></p>
+    <% end %>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+  <p>
+  Bundled Class Price (Total): <%= number_to_currency(@amount) %><br />
+  Number of Hours Booked: <%= @num_classes %><br />
+  Event Start:  <%= @event_start.strftime("%I:%M%p") %><br />
+  Event End: <%= @event_end.strftime("%I:%M%p") %><br />
+  On <%= @lessons %><br />
+  <label class="amount">
+    <span>Total Amount: <%= number_to_currency(@amount) %></span>
+  </label>
+  <br> <%= link_to "Back to Booking", booking_path, :class => 'navbar-link'  %>
+  </p>
+  </article>
+  <article>
+  <%= hidden_field_tag(:amount, @amount) %>
+  <%= hidden_field_tag(:multiple_booking, @multiple_booking) %>
+  <%= hidden_field_tag(:start_time_hour, @start_time_hour) %>
+  <%= hidden_field_tag(:start_time_minute, @start_time_minute) %>
+  <%= hidden_field_tag(:end_time_minute, @end_time_minute) %>
+  <%= hidden_field_tag(:end_time_hour, @end_time_hour) %>
+  <%= hidden_field_tag(:end_time_hour, @end_time_hour) %>
+  <%= hidden_field_tag(:day_index, @day_index) %>
+  <%= hidden_field_tag(:month_index, @month_index) %>
+  <%= hidden_field_tag(:coach_id, @coach_id) %>
+  <%= hidden_field_tag(:num_classes, @num_classes) %>
+  <%= hidden_field_tag(:event_start_time, @event_start.strftime("%I:%M%p")) %>
+  <%= hidden_field_tag(:event_end_time, @event_end.strftime("%I:%M%p")) %>
+
+
+
+  </article>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Class Credits"
+          data-amount=@amount
+          data-zip-code="true"
+          data-billing-address="true"
+          data-locale="auto"></script>
+<% end %>
