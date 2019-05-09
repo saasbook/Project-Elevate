@@ -37,9 +37,9 @@ Rails.application.routes.draw do
 
 
   # availabilities routes
-  get 'users/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
-  post 'users/profile/availabilities' => 'user#add_availabilities', :as =>'add_availabilities'
-  delete 'users/profile/availabilities/:id' => 'user#delete_availabilities', :as =>'delete_availabilities'
+  get 'user/profile/availabilities' => 'user#availabilities', :as =>'availabilities'
+  post 'user/profile/availabilities' => 'user#add_availabilities', :as =>'add_availabilities'
+  delete 'user/profile/availabilities/:id' => 'user#delete_availabilities', :as =>'delete_availabilities'
 
 
   root to: "home#index"

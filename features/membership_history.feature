@@ -18,12 +18,12 @@ And I go to Login page
 # Note that I need to specify passwords here because the authentication process won't let me access user password 
 # All scenarios begin assuming no user is logged in yet
 Scenario: See change log table as admin
-  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
+  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to elevate page
   And I follow "User Membership Change Log"
   Then I should see "User Membership Change Log"
 
 Scenario: Update user and see change at the top of the log table
-  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to profile page
+  Given "Matthew Sie" logs in with correct password "dabaka22" and goes to elevate page
   And selects status "Club Member" for "Roger Destroyer"
   When I press "Roger Destroyer_update"
   And I follow "User Membership Change Log"

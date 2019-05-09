@@ -45,7 +45,7 @@ class UserController < ApplicationController
   end
 
   def availabilities
-    @time_table = CoachAvailability.sorted_avail_for_coach(:coach_id => current_user.id)
+    @time_table = CoachAvailability.sorted_avail_for_coach(current_user.id)
     render "availabilities"
   end
 

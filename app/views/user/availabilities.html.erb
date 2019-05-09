@@ -21,8 +21,7 @@
       <tr>
         <td><%= record.day%></td>
         <td><%= record.start_time.strftime("%l:%M%p")%> - <%= record.end_time.strftime("%l:%M%p") %> </td>
-        <td><%= link_to icon('far', 'trash-alt'), delete_availabilities_path(record.id), :id => 'delete_' + record.id.to_s, :method => :delete %>
-  </td>
+        <td><%= link_to icon('far', 'trash-alt'), delete_availabilities_path(record.id), :id => record.id.to_s + '_delete', :method => :delete %></td>
       </tr>
     <% end %>
   </tbody>

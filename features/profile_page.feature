@@ -25,9 +25,10 @@ Scenario: log in as a Manager
 
 
 # Note that I need to specify passwords here because the authentication process won't let me access user password 
-Scenario: log in as a Manager
-  Given "Matthew Sie" is a "Administrator"
-  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
-  Then "Matthew Sie" goes to "My Profile Page" 
-  And he should see the following: "Joe Chen, Roger Destroyer, John Doe"
+# Admins do not see events on profile page
+# Scenario: log in as a Manager
+#   Given "Matthew Sie" is a "Administrator"
+#   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+#   Then "Matthew Sie" goes to "My Profile Page" 
+#   And he should see the following: "Joe Chen, Roger Destroyer, John Doe"
   
