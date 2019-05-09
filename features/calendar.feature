@@ -85,29 +85,29 @@ Scenario: Log in as Roger Destroyer a Coach to see his Calendar
 #   When he follows the "1" "Details"
 #   And he should see the following: "Name, Start time, End time, Edit, View Calendar, Back to Profile"
 
-Scenario: Log in as Matthew Sie, an Admin to go to List of events
-  Given "Matthew Sie" is a "Administrator"
-  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
-  And I go to profile page
-  # And he should see the following: "Hi Matthew Sie, You have 0 activities today!"
-  # And he should see the following: "More..., Manage my Calendar"
-  And he should see the first five events
-  When he follows "More..."
-  Then he should see all the events
-  And he should see the following: "Back to Profile, View Calendar"
+# Scenario: Log in as Matthew Sie, an Admin to go to List of events
+#   Given "Matthew Sie" is a "Administrator"
+#   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+#   And I go to profile page
+#   # And he should see the following: "Hi Matthew Sie, You have 0 activities today!"
+#   # And he should see the following: "More..., Manage my Calendar"
+#   And he should see the first five events
+#   When he follows "More..."
+#   Then he should see all the events
+#   And he should see the following: "Back to Profile, View Calendar"
 
-Scenario: Log in as Matthew Sie, an Admin to see his Calendar
-  Given "Matthew Sie" is a "Administrator"
-  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
-  And I go to profile page
-  When he follows "Manage my Calendar"
-  Then he should see the events for this month
-  # And he should see the following: "Back to Profile"
+# Scenario: Log in as Matthew Sie, an Admin to see his Calendar
+#   Given "Matthew Sie" is a "Administrator"
+#   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+#   And I go to profile page
+#   When he follows "Manage my Calendar"
+#   Then he should see the events for this month
+#   # And he should see the following: "Back to Profile"
 
-Scenario: Log in as Matthew Sie a Administrator and wants to view the details of the first event shown on the profile page
-  Given "Matthew Sie" is a "Administrator"
-  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
-  And I go to profile page
-  Then he should see "Details"
-  When he follows the "1" "Details"
-  And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
+# Scenario: Log in as Matthew Sie a Administrator and wants to view the details of the first event shown on the profile page
+#   Given "Matthew Sie" is a "Administrator"
+#   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+#   And I go to profile page
+#   Then he should see "Details"
+#   When he follows the "1" "Details"
+#   And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
