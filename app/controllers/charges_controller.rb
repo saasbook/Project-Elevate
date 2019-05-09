@@ -186,7 +186,11 @@ class ChargesController < ApplicationController
       for i in 1..@num_classes do
         event_start = DateTime.new(DateTime.now.year.to_i, month_index, day_index, start_time.hour, start_time.minute, 0, "-07:00")
         event_end = DateTime.new(DateTime.now.year.to_i, month_index, day_index, end_time.hour, end_time.minute, 0, "-07:00")
-        lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
+        if i != @num_classes 
+          lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
+        else
+          lessons += "and " + Date::MONTHNAMES[month_index] + " " + day_index.to_s
+        end
         # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
         if check_time_past(event_start, true)
           return
@@ -206,7 +210,9 @@ class ChargesController < ApplicationController
       @coach_id, @multiple_booking = params[:coach_id], "true"
       @amount, @lessons = PaymentPackage.payment_package_price_by_num_class(@num_classes), lessons
       @event_start, @event_end = event_start, event_end
-
+      @og_amount = @num_classes * PaymentPackage.single_class_price
+      @savings = @og_amount - @amount
+      @savings_percent = (100 * @savings / @og_amount.to_f).round(2) 
     end
 
     def show

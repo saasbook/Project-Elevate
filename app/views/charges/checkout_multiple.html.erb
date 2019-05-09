@@ -1,3 +1,7 @@
+<div class="card text-center mx-auto w-50" style="width: 25rem;">
+  <div class="card-body">
+    <h5 class="card-title">Booking Details</h5>
+
 <%= form_tag charges_path do %>
     <article>
     <% if flash.now[:alert] %>
@@ -8,17 +12,32 @@
         <p><%= flash[:error] %></p>
       </div>
     <% end %>
-  <p>
-  Bundled Class Price (Total): <%= number_to_currency(@amount) %><br />
-  Number of Hours Booked: <%= @num_classes %><br />
-  Event Start:  <%= @event_start.strftime("%I:%M%p") %><br />
-  Event End: <%= @event_end.strftime("%I:%M%p") %><br />
-  On <%= @lessons %><br />
+  <p class="card-text">
+  Individual Class Prices (Total): <strong class="text-danger"><%= number_to_currency(@og_amount) %><br />
+  </p></strong>
+  <p class="card-text">
+  Bundled Class Price (Total): <strong class="text-success"><%= number_to_currency(@amount) %><br />
+  </p></strong>
+  <p class="card-text">
+  You Save: <strong class="text-success"><%= number_to_currency(@savings) + " (#{@savings_percent}%)" %><br />
+  </p></strong>
+  <p class="card-text">
+  Number of Classes Booked:<strong> <%= @num_classes %><br />
+  </p></strong>
+  <p class="card-text">
+  Event Start: <strong> <%= @event_start.strftime("%I:%M%p") %><br />
+  </p></strong>
+  <p class="card-text">
+  Event End: <strong><%= @event_end.strftime("%I:%M%p") %><br />
+  </p></strong>
+  <p class="card-text">
+  On <strong><%= @lessons %><br />
+  </p></strong>
+  <p class="card-text">
   <label class="amount">
-    <span>Total Amount: <%= number_to_currency(@amount) %></span>
+    <span>Total Amount: <strong><%= number_to_currency(@amount) %></span>
   </label>
-  <br> <%= link_to "Back to Booking", booking_path, :class => 'navbar-link'  %>
-  </p>
+  </p></strong>
   </article>
   <article>
   <%= hidden_field_tag(:amount, @amount) %>
@@ -46,3 +65,9 @@
           data-billing-address="true"
           data-locale="auto"></script>
 <% end %>
+</div>
+</div>
+</div>
+
+<br> <%= link_to "Back to Booking", multiple_booking_path, :class => 'navbar-link'  %>
+

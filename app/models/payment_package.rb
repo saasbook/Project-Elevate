@@ -6,4 +6,8 @@ class PaymentPackage < ApplicationRecord
     def self.payment_package_price_by_num_class(num_class)
         return PaymentPackage.where(:num_classes => num_class).first.price
     end
+
+    def name_and_num_classes
+        return "#{self.name} (#{self.num_classes})"
+    end
 end
