@@ -15,6 +15,10 @@ Background: Users in the Database
  | id  | coach_id     | day      | start_time    | end_time  |
  | 101 | 200          | Sunday   | 1pm           | 3pm       |
  | 102 | 200          | Sunday   | 4pm           | 7pm       |
+ 
+ Given the following payment_packages exist:
+  |  name  |   num_classes |   price   |
+  | Single |   1          |   10      |
 
 Scenario: Display availabilities
   Given "Jason Yang" is a "Club Member"
@@ -30,7 +34,7 @@ Scenario: Display availabilities
   And I should see "4:00PM - 5:00PM"
   And I should see "6:00PM - 7:00PM"
 
-Scenario: Successfully book a lesson
+Scenario: Selecting a time slot in the past
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
   And "Jason Yang" goes to "Booking Page"
@@ -40,7 +44,19 @@ Scenario: Successfully book a lesson
   And I press "View availabilities"
   When I choose the time slot "1:00PM - 2:00PM"
   And I press "Next"
-  Then I should see "Thank you for booking a lesson!"
+  Then I should see "Please choose a future time slot."
+
+Scenario: Successfully book a lesson
+  Given "Jason Yang" is a "Club Member"
+  And "Jason Yang" logs in with correct credentials with password "123456"
+  And "Jason Yang" goes to "Booking Page"
+  Then I select "Roger" from "user_coach"
+  And I select "December" from "user_month"
+  And I select "29" from "user_day"
+  And I press "View availabilities"
+  When I choose the time slot "1:00PM - 2:00PM"
+  And I press "Next"
+  Then I should see "Total Amount:"
 
 Scenario: Fail to select an availability
   Given "Jason Yang" is a "Club Member"

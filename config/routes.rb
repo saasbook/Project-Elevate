@@ -17,7 +17,6 @@ Rails.application.routes.draw do
 
   # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
-  post 'user/confirmation_booking' => 'user#confirmation_booking', :as => 'confirmation_booking'
   post 'user/profile/view_booking' => 'user#view_booking', :as =>'view_booking'
 
 
@@ -45,6 +44,6 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   # This needs to be at the end
-  # match '*path' => 'error#error_404', via: :all
+  match '*path' => 'error#error_404', via: :all
 
 end

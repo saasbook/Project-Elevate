@@ -6,20 +6,25 @@
       </div>
     <% end %>
   <p>
-  Number of Group Lesson Credits in Cart: <%= @group_num_credit %> ($<%= @group_cost %> per credit)<br />
-  Number of Assigned Private Lesson Credits in Cart: <%= @assigned_num_credit %> ($<%= @assigned_private_cost %> per credit)<br />
-  Number of Custom Private Lesson Credits in Cart: <%= @custom_num_credit %> ($<%= @custom_private_cost %> per credit)<br />
+  Single Class Price (1 hour): $<%= @single_class_price %><br />
+  Number of Hours Booked: <%= @number_hours %><br />
+  Event Start: <%= @event_start.strftime("%m/%d/%Y")%> at <%= @event_start.strftime("%I:%M%p") %><br />
+  Event End:  <%= @event_end.strftime("%m/%d/%Y")%> at <%= @event_end.strftime("%I:%M%p") %><br />
   <label class="amount">
     <span>Total Amount: <%= number_to_currency(@amount) %></span>
   </label>
-  <br> <%= link_to "Back to Cart", new_charge_path, :class => 'navbar-link'  %>
+  <br> <%= link_to "Back to Booking", booking_path, :class => 'navbar-link'  %>
   </p>
   </article>
   <article>
   <%= hidden_field_tag(:amount, @amount) %>
-  <%= hidden_field_tag(:group_num_credit, @group_num_credit) %>
-  <%= hidden_field_tag(:assigned_num_credit, @assigned_num_credit) %>
-  <%= hidden_field_tag(:custom_num_credit, @custom_num_credit) %>
+  <%= hidden_field_tag(:event_start, @event_start) %>
+  <%= hidden_field_tag(:event_end, @event_end) %>
+  <%= hidden_field_tag(:event_start_time, @event_start.strftime("%I:%M%p")) %>
+  <%= hidden_field_tag(:event_end_time, @event_end.strftime("%I:%M%p")) %>
+  <%= hidden_field_tag(:month, @month) %>
+  <%= hidden_field_tag(:day, @day) %>
+  <%= hidden_field_tag(:coach_id, @coach) %>
   </article>
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"

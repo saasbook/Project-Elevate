@@ -47,9 +47,6 @@ class ChargesController < ApplicationController
 
     public 
     def new
-      @possible_group_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
-      @possible_assigned_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
-      @possible_custom_credits = ['0','1', '2','3', '4', '5', '6', '7', '8', '9', '10']
     end
     
     def create
@@ -64,35 +61,55 @@ class ChargesController < ApplicationController
       #Actually sending customer invoices through email
       invoice.send_invoice
 
-      @custom_num_credit = params[:custom_num_credit].to_i + current_user.custom_num_credit.to_i
-      @group_num_credit = params[:group_num_credit].to_i + current_user.group_num_credit.to_i
-      @assigned_num_credit = params[:assigned_num_credit].to_i + current_user.assigned_num_credit.to_i
-      current_user.custom_num_credit = @custom_num_credit.to_s
-      current_user.group_num_credit = @group_num_credit.to_s
-      current_user.assigned_num_credit = @assigned_num_credit.to_s
-      current_user.save!
-     
+      # Storing booked lesson in the database
+      event_start_time = params[:event_start_time]
+      event_end_time = params[:event_end_time]
+      my_new_event_name = "Lesson: #{event_start_time} to #{event_end_time}"
+      coach_new_event_name = "Coaching: #{event_start_time} to #{event_end_time}"
+      my_new_event = Calendar.new(:name => my_new_event_name, :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => params[:event_start], :end_time => params[:event_end], :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
+      coach_new_event = Calendar.new(:name => coach_new_event_name, :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => params[:event_start], :end_time => params[:event_end], :typeEvent => "Coaching", :event_month => params[:month], :event_day => params[:day])
+      my_new_event.save!
+      coach_new_event.save!
+
       rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to new_charge_path
-     
     
     end
 
 
     def checkout
-        # Let's say assign_private is $50, custom_private is $100, and group is $25
-        @assigned_private_cost = PaymentPackage.single_class_price
-        @custom_private_cost = PaymentPackage.single_class_price
-        @group_cost = PaymentPackage.single_class_price
-        @custom_num_credit = params[:user][:custom_num_credit].to_i
-        @group_num_credit = params[:user][:group_num_credit].to_i
-        @assigned_num_credit = params[:user][:assigned_num_credit].to_i
-        @amount = @assigned_private_cost*@assigned_num_credit + @custom_private_cost*@custom_num_credit + @group_cost*@group_num_credit
-        if @amount.to_i == 0
-            flash[:error] = "Please select some credit"
-            redirect_to new_charge_path
-        end
+      if (params[:user].nil? || params[:user][:temp_availability].nil?)
+        flash[:alert] = "Please choose a time slot."
+        redirect_to :controller => "user", :action => "booking" 
+        return
+      end
+
+      # Parsing time
+      start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
+      end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
+      @event_start = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute, 0, "-07:00")
+      @event_end = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute, 0, "-07:00")
+      @month = params[:month]
+      @day = params[:day]
+      @coach = params[:coach_id]
+      
+      #Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error
+      if @event_start.past?
+        flash[:alert] = "Please choose a future time slot."
+        redirect_to :controller => "user", :action => "booking"
+        return
+      end
+
+
+      @single_class_price = PaymentPackage.single_class_price
+      @number_hours = 1
+      @amount = @single_class_price
+      # Only include this below if it is possible for amount to be 0
+      # if @amount.to_i == 0
+      #   flash[:error] = "Please select some credit"
+      #   redirect_to booking_path
+      # end
     end
 
     def show
