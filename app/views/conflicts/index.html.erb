@@ -7,7 +7,6 @@
       <th>Club Member Email</th>
       <th>Coach</th>
       <th>Coach Email</th>
-      <th>Date</th>
       <th>Start Time</th>
       <th>End Time</th>
       <th>Edit Event</th>
@@ -20,7 +19,6 @@
         <td class="club_member_email"><%= User.find(record.UserId).email%></td>
         <td class="coach"><%= User.find(record.OtherId).name%></td>
         <td class="coach_email"><%= User.find(record.OtherId).email%></td>
-        <td class="date"><%= record.event_month + ' ' + record.event_day%></td>
         <td class="start_time"><%= record.start_time%></td>
         <td class="end_time"><%= record.end_time%></td>
         <td class="edit"><%=  %></td>
