@@ -61,6 +61,7 @@ Scenario: Log in as Jason Yang a Club Member to see his Calendar
   And "Jason Yang" logs in with correct credentials with password "123456"
   And I go to profile page
   When he follows "More"
+  Then "Jason Yang" should see the first five events
 
 
 Scenario: Log in as Jason Yang a Club member and wants to view the details of the first event shown on the profile page
@@ -180,6 +181,17 @@ Scenario: Log in as Matthew Sie an Administrator to edit an event
   Then I fill in "Name" with "Change name"
   When I click "Submit"
   Then I should see "The event was successfully updated."
+
+Scenario: Log in as Matthew Sie an Administrator to delete an event
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  And I go to profile page
+  When he follows "View Other Calendars"
+  When he goes to "Joe Chen" event list
+  When he follows the "1" "Details"
+  When he follows "Delete"
+  When I grant ok
+  
   
 # Scenario: Log in as Matthew Sie an Administrator to edit an event
 #   Given "Matthew Sie" is a "Administrator"

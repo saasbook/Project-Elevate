@@ -12,9 +12,7 @@ class UserController < ApplicationController
     redirect_to membership_status_path
   end
 
-  def calendar
-     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
-  end
+
 
   #==================================
   #=         START   BOOKING        =
@@ -50,13 +48,8 @@ class UserController < ApplicationController
   #==================================
 
   def calendar
-    if current_user.membership == "Administrator"
-      @calendars = Calendar.all.where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
-    else 
-      @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
-    end
-  end 
-
+     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
+  end
 
   def availabilities
     @time_table = CoachAvailability.sorted_avail_for_coach(current_user.id)

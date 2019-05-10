@@ -20,7 +20,7 @@
         <td><%= user.email %></td>
         <td><%= link_to 'View Calendar', viewall_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "calendar" %></td>
         <td><%= link_to 'Event List', eventList_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "list" %></td>
-        <td><%= link_to 'Delete', member_profile_path, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-primary btn-sm'  %> </td>
+        
       </tr>
     <% end %>
   </tbody>

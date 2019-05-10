@@ -38,7 +38,7 @@
     <% if current_user.membership == "Administrator" or current_user.membership == "Manager" %>
       <p> </p>
       <%= link_to 'Edit Event', edit_calendar_path, :class => 'btn btn-primary btn-sm' %>
-      <%= link_to 'Delete', member_profile_path, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-primary btn-sm'  %>
+      <%= link_to 'Delete',  @calendar,  method: :delete, :class=> 'btn btn-primary btn-sm', data: { confirm: 'Are you sure?' } %>
     <% end %>
   </div>
 </div>
