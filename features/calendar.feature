@@ -56,6 +56,13 @@ Scenario: Log in as Jason Yang a Club Member to see his Calendar
   Then "Jason Yang" should see the events he is a part of for this month
   # And he should see the following: "Back to Profile"
 
+Scenario: Log in as Jason Yang a Club Member to see his Calendar
+  Given "Jason Yang" is a "Club Member"
+  And "Jason Yang" logs in with correct credentials with password "123456"
+  And I go to profile page
+  When he follows "More"
+
+
 Scenario: Log in as Jason Yang a Club member and wants to view the details of the first event shown on the profile page
   Given "Jason Yang" is a "Club Member"
   And "Jason Yang" logs in with correct credentials with password "123456"
