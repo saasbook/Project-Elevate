@@ -2,11 +2,15 @@
   <p class="alert alert-danger"><%= flash[:alert] %></p>
 <% end %>
 
+<div class="card mx-auto w-50">
+  <br><h5 class="card-title">Book a Class</h5>
+    <div class="card-body">
+
 <%= form_for :user, url: view_booking_path do |f| %>
   <div class="coaches">
     Choose Coach: <br />
     <% options = options_from_collection_for_select(@coaches, 'id', 'name') %>
-    <%= f.select :coach,  options %>
+    <%= f.select :coach,  options, class: 'form-control' %>
   </div>
 
   <div class="date">
@@ -17,28 +21,41 @@
       <% temp_month = flash[:month] %>
       <% temp_day = flash[:day] %>
     <% end %>
-    <%= f.select :month, Date::MONTHNAMES.drop(1), :selected => temp_month %>
-    <%= f.select :day, 1..31, :selected => temp_day %>
+    <div class="row">
+    <div class="col">
+    <%= f.select :month, Date::MONTHNAMES.drop(1), :selected => temp_month, class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :day, 1..31, :selected => temp_day, class: 'form-control form-control-sm' %>
+    </div>
   </div>
-
-  <%= f.submit value: 'View availabilities' %>
+  <br>
+  <%= f.submit value: 'View availabilities', class: 'btn btn-primary btn-sm' %>
 <% end %>
+</div>
+</div>
+</div>
 
 
 <% if flash[:coach] %>
+<div class="card mx-auto w-25">
+  <br><h5 class="card-title">Choose a Time</h5>
+    <div class="card-body">
   <%= form_for :user, url: checkout_path do |g| %>
     <% month_index = Date::MONTHNAMES.index(flash[:month]) %>
     <% CoachAvailability.where(:coach_id => flash[:coach].to_i, :day => DateTime.new(DateTime.now.year.to_i, month_index, flash[:day].to_i).strftime("%A")).each do |record| %>
       <table class="table table-hover">
-        <tbody>
+        <tbody >
           <% start_slot = record.start_time%>
           <% end_slot = start_slot + 1.hours %>
 
           <% while (!(start_slot.seconds_since_midnight.to_i == record.end_time.seconds_since_midnight.to_i) & !(end_slot.seconds_since_midnight.to_i > record.end_time.seconds_since_midnight.to_i)) %>
             <tr>
               <% if Booking.check_time_slot(start_slot, end_slot, flash[:coach].to_i, [month_index, flash[:day]]) %>
-                <td><%= g.radio_button :temp_availability, start_slot.to_s + "," + end_slot.to_s%></td>
-                <td><%= g.label :temp_availability, start_slot.strftime("%l:%M%p") + " - " + end_slot.strftime("%l:%M%p").strip%></td>
+                <td><%= g.radio_button :temp_availability, start_slot.to_s + "," + end_slot.to_s, class: 'form-check-input' %></td>
+                <p class="card-text">
+                <td align="center"><%= g.label :temp_availability, start_slot.strftime("%l:%M%p") + " - " + end_slot.strftime("%l:%M%p").strip%></td>
+                </p>
                 <td><%= hidden_field_tag(:month, month_index) %></td>
                 <td><%= hidden_field_tag(:day, flash[:day]) %></td>
                 <td><%= hidden_field_tag(:coach_id, flash[:coach]) %></td>
@@ -51,8 +68,11 @@
         </tbody>
       </table>
     <% end %>
-  <%= g.submit value: 'Next' %>
+  <%= g.submit value: 'Next', class: 'button btn btn-primary' %>
   <% end %>
 <% end %>
+</div>
+</div>
+</div>
 
 <%= link_to 'Back', root_path %>
