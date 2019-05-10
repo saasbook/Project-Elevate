@@ -12,11 +12,11 @@ class CalendarsController < ApplicationController
   
   def all 
     if not coach_member
-      if params[:name] != nil
-        @users = User.all
-      else
+      # if params[:name] != nil
+      #   @users = User.all
+      # else
         @users = User.all.where.not(:id => current_user.id)
-      end
+      # end
     else
       redirect_to member_profile_path
     end
