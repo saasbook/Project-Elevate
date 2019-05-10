@@ -10,6 +10,7 @@
               <td><%= calendar.name%></td>
               <td><%= calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
               <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
+              <td><%= link_to 'Delete',  @calendar,  method: :delete, :class=> 'navbar-link', data: { confirm: 'Are you sure?' } %></td>
             </div>
             </tr>
         <% end %>

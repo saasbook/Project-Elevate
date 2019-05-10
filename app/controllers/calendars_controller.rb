@@ -54,12 +54,16 @@ class CalendarsController < ApplicationController
   end
 
   # GET /calendars/1
-  def show
+  def redirecter
     if coach_member
       if @calendar.UserId != current_user.id and @calendar.UserId != nil
           redirect_to  member_profile_path
       end
     end 
+  end 
+  
+  def show
+    redirecter
     if !@calendar.UserId.nil? and !@calendar.OtherId.nil?
       if current_user.membership == 'Club Member'
         @student = User.find(@calendar.UserId).name
