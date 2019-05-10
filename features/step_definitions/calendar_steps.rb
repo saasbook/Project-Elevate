@@ -102,17 +102,6 @@ end
 Then /I hit the alert button/ do
   page.accept_confirm { click_button "OK" }
 end
-
-When /^I grant ok%/ do
-  begin
-    main, popup = page.driver.browser.window_handles
-    within_window(popup) do
-      click_on("OK")
-    end
-  rescue
-  end
-end
-
 When("I grant ok") do
   begin
     main, popup = page.driver.browser.window_handles
