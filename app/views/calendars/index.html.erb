@@ -9,8 +9,7 @@
       <% calendar.each do |calendar| %>
         <div>
           <%= link_to calendar.name, calendar_path(calendar), :class => 'navbar-link' %>
-          
-          <p><%= calendar.start_time.strftime("%H:%M") + " - " + calendar.end_time.strftime("%H:%M")%></p>
+          <p><%= calendar.start_time.strftime("%I:%M%p") + " - " + calendar.end_time.strftime("%I:%M%p")%></p>
         </div>
       <% end %>
     <% end %>
@@ -21,9 +20,9 @@
 <% end %> 
 
 
-<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %> 
+<%= link_to "Back to Profile", member_profile_path, :class => 'navbar-link'  %> 
 
  <% if current_user.membership == "Administrator" || current_user.membership == "Manager" %>
- | <%= link_to "View Other's Calendars", all_calendar_path, :class => 'navbar-link'  %> |
+ | <%= link_to "View Other Calendars", all_calendar_path, :class => 'navbar-link'  %> |
   <%= link_to 'New Event', new_calendar_path %>
 <% end %>

@@ -13,10 +13,6 @@
 
     </tr>
   </thead>
-    <%= form_tag(all_calendar_path method: :get) do %>
-    Store <%= text_field_tag :name, params[:name] %>
-    <%= submit_tag 'Search', name: nil %>
-  <% end %>
   <tbody>
     <% @users.each do |user| %>
       <tr>
@@ -29,6 +25,7 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to "Back to Profile", root_path, :class => 'navbar-link'  %>
+<%= link_to "Back to Profile", member_profile_path, :class => 'navbar-link'  %>
+
 
 

@@ -18,7 +18,7 @@ class CalendarsController < ApplicationController
         @users = User.all.where.not(:id => current_user.id)
       end
     else
-      redirect_to root_path
+      redirect_to member_profile_path
     end
   end
   
@@ -36,7 +36,7 @@ class CalendarsController < ApplicationController
       @calendars = Calendar.all.where(:UserId => [params[:UserId], nil]).order(:start_time)
       @user = User.all.where(:id => params[:UserId]).first
     else
-      redirect_to root_path
+      redirect_to  member_profile_path
     end
 
       # @admin = false
@@ -57,7 +57,7 @@ class CalendarsController < ApplicationController
   def show
     if coach_member
       if @calendar.UserId != current_user.id and @calendar.UserId != nil
-          redirect_to root_path
+          redirect_to  member_profile_path
       end
     end 
     if !@calendar.UserId.nil? and !@calendar.OtherId.nil?
@@ -76,7 +76,7 @@ class CalendarsController < ApplicationController
     @calendar = Calendar.new
     if coach_member
     
-      redirect_to root_path
+      redirect_to  member_profile_path
     end
   end
 
