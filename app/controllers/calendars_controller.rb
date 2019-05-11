@@ -52,17 +52,17 @@ class CalendarsController < ApplicationController
 
   # PATCH/PUT /calendars/1
   # PATCH/PUT /calendars/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @calendar.update(calendar_params)
-  #       format.html { redirect_to @calendar, notice: 'Calendar was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @calendar }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @calendar.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    respond_to do |format|
+      if @calendar.update(calendar_params)
+        format.html { redirect_to @calendar, notice: 'Calendar was successfully updated.' }
+        format.json { render :show, status: :ok, location: @calendar }
+      # else
+      #   format.html { render :edit }
+      #   format.json { render json: @calendar.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /calendars/1
   # DELETE /calendars/1.json
