@@ -1,6 +1,18 @@
 class UserController < ApplicationController
   before_action :authenticate_user!
+  protected
 
+  def check_valid_date(month, day)
+    begin
+      Date.parse("#{day}-#{month}-#{Time.now.year.to_s}")
+      return true
+    rescue ArgumentError
+      return false
+    end
+  end
+
+
+  public
   def update_other
     @other = User.find(params[:id])
     old_membership = @other.membership
@@ -23,23 +35,31 @@ class UserController < ApplicationController
   end
 
   def view_booking
-    flash[:coach] = "#{params[:user][:coach]}"
-    flash[:day] = "#{params[:user][:day]}"
-    flash[:month] = "#{params[:user][:month]}"
+    if check_valid_date(params[:user][:month], params[:user][:day])
+      flash[:coach] = "#{params[:user][:coach]}"
+      flash[:day] = "#{params[:user][:day]}"
+      flash[:month] = "#{params[:user][:month]}"
+    else
+      flash[:alert] = "Please select a valid date"
+    end
     redirect_to booking_path
   end
 
   def multiple_booking
     @coaches = User.coaches
-    @packages = PaymentPackage.where("num_classes > '1'")
+    @packages = PaymentPackage.where.not(name: "Single")
     render "multiple_booking"
   end
 
   def view_multiple_booking
-    flash[:coach] = "#{params[:user][:coach]}"
-    flash[:day] = "#{params[:user][:day]}"
-    flash[:month] = "#{params[:user][:month]}"
-    flash[:packages] = "#{params[:user][:packages]}"
+    if check_valid_date(params[:user][:month], params[:user][:day])
+      flash[:coach] = "#{params[:user][:coach]}"
+      flash[:day] = "#{params[:user][:day]}"
+      flash[:month] = "#{params[:user][:month]}"
+      flash[:packages] = "#{params[:user][:packages]}"
+    else
+      flash[:alert] = "Please select a valid date"
+    end
     redirect_to multiple_booking_path
   end
 

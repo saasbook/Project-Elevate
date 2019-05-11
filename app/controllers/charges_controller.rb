@@ -112,14 +112,14 @@ class ChargesController < ApplicationController
         start_time_minute, end_time_minute = params[:start_time_minute].to_i, params[:end_time_minute].to_i
         year_index = DateTime.now.year.to_i
         for i in 1..num_classes do
-          event_start = DateTime.new(year_index, month_index, day_index, start_time_hour, start_time_minute, 0, "-07:00")
-          event_end = DateTime.new(year_index, month_index, day_index, end_time_hour, end_time_minute, 0, "-07:00")
+          event_start = Time.zone.local(year_index, month_index, day_index, start_time_hour, start_time_minute, 0)
+          event_end = Time.zone.local(year_index, month_index, day_index, end_time_hour, end_time_minute, 0)
   
           temp_type_event, conflict = "Coaching", "No Conflict"
           if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
             conflict = "Conflict"
           end
-  
+          
           my_new_event = Calendar.new(:name => my_new_event_name, :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s, :conflict => conflict)
           coach_new_event = Calendar.new(:name => coach_new_event_name, :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s,  :conflict => conflict)
           event_arr << my_new_event
@@ -166,8 +166,8 @@ class ChargesController < ApplicationController
       # Parsing time
       start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
       end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
-      @event_start = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute, 0, "-07:00")
-      @event_end = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute, 0, "-07:00")
+      @event_start = Time.zone.local(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute, 0)
+      @event_end = Time.zone.local(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute, 0)
       @month = params[:month]
       @day = params[:day]
       @coach = params[:coach_id]
@@ -192,9 +192,9 @@ class ChargesController < ApplicationController
       @day_index, @month_index = day_index, month_index
       year_index = DateTime.now.year.to_i
       for i in 1..@num_classes do
-        event_start = DateTime.new(year_index, month_index, day_index, start_time.hour, start_time.minute, 0, "-07:00")
-        event_end = DateTime.new(year_index, month_index, day_index, end_time.hour, end_time.minute, 0, "-07:00")
-        if i != @num_classes 
+        event_start = Time.zone.local(year_index, month_index, day_index, start_time.hour, start_time.minute, 0)
+        event_end = Time.zone.local(year_index, month_index, day_index, end_time.hour, end_time.minute, 0)
+        if i != @num_classes or @num_classes == 1
           lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
         else
           lessons += "and " + Date::MONTHNAMES[month_index] + " " + day_index.to_s

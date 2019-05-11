@@ -4,7 +4,7 @@ class PaymentPackage < ApplicationRecord
     end
 
     def self.payment_package_price_by_num_class(num_class)
-        return PaymentPackage.where(:num_classes => num_class).first.price
+        return PaymentPackage.where(:num_classes => num_class).where.not(:name => 'Single').first.price
     end
 
     def name_and_num_classes
