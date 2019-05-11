@@ -116,7 +116,7 @@ class ChargesController < ApplicationController
           event_end = DateTime.new(year_index, month_index, day_index, end_time_hour, end_time_minute, 0, "-07:00")
   
           temp_type_event, conflict = "Coaching", "No Conflict"
-          if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index], year_index))
+          if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
             conflict = "Conflict"
           end
   
@@ -204,7 +204,7 @@ class ChargesController < ApplicationController
           return
         end
         # Checking if there are conflicted lessons and add the dates into a string
-        if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index], year_index))
+        if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
           conflicting_lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
         end
         # incrementing by 7 days and updating month and day

@@ -51,7 +51,7 @@
 
           <% while (!(start_slot.seconds_since_midnight.to_i == record.end_time.seconds_since_midnight.to_i) & !(end_slot.seconds_since_midnight.to_i > record.end_time.seconds_since_midnight.to_i)) %>
             <tr>
-              <% if Booking.check_time_slot(start_slot, end_slot, flash[:coach].to_i, [month_index, flash[:day]], DateTime.now.year.to_i) %>
+              <% if Booking.check_time_slot(start_slot, end_slot, flash[:coach].to_i, [month_index, flash[:day], DateTime.now.year.to_i]) %>
                 <td><%= g.radio_button :temp_availability, start_slot.to_s + "," + end_slot.to_s, class: 'form-check-input' %></td>
                 <p class="card-text">
                 <td align="center"><%= g.label :temp_availability, start_slot.strftime("%l:%M%p") + " - " + end_slot.strftime("%l:%M%p").strip%></td>
