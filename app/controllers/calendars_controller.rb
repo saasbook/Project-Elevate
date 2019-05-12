@@ -12,9 +12,6 @@ class CalendarsController < ApplicationController
   
   def all 
     if not coach_member
-      # if params[:name] != nil
-      #   @users = User.all
-      # else
         @users = User.all.where.not(:id => current_user.id)
       # end
     else
@@ -39,17 +36,6 @@ class CalendarsController < ApplicationController
       redirect_to  member_profile_path
     end
 
-      # @admin = false
-      # if current_user.membership == "Club Member"
-      #     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]).where.not(:typeEvent => [nil, ""]).order(:start_time)
-      # elsif current_user.membership == "Coach"
-      #     @calendars = Calendar.all.where(:UserId => [current_user.id, nil]) #only booked classes currently
-      # #add admin
-
-      # else
-      #   @calendars = Calendar.all
-      #   @admin = true
-      # end
 
   end
 
@@ -64,19 +50,21 @@ class CalendarsController < ApplicationController
   
   def show
     redirecter
-    if !@calendar.UserId.nil? and !@calendar.OtherId.nil?
-      if current_user.membership == 'Club Member'
-        @student = User.find(@calendar.UserId).name
-        @instructor = User.find(@calendar.OtherId).name
+    if !@calendar.UserId.nil? and !@calendar.OtherId.nil? and @calendar.UserId != 0 and @calendar.OtherId != 0
+      @user1 =  User.find(@calendar.UserId)
+      @user2 = User.find(@calendar.OtherId).name
+      if @user1.membership == "Club Member"
+        @student = @user1.name
+        @instructor =  @user2
       else
-        @instructor = User.find(@calendar.UserId).name
-        @student = User.find(@calendar.OtherId).name
-
+        @instructor = @user1.name
+        @student = @user2
       end
     end
   end
   # GET /calendars/new
   def new
+     @email = "z"
     @calendar = Calendar.new
     if coach_member
     
@@ -90,32 +78,83 @@ class CalendarsController < ApplicationController
 
   # POST /calendars
   # POST /calendars.json
-  def create
-      @calendar = Calendar.new(calendar_params)
-      respond_to do |format|
-        if @calendar.save
-          format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
-          format.json { render :show, status: :created, location: @calendar }
-        # else
-        #   format.html { render :new }
-        #   format.json { render json: @calendar.errors, status: :unprocessable_entity }
-        end
+  def redirecterError
+    flash[:error] = true
+      if !User.exists?(:email => params['calendar']['email1']) 
+        flash[:email1] = "Email 1 does not exist."
       end
+      if !User.exists?(:email => params['calendar']['email2']) 
+        flash[:email2] = "Email 2 does not exist."
+      end
+      redirect_to request.referrer
+  end  
+
+  def create
+    if params['calendar']['email1'] != "" and (!User.exists?(:email =>  params['calendar']['email1']) or  !User.exists?(:email =>  params['calendar']['email2']))
+      redirecterError
+    else 
+      @calendar = Calendar.new(calendar_params)
+      if params['calendar']['email1'] != ""
+        @calendarTemp = User.where(:email => params['calendar']['email1']).first
+        @calendar2Temp = User.where(:email => params['calendar']['email2']).first
+        @calendar.UserId = @calendarTemp.id
+        @calendar.OtherId = @calendar2Temp.id
+        if @calendar.UserId != nil
+          @calendar2 = Calendar.new(calendar_params)
+          @calendar2.OtherId = @calendar.UserId
+          @calendar2.UserId = @calendar.OtherId
+          respond_to do |format|
+            if @calendar.save and @calendar2.save
+              format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
+              format.json { render :show, status: :created, location: @calendar }
+            # else
+            #   format.html { render :new }
+            #   format.json { render json: @calendar.errors, status: :unprocessable_entity }
+            end
+          end
+        end 
+      else
+        respond_to do |format|
+          if @calendar.save
+            format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
+            format.json { render :show, status: :created, location: @calendar }
+          end
+        end 
+      end 
+    end
   end
 
   # PATCH/PUT /calendars/1
   # PATCH/PUT /calendars/1.json
   def update
-    respond_to do |format|
-      if @calendar.update(calendar_params)
-        format.html { redirect_to @calendar, notice: 'The event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @calendar }
-      # else
-      #   format.html { render :edit }
-      #   format.json { render json: @calendar.errors, status: :unprocessable_entity }
+    if params['calendar']['email1'] != "" and (!User.exists?(:email =>  params['calendar']['email1']) or  !User.exists?(:email =>  params['calendar']['email2']))
+      redirecterError
+    else    
+      respond_to do |format|
+        if params['calendar']['email1'] != ""
+          params['calendar']['UserId'] = User.where(:email => params['calendar']['email1']).first.id
+          params['calendar']['OtherId'] = User.where(:email => params['calendar']['email2']).first.id
+        end
+        if @calendar.UserId != nil
+          @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :details => @calendar.details, :name => @calendar.name, :start_time => @calendar.start_time, :end_time => @calendar.end_time)
+        end 
+        if @calendar.update(calendar_params)
+          temp = params['calendar']['UserId']
+          params['calendar']['UserId'] = params['calendar']['OtherId']
+          params['calendar']['OtherId'] = temp
+          if@calendar.UserId != nil 
+             @calendar2.update(calendar_params)
+          end
+          format.html { redirect_to @calendar, notice: 'The event was successfully updated.' }
+          format.json { render :show, status: :ok, location: @calendar }
+        # else
+        #   format.html { render :edit }
+        #   format.json { render json: @calendar.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
+  
   
   def coach_member
     x = current_user.membership == "Club Member" or current_user.membership == "Coach"
@@ -125,7 +164,14 @@ class CalendarsController < ApplicationController
   # DELETE /calendars/1
   # DELETE /calendars/1.json
   def destroy
+    if @calendar.UserId != nil
+      @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :details => @calendar.details, :name => @calendar.name, :start_time => @calendar.start_time, :end_time => @calendar.end_time).first
+      if @calendar2 != nil 
+        @calendar2.destroy
+      end
+    end
     @calendar.destroy
+    
     respond_to do |format|
       format.html { redirect_to member_profile_path , notice: 'The event was successfully destroyed.' }
       format.json { head :no_content }

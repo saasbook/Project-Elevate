@@ -86,7 +86,7 @@ class UserController < ApplicationController
     @name = current_user.name
     @membership = current_user.membership
     @calendars = current_user.get_calendar
-    @calendarsShow = @calendars.limit(5)
+    @calendarsShow = @calendars.where(:UserId => [current_user.id, nil]).limit(5)
     @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
 
     if current_user.membership == 'Club Member'

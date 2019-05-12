@@ -111,6 +111,17 @@ Scenario: Log in as Roger Destroyer a Coach to see his Calendar
   And he should see the following: "Back to Profile"
   And he should not see the following: "View Other's Calendars"
   
+Scenario: Log in as Roger Destroyer a coach to see details of his calendar
+  Given "Roger Destroyer" is a "Coach"
+  And "Roger Destroyer" logs in with correct credentials with password "12345678"
+  And I go to profile page
+  When he follows "More..."
+  Then he should see "Details"
+  When he follows the "1" "Details"
+  # And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
+  # And he should not see the following: "Edit Event, Delete"
+
+  
 Scenario: Log in as Matthew Sie, an Admin to go to List of events
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
@@ -157,16 +168,42 @@ Scenario: Log in as Matthew Sie an Administrator and wants to View Roger Destroy
   When he goes to "Joe Chen" event list
   Then he should be able to see all of "Joe Chen" events
   
-Scenario: Log in as Matthew Sie an Administrator to create a new event
+Scenario: Log in as Matthew Sie an Administrator to create a club event
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
   And I go to profile page
   And he follows "Manage my Calendar"
   When he follows "New Event"
-  When I fill in "Name" with "Testing"
-  Then I fill in "Details" with "Testing Create"
+  When I fill in "calendar[name]" with "Testing"
+  Then I fill in "calendar[details]" with "Testing Create"
   When I click "Submit" 
   Then I should see "The event was successfully created."
+
+Scenario: Log in as Matthew Sie an Administrator to create a coaching event
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  And I go to profile page
+  And he follows "Manage my Calendar"
+  When he follows "New Event"
+  When I fill in "calendar[name]" with "Coach Event"
+  When I fill in "calendar[email1]" with "jason@gmail.com"
+  When I fill in "calendar[email2]" with "rogerahh@gmail.com"
+  Then I fill in "calendar[details]" with "Testing Create"
+  When I click "Submit" 
+  Then I should see "The event was successfully created."
+  
+Scenario: Log in as Matthew Sie an Administrator to create a coaching event with wrong email
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  And I go to profile page
+  And he follows "Manage my Calendar"
+  When he follows "New Event"
+  When I fill in "calendar[name]" with "Coach Event"
+  When I fill in "calendar[email1]" with "jasonasdfasdf@gmail.com"
+  When I fill in "calendar[email2]" with "rogerahha@gmail.com"
+  Then I fill in "calendar[details]" with "Testing Create"
+  When I click "Submit" 
+  Then he should see the following: "Email 1 does not exist., Email 2 does not exist."
   
   
 Scenario: Log in as Matthew Sie an Administrator to edit an event
@@ -182,6 +219,21 @@ Scenario: Log in as Matthew Sie an Administrator to edit an event
   When I click "Submit"
   Then I should see "The event was successfully updated."
 
+Scenario: Log in as Matthew Sie an Administrator to edit an event with a wrong email 
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  And I go to profile page
+  When he follows "View Other Calendars"
+  When he goes to "Joe Chen" event list
+  When he follows the "1" "Details"
+  Then he should see the following: "Edit Event"
+  When he follows "Edit Event"
+  Then I fill in "Name" with "Change name"
+  When I fill in "calendar[email1]" with "jasonasdfasdf@gmail.com"
+  When I click "Submit"
+  Then I should see "Email 1 does not exist."
+
+
 Scenario: Log in as Matthew Sie an Administrator to delete an event
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
@@ -191,6 +243,7 @@ Scenario: Log in as Matthew Sie an Administrator to delete an event
   When he follows the "1" "Details"
   When he follows "Delete"
   When I grant ok
+  
   
   
 # Scenario: Log in as Matthew Sie an Administrator to edit an event

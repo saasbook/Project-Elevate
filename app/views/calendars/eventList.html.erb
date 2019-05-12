@@ -18,11 +18,10 @@
         <td><%= calendar.end_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
         <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
          <!--link_to 'Edit', edit_calendar_path(calendar)-->
-        <!--link_to 'Delete', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+        <td><%=link_to 'Delete', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to "Back to Profile", member_profile_path, :class => 'navbar-link'  %>
 
 <br>

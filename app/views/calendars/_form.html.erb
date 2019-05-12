@@ -1,30 +1,37 @@
+<% if !flash[:error].blank? %> 
+   <div class="flashNotice col last">
+     <% if !flash[:email1].blank? %>
+      <div class="alert alert-danger"><a href="#" class="alert-link"><%= flash[:email1]%></a></div>
+    <% end %> 
+    <% if !flash[:email2].blank? %> 
+      <div class="alert alert-danger"><a href="#" class="alert-link"><%= flash[:email2]%></a></div>
+    <% end %>
+<% end %> 
 <%= form_with(model: calendar, local: true) do |form| %>
-  <% if calendar.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(calendar.errors.count, "error") %> prohibited this calendar from being saved:</h2>
-
-      <ul>
-      <% calendar.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, :required => true %>
   </div>
 
   <div class="field">
     
-    <%= form.label :UserId %>
-    <%= form.number_field :UserId %>
+    <%= form.label "Email 1" %>
+    <% if params['id'] != nil and Calendar.where(:id => params['id']).first.UserId != nil  %>
+        <%= form.text_field :email1, :value => User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email  %>
+    <% else %> 
+      <%= form.text_field :email1 %>
+    <% end %> 
+    
   </div>
 
   <div class="field">
-    <%= form.label :OtherId %>
-    <%= form.number_field :OtherId %>
+    <%= form.label "Email 2" %>
+    <% if params['id'] != nil and Calendar.where(:id => params['id']).first.OtherId != nil %>
+      <%= form.text_field :email2, :value => User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email  %>
+    <% else %> 
+      <%= form.text_field :email2 %>
+    <% end %> 
+
   </div>
 
   <div class="field">
@@ -39,13 +46,9 @@
   
   <div class="field">
     <%= form.label :details %>
-    <%= form.text_field :details, :required => true%>
+    <%= form.text_field :details,  :class => "detailsBox" %>
   </div>
 
-  <div class="field">
-    <%= form.label :typeEvent %>
-    <%= form.check_box :typeEvent %>
-  </div>
 
   <div class="actions">
     <%= form.submit :Submit, :id => "Submit" %>
