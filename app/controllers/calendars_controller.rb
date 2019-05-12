@@ -12,8 +12,7 @@ class CalendarsController < ApplicationController
   
   def all 
     if not coach_member
-        @users = User.all.where.not(:id => current_user.id)
-      # end
+      @users = User.all.where.not(:id => current_user.id)
     else
       redirect_to member_profile_path
     end
@@ -23,8 +22,7 @@ class CalendarsController < ApplicationController
     setAdminCalendars
   end
   
-  def eventList
-    
+  def eventList 
     setAdminCalendars
   end 
   
@@ -81,8 +79,6 @@ class CalendarsController < ApplicationController
     if singleEmail
       flash[:both] = "Need both emails unless both are blank."
     end 
-      
-      
       redirect_to request.referrer
   end  
   
@@ -166,14 +162,11 @@ class CalendarsController < ApplicationController
           temp = params['calendar']['UserId']
           params['calendar']['UserId'] = params['calendar']['OtherId']
           params['calendar']['OtherId'] = temp
-          if@calendar.UserId != nil 
+          if @calendar.UserId != nil 
              @calendar2.update(calendar_params)
           end
           format.html { redirect_to @calendar, notice: 'The event was successfully updated.' }
           format.json { render :show, status: :ok, location: @calendar }
-        # else
-        #   format.html { render :edit }
-        #   format.json { render json: @calendar.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -209,7 +202,6 @@ class CalendarsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-
     def calendar_params
       params.require(:calendar).permit(:name, :UserId, :OtherId, :start_time, :end_time, :details, :conflict)
     end
