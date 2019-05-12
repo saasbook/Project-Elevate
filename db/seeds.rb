@@ -29,8 +29,7 @@ calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId 
             {:name => "Play with Joe Chen", :UserId => 5, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00", :event_day => "23", :event_month => "04"},
             {:name => "Play with Jason Yang", :UserId => 1, :OtherId => 5,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00", :event_day => "23", :event_month => "04"},
             {:name => "Coach Jason Yang", :UserId =>2, :OtherId => 5, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"},
-            {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"},
-            {:name => "Play with Jason Yang", :UserId => 2, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00", :event_day => "23", :event_month => "04", :conflict => "Conflict"}]
+            {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"}]
 
 calendars.each do |calendar|
   Calendar.create!(calendar)
