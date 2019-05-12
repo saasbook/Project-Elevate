@@ -3,6 +3,8 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8e4ebf79eb7e18659120/test_coverage)](https://codeclimate.com/github/zdehkordi/Project-Elevate/test_coverage)
 [![Build Status](https://travis-ci.org/zdehkordi/Project-Elevate.svg?branch=master)](https://travis-ci.org/zdehkordi/Project-Elevate)
 
+Find the live app: [https://project-elevate.herokuapp.com](https://project-elevate.herokuapp.com)
+
 Project Elevate is a website that is meant to help sports clubs create a system where athletes and coaches can log in and track their lessons, payments, and memberships.
 
 ## Features
