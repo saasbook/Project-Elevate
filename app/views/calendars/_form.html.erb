@@ -19,7 +19,7 @@
 
   <div class="field">
     
-    <%= form.label "Email 1" %>
+    <%= form.label "Student Email" %>
     <% if params['id'] != nil and Calendar.where(:id => params['id']).first.UserId != nil  %>
         <%= form.text_field :email1, :value => User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email  %>
     <% else %> 
@@ -29,7 +29,7 @@
   </div>
 
   <div class="field">
-    <%= form.label "Email 2" %>
+    <%= form.label "Coach Email" %>
     <% if params['id'] != nil and Calendar.where(:id => params['id']).first.OtherId != nil %>
       <%= form.text_field :email2, :value => User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email  %>
     <% else %> 
