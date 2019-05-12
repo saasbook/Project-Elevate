@@ -183,7 +183,7 @@ class CalendarsController < ApplicationController
   # DELETE /calendars/1.json
   def destroy
     if @calendar.UserId != nil
-      @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :details => @calendar.details, :name => @calendar.name, :start_time => @calendar.start_time, :end_time => @calendar.end_time).first
+      @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :start_time => @calendar.start_time, :end_time => @calendar.end_time).first
       if @calendar2 != nil 
         @calendar2.destroy
       end
