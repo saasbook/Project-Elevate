@@ -255,10 +255,8 @@ Scenario: Log in as Matthew Sie an Administrator to edit an event with a wrong e
   When he follows the "1" "Details"
   Then he should see the following: "Edit Event"
   When he follows "Edit Event"
-  Then I fill in "Name" with "Change name"
-  When I fill in "calendar[email1]" with "jasonasdfasdf@gmail.com"
-  When I click "Submit"
-  Then I should see "Email 1 does not exist."
+  Then I should see "chenjoe@gmail.com"
+  
 
 
 Scenario: Log in as Matthew Sie an Administrator to delete an event

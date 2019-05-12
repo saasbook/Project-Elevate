@@ -15,7 +15,12 @@ class PaymentPackageController < ApplicationController
     def create
         begin
             params[:payment_package].require([:name, :num_classes, :price])
-            PaymentPackage.create!(params[:payment_package].permit(:name, :num_classes, :price))
+            if params[:payment_package][:name] == "Single"
+                flash[:alert] = "Can not have two Single packages"
+                redirect_to payment_package_path and return
+            else
+                PaymentPackage.create!(params[:payment_package].permit(:name, :num_classes, :price))
+            end
         rescue => ex
             flash[:alert] = 'Missing fields or non-unqiue name'
         end

@@ -109,7 +109,6 @@ class ChargesController < ApplicationController
       my_new_event_name, coach_new_event_name = "Lesson: #{event_start_time} to #{event_end_time}", "Coaching: #{event_start_time} to #{event_end_time}"
       # Storing booked lessons in the database for multiple booking
       if params[:multiple_booking] == "true"
-        byebug
         num_classes = params[:num_classes].to_i
         month_index, day_index = params[:month_index].to_i, params[:day_index].to_i
         start_time_hour, end_time_hour = params[:start_time_hour].to_i, params[:end_time_hour].to_i
