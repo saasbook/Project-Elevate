@@ -156,14 +156,15 @@ class CalendarsController < ApplicationController
           params['calendar']['OtherId'] = User.where(:email => params['calendar']['email2']).first.id
         end
         if @calendar.UserId != nil
-          @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :details => @calendar.details, :name => @calendar.name, :start_time => @calendar.start_time, :end_time => @calendar.end_time)
+          @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :start_time => @calendar.start_time, :end_time => @calendar.end_time)
         end 
         if @calendar.update(calendar_params)
           temp = params['calendar']['UserId']
           params['calendar']['UserId'] = params['calendar']['OtherId']
           params['calendar']['OtherId'] = temp
           if @calendar.UserId != nil 
-             @calendar2.update(calendar_params)
+            params['calendar']['name'] = @calendar2.name
+            @calendar2.update(calendar_params)
           end
           format.html { redirect_to @calendar, notice: 'The event was successfully updated.' }
           format.json { render :show, status: :ok, location: @calendar }

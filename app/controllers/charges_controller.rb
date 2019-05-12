@@ -16,11 +16,10 @@ class ChargesController < ApplicationController
     def check_time_slot
       if (params[:user].nil? || params[:user][:temp_availability].nil?)
         flash[:alert] = "Please choose a time slot."
-        # use params[:packages] to check if it's sinlge booking or multibooking
-        if (params[:packages].blank?)
-          redirect_to :controller => "user", :action => "booking" 
-        else
+        if params[:action] == "checkout_multiple"
           redirect_to :controller => "user", :action => "multiple_booking" 
+        else
+          redirect_to :controller => "user", :action => "booking" 
         end
         return
       end
@@ -166,9 +165,6 @@ class ChargesController < ApplicationController
 
     def checkout
 
-      if params[:user].nil?
-        redirect_to booking_path and return
-      end
       # Parsing time
       start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
       end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
@@ -190,10 +186,6 @@ class ChargesController < ApplicationController
 
     # Checkout controller for multiple booking
     def checkout_multiple
-      if params[:user].nil?
-        redirect_to multiple_booking_path and return
-      end
-
       @num_classes = params[:packages].to_i
       start_time, end_time = DateTime.parse(params[:user][:temp_availability].split(',')[0]), DateTime.parse(params[:user][:temp_availability].split(',')[1])
 
@@ -216,12 +208,6 @@ class ChargesController < ApplicationController
     end
 
     def show
-      @back = request.original_url
-      if @back.end_with?('checkout')
-        return checkout
-      else
-        return checkout_multiple
-      end
     end
 
     def append_lesson(i, num_classes, month_index, day_index)

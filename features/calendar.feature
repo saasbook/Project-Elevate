@@ -244,21 +244,7 @@ Scenario: Log in as Matthew Sie an Administrator to edit an event
   When he follows "Edit Event"
   Then I fill in "Name" with "Change name"
   When I click "Submit"
-  Then I should see "The event was successfully updated."
-
-Scenario: Log in as Matthew Sie an Administrator to edit an event with a wrong email 
-  Given "Matthew Sie" is a "Administrator"
-  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
-  And I go to profile page
-  When he follows "View Other Calendars"
-  When he goes to "Joe Chen" event list
-  When he follows the "1" "Details"
-  Then he should see the following: "Edit Event"
-  When he follows "Edit Event"
-  Then I fill in "Name" with "Change name"
-  When I fill in "calendar[email1]" with "jasonasdfasdf@gmail.com"
-  When I click "Submit"
-  Then I should see "Email 1 does not exist."
+  Then I should see "The event was successfully updated."  
 
 
 Scenario: Log in as Matthew Sie an Administrator to delete an event
