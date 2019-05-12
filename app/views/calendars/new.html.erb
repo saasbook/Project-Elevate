@@ -1,5 +1,10 @@
-<h1>New Event</h1>
+<div class="card mx-auto w-50">
+  <div class="card-body">
+    <h2 class="card-title" style="text-align:center;">New Event</h2>
 
 <%= render 'form', calendar: @calendar %>
 
-<%= link_to 'Back', root_path %>
+</div>
+</div>
+
+<%= link_to 'Back to Profile', member_profile_path, class: 'btn btn-link' %>
