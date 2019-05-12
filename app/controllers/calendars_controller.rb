@@ -112,8 +112,7 @@ class CalendarsController < ApplicationController
     end 
     
     return false
-  end 
-
+  end
 
   def create
     if paramsEmailChecker

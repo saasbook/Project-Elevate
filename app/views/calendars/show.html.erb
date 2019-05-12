@@ -17,12 +17,14 @@
         <%= @instructor %>
       </p>
     <% end %> 
+    
     <% if @calendar.details != nil %>
       <p class="card-text"> 
         <strong>Details:</strong>
         <%= @calendar.details %>
       </p>
     <% end %> 
+    
 
     <p class="card-text">
       <strong>Start time:</strong>
@@ -33,7 +35,11 @@
       <strong>End time:</strong>
       <%= @calendar.end_time.strftime('%a %m/%d/%Y %I:%M%p') %>
     </p>
-    <%= link_to 'View Calendar', calendars_path, :class => 'btn btn-primary btn-sm' %>
+    <% if current_user.membership == "Administrator" and !@calendar.UserId.nil? %>
+      <%= link_to 'View Calendar', viewall_calendar_path(@calendar.UserId), :class => 'btn btn-primary btn-sm' %>
+    <% else %>
+      <%= link_to 'View Calendar', calendars_path, :class => 'btn btn-primary btn-sm' %>
+    <% end %> 
     <%= link_to "Back to Profile", member_profile_path, :class => 'btn btn-primary btn-sm' %>
     <% if current_user.membership == "Administrator" or current_user.membership == "Manager" %>
       <p> </p>
