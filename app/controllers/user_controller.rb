@@ -109,21 +109,18 @@ class UserController < ApplicationController
     @calendarsShow = @calendars.where(:UserId => [current_user.id, nil]).limit(5)
     @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
 
+    # For future developers: This part can be rewritten by inheriting interfaces so that it follows the open cloase principle. 
     if current_user.membership == 'Club Member'
       @user = current_user
       render "club_member_profile"
-      # Add everything else needed here
     elsif current_user.membership == 'Administrator'
       @users = User.all_users_except_admin
       render "administrator_profile"
-      # Add everything else needed here
     elsif current_user.membership == 'Coach'
       render "coach_profile"
-      # Add everything else needed here
     elsif current_user.membership == 'Manager'
       @users = User.manager_users_view
       render "manager_profile"
-      # Add everything else needed here
     end
   end
 
