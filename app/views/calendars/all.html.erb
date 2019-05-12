@@ -5,7 +5,7 @@
 
 <h2 class="text-center">Other's Calendars</h2>
 
-<table class="table table-hover">
+<table class="table table-hover" id="other_calendars">
   <thead>
     <tr>
       <th>User</th>
@@ -18,13 +18,12 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.membership %></td>
+      <tr id="<%= user.name + '_record'%>">
+        <td class="name"><%= user.name %></td>
+        <td class="email"><%= user.email %></td>
+        <td class="membership"><%= user.membership %></td>
         <td><%= link_to 'View Calendar', viewall_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "calendar" %></td>
         <td><%= link_to 'Event List', eventList_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "list" %></td>
-        
       </tr>
     <% end %>
   </tbody>
