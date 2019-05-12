@@ -192,6 +192,21 @@ Scenario: Log in as Matthew Sie an Administrator to create a coaching event
   When I click "Submit" 
   Then I should see "The event was successfully created."
   
+Scenario: Log in as Matthew Sie an Administrator to create and delete a coaching event
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  And I go to profile page
+  And he follows "Manage my Calendar"
+  When he follows "New Event"
+  When I fill in "calendar[name]" with "Coach Event"
+  When I fill in "calendar[email1]" with "jason@gmail.com"
+  When I fill in "calendar[email2]" with "rogerahh@gmail.com"
+  Then I fill in "calendar[details]" with "Testing Create"
+  When I click "Submit" 
+  When he follows "Delete"
+  When I grant ok
+  
+
 Scenario: Log in as Matthew Sie an Administrator to create a coaching event with wrong email
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"

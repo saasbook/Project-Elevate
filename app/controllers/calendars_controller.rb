@@ -88,17 +88,28 @@ class CalendarsController < ApplicationController
       end
       redirect_to request.referrer
   end  
+  
+  def createSetNames
+    @calendarTemp = User.where(:email => params['calendar']['email1']).first
+    @calendar2Temp = User.where(:email => params['calendar']['email2']).first
+    @calendar.UserId = @calendarTemp.id
+    @calendar.OtherId = @calendar2Temp.id
+  end 
+  
+  def paramsEmailChecker
+    if params['calendar']['email1'] != "" and (!User.exists?(:email =>  params['calendar']['email1']) or  !User.exists?(:email =>  params['calendar']['email2']))
+      return true
+    end 
+    return false
+  end 
 
   def create
-    if params['calendar']['email1'] != "" and (!User.exists?(:email =>  params['calendar']['email1']) or  !User.exists?(:email =>  params['calendar']['email2']))
+    if paramsEmailChecker
       redirecterError
     else 
       @calendar = Calendar.new(calendar_params)
       if params['calendar']['email1'] != ""
-        @calendarTemp = User.where(:email => params['calendar']['email1']).first
-        @calendar2Temp = User.where(:email => params['calendar']['email2']).first
-        @calendar.UserId = @calendarTemp.id
-        @calendar.OtherId = @calendar2Temp.id
+        createSetNames
         if @calendar.UserId != nil
           @calendar2 = Calendar.new(calendar_params)
           @calendar2.OtherId = @calendar.UserId
@@ -107,9 +118,6 @@ class CalendarsController < ApplicationController
             if @calendar.save and @calendar2.save
               format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
               format.json { render :show, status: :created, location: @calendar }
-            # else
-            #   format.html { render :new }
-            #   format.json { render json: @calendar.errors, status: :unprocessable_entity }
             end
           end
         end 
@@ -127,7 +135,7 @@ class CalendarsController < ApplicationController
   # PATCH/PUT /calendars/1
   # PATCH/PUT /calendars/1.json
   def update
-    if params['calendar']['email1'] != "" and (!User.exists?(:email =>  params['calendar']['email1']) or  !User.exists?(:email =>  params['calendar']['email2']))
+    if paramsEmailChecker
       redirecterError
     else    
       respond_to do |format|
