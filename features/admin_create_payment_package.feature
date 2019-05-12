@@ -14,7 +14,7 @@ And I go to Payment Packages Page
 Scenario: Add package successfully
   Then I should be on Payment Packages Page
   When I fill in "payment_package_name" with "Platinum"
-  And I fill in "payment_package_num_classes" with "10"
+  And I fill in "payment_package_num_classes" with "50"
   And I fill in "payment_package_price" with "200"
   And I press "Add package"
   Then I should be on Payment Packages Page
