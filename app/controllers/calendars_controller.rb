@@ -114,21 +114,15 @@ class CalendarsController < ApplicationController
           @calendar2 = Calendar.new(calendar_params)
           @calendar2.OtherId = @calendar.UserId
           @calendar2.UserId = @calendar.OtherId
-          respond_to do |format|
-            if @calendar.save and @calendar2.save
-              format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
-              format.json { render :show, status: :created, location: @calendar }
-            end
-          end
+          @calendar2.save
         end 
-      else
-        respond_to do |format|
+      end
+      respond_to do |format|
           if @calendar.save
             format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
             format.json { render :show, status: :created, location: @calendar }
           end
         end 
-      end 
     end
   end
 
