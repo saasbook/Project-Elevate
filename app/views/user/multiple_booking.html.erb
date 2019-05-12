@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="card mx-auto w-50">
-  <br><h5 class="card-title">Book a Class</h5>
+  <br><h5 class="card-title" style="text-align:center;">Book Recurring Lessons</h5>
     <div class="card-body">
 
 <%= form_for :user, url: view_multiple_booking_path do |f| %>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <br>
-  <%= f.submit value: 'View availabilities', class: 'btn btn-primary btn-sm' %>
+  <%= f.submit 'View availabilities', value: 'View availabilities', class: 'btn btn-primary btn-sm' %>
 <% end %>
 </div>
 </div>
@@ -50,7 +50,7 @@
 
 <% if flash[:coach] %>
 <div class="card mx-auto w-25">
-  <br><h5 class="card-title">Choose a Time</h5>
+  <br><h5 class="card-title" style="text-align:center;">Choose a Time</h5>
     <div class="card-body">
   <%= form_for :user, url: checkout_multiple_path do |g| %>
     <% month_index = Date::MONTHNAMES.index(flash[:month]) %>
@@ -76,7 +76,7 @@
         </tbody>
       </table>
     <% end %>
-  <%= g.submit value: 'Next', class: 'btn btn-primary btn-sm' %>
+  <%= g.submit 'Next', value: 'Next', class: 'button btn btn-primary' %>
   <% end %>
 <% end %>
 </div>
