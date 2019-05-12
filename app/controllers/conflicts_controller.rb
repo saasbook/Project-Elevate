@@ -8,7 +8,7 @@ class ConflictsController < ApplicationController
     end
     
     def index
-        @calendar = Calendar.all.where(:conflict => "Conflict")
+        @calendar = Calendar.all.where(:conflict => "Conflict").where.not(UserId: [nil, ""], OtherID: [nil, ""])
         if @calendar.empty?
             render 'no_conflicts'
         end
