@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get 'user/profile/membership_history' => 'membership_history#membership_history', :as => 'membership_history'
   get 'user/profile/membership_statuses' => 'user#membership_statuses', :as => 'membership_status'
 
+  # Route for admin to resolve conflicts that arise from recurring booking
+  get 'user/conflicts' => 'conflicts#index', :as => 'conflict'
+
   # booking routes
   get 'user/booking' => 'user#booking', :as => 'booking'
   get 'user/multiple_booking' => 'user#multiple_booking', :as => 'multiple_booking'
