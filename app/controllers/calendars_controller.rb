@@ -137,14 +137,13 @@ class CalendarsController < ApplicationController
         createSetNames
         if @calendar.UserId != nil
           createCal2
-          
         end 
       end
       respond_to do |format|
-          if @calendar.save
-            format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
-            format.json { render :show, status: :created, location: @calendar }
-          end
+          @calendar.save
+          format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
+          format.json { render :show, status: :created, location: @calendar }
+          
         end 
     end
   end
