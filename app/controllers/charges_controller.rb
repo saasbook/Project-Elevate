@@ -60,7 +60,10 @@ class ChargesController < ApplicationController
     end
 
     # Checking if the event time is before the current time
-    def check_time_past(event_start, multiple_booking)
+    def check_time_past(event_start, multiple_booking, year)
+      if year > DateTime.now.year.to_i
+        return false
+      end
       if event_start.past?
         flash[:alert] = "Please choose a future time slot."
         if multiple_booking
@@ -75,15 +78,20 @@ class ChargesController < ApplicationController
 
     # Check if increasing seven days update month based on current year If so, return correct day and month index. 
     # If not, just return day_index + 7 and original month_index
-    def update_day_month(day_index, month_index)
-       # incrementing by 7 days and updating month and day
+    def update_day_month(day_index, month_index, year_index)
+       # incrementing by 7 days and updating month and day and year
        day_index += 7
-       if (day_index > Time.days_in_month(month_index, year = DateTime.now.year.to_i))
-        updated_day_index = day_index - Time.days_in_month(month_index, year = DateTime.now.year.to_i)
+       if (day_index > 31) and (month_index == 12)
+        next_year = year_index + 1
+        updated_day_index = day_index - Time.days_in_month(1, year = next_year)
+        return [updated_day_index, 1, next_year]
+       end
+       if (day_index > Time.days_in_month(month_index, year = year_index))
+        updated_day_index = day_index - Time.days_in_month(month_index, year = year_index)
         updated_month_index = month_index + 1
-        return [updated_day_index, updated_month_index]
+        return [updated_day_index, updated_month_index, year_index]
        else
-        return [day_index, month_index]
+        return [day_index, month_index, year_index]
        end
     end
 
@@ -102,23 +110,23 @@ class ChargesController < ApplicationController
         month_index, day_index = params[:month_index].to_i, params[:day_index].to_i
         start_time_hour, end_time_hour = params[:start_time_hour].to_i, params[:end_time_hour].to_i
         start_time_minute, end_time_minute = params[:start_time_minute].to_i, params[:end_time_minute].to_i
-    
+        year_index = DateTime.now.year.to_i
         for i in 1..num_classes do
-          event_start = DateTime.new(DateTime.now.year.to_i, month_index, day_index, start_time_hour, start_time_minute, 0, "-07:00")
-          event_end = DateTime.new(DateTime.now.year.to_i, month_index, day_index, end_time_hour, end_time_minute, 0, "-07:00")
+          event_start = Time.zone.local(year_index, month_index, day_index, start_time_hour, start_time_minute, 0)
+          event_end = Time.zone.local(year_index, month_index, day_index, end_time_hour, end_time_minute, 0)
   
           temp_type_event, conflict = "Coaching", "No Conflict"
-          if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index]))
+          if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
             conflict = "Conflict"
           end
-  
+          
           my_new_event = Calendar.new(:name => my_new_event_name, :UserId => current_user.id, :OtherId => params[:coach_id].to_i, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s, :conflict => conflict)
           coach_new_event = Calendar.new(:name => coach_new_event_name, :UserId => params[:coach_id].to_i, :OtherId => current_user.id, :start_time => event_start, :end_time => event_end, :typeEvent => temp_type_event, :event_month => month_index.to_s, :event_day => day_index.to_s,  :conflict => conflict)
           event_arr << my_new_event
           event_arr << coach_new_event
   
           # incrementing by 7 days and updating month and day
-          day_index, month_index = update_day_month(day_index, month_index)
+          day_index, month_index, year_index = update_day_month(day_index, month_index, year_index)
         end
       else
          # Storing booked lesson in the database for single booking
@@ -158,14 +166,14 @@ class ChargesController < ApplicationController
       # Parsing time
       start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
       end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
-      @event_start = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute, 0, "-07:00")
-      @event_end = DateTime.new(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute, 0, "-07:00")
+      @event_start = Time.zone.local(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, start_time.hour, start_time.minute, 0)
+      @event_end = Time.zone.local(DateTime.now.year.to_i, params[:month].to_i, params[:day].to_i, end_time.hour, end_time.minute, 0)
       @month = params[:month]
       @day = params[:day]
       @coach = params[:coach_id]
       
       #Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error
-      if check_time_past(@event_start, false)
+      if check_time_past(@event_start, false, DateTime.now.year.to_i)
         return
       end
 
@@ -182,25 +190,25 @@ class ChargesController < ApplicationController
 
       day_index, month_index = params[:day].to_i, params[:month].to_i 
       @day_index, @month_index = day_index, month_index
-      
+      year_index = DateTime.now.year.to_i
       for i in 1..@num_classes do
-        event_start = DateTime.new(DateTime.now.year.to_i, month_index, day_index, start_time.hour, start_time.minute, 0, "-07:00")
-        event_end = DateTime.new(DateTime.now.year.to_i, month_index, day_index, end_time.hour, end_time.minute, 0, "-07:00")
-        if i != @num_classes 
+        event_start = Time.zone.local(year_index, month_index, day_index, start_time.hour, start_time.minute, 0)
+        event_end = Time.zone.local(year_index, month_index, day_index, end_time.hour, end_time.minute, 0)
+        if i != @num_classes or @num_classes == 1
           lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
         else
           lessons += "and " + Date::MONTHNAMES[month_index] + " " + day_index.to_s
         end
         # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
-        if check_time_past(event_start, true)
+        if check_time_past(event_start, true, year_index)
           return
         end
         # Checking if there are conflicted lessons and add the dates into a string
-        if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index]))
+        if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
           conflicting_lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
         end
         # incrementing by 7 days and updating month and day
-        day_index, month_index = update_day_month(day_index, month_index)
+        day_index, month_index, year_index = update_day_month(day_index, month_index, year_index)
       end
       if (conflicting_lessons != "")
         flash.now[:alert] = conflicting_lessons.prepend("(Please contact Admin for more information) Conflicting lessons on ")[0...-2]
