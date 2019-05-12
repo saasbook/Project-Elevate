@@ -113,19 +113,31 @@ class CalendarsController < ApplicationController
     
     return false
   end
-
+  
+  def containEmail1
+    if params['calendar']['email1'] != ""
+      return true
+    end
+    return false
+  end 
+  
+  def createCal2
+    @calendar2 = Calendar.new(calendar_params)
+    @calendar2.OtherId = @calendar.UserId
+    @calendar2.UserId = @calendar.OtherId
+    @calendar2.save
+  end
+  
   def create
     if paramsEmailChecker
       redirecterError
     else 
       @calendar = Calendar.new(calendar_params)
-      if params['calendar']['email1'] != ""
+      if containEmail1
         createSetNames
         if @calendar.UserId != nil
-          @calendar2 = Calendar.new(calendar_params)
-          @calendar2.OtherId = @calendar.UserId
-          @calendar2.UserId = @calendar.OtherId
-          @calendar2.save
+          createCal2
+          
         end 
       end
       respond_to do |format|
