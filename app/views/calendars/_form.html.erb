@@ -14,16 +14,16 @@
 <%= form_with(model: calendar, local: true) do |form| %>
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, :required => true %>
+    <%= form.text_field :name, :required => true, class: 'form-control form-control-sm' %>
   </div>
 
   <div class="field">
     
     <%= form.label "Student Email" %>
     <% if params['id'] != nil and Calendar.where(:id => params['id']).first.UserId != nil  %>
-        <%= form.text_field :email1, :value => User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email  %>
+        <%= form.text_field :email1, :value => User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email, class: 'form-control form-control-sm'  %>
     <% else %> 
-      <%= form.text_field :email1 %>
+      <%= form.text_field :email1, class: 'form-control form-control-sm' %>
     <% end %> 
     
   </div>
@@ -31,35 +31,42 @@
   <div class="field">
     <%= form.label "Coach Email" %>
     <% if params['id'] != nil and Calendar.where(:id => params['id']).first.OtherId != nil %>
-      <%= form.text_field :email2, :value => User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email  %>
+      <%= form.text_field :email2, :value => User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email, class: 'form-control form-control-sm'  %>
     <% else %> 
-      <%= form.text_field :email2 %>
+      <%= form.text_field :email2, class: 'form-control form-control-sm' %>
     <% end %> 
 
   </div>
 
-  <div class="field">
+<div class="row">
+  <div class="field col">
     <%= form.label :start_time %>
-    <%= form.datetime_select :start_time %>
+    <%# <div class='form-control form-control-sm'> %>
+    <%= form.datetime_select :start_time, ampm: true%>
+    <%# </div> %>
   </div>
 
-  <div class="field">
+  <div class="field col">
     <%= form.label :end_time %>
-    <%= form.datetime_select :end_time %>
+    <%# <div class='form-control form-control-sm'> %>
+    <%= form.datetime_select :end_time, ampm: true %>
+    <%# </div> %>
   </div>
-  
+ </div> 
+
   <div class="field">
     <%= form.label :details %>
-    <%= form.text_field :details,  :class => "detailsBox" %>
+    <%= form.text_field :details,  :class => "detailsBox", class: 'form-control form-control-sm' %>
   </div>
   
-  <div class="field">
-    <%= form.label :conflict %>
-    <%= form.check_box :conflict, {checked: true}, "Conflict", "None" %>
+  <div class="field form-check">
+    <%= form.check_box :conflict, {checked: true, class: 'form-check-input'}, "Conflict", "None" %>
+    <%= form.label :conflict, class: 'form-check-label' %>
+
   </div>
 
 
   <div class="actions">
-    <%= form.submit :Submit, :id => "Submit" %>
+    <%= form.submit :Submit, :id => "Submit", class: 'btn btn-primary' %>
   </div>
 <% end %>

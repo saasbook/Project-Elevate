@@ -1,9 +1,7 @@
-<p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5>
-
 <div class="card-deck">
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">User Membership Change Log</h5>
+    <h2 class="card-title text-center">User Membership Change Log</h2>
 <table class="table table-hover">
 <thead>
     <tr>
@@ -27,4 +25,9 @@
   </tbody>
 </table>
 
-<%= link_to "Back", :back %>
+</div>
+</div>
+</div>
+
+<br>
+<%= link_to "Back", membership_status_path, class: 'btn btn-link' %>

@@ -3,11 +3,14 @@
     <p class="alert alert-success"><%= notice %></p>
 <% end %>
 
-<table>
+<h2 class="text-center">Other's Calendars</h2>
+
+<table class="table table-hover">
   <thead>
     <tr>
       <th>User</th>
       <th>Email</th>
+      <th>Membership Status</th>
       <th>Calendar</th>
       <th>Event List</th>
 
@@ -18,6 +21,7 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
+        <td><%= user.membership %></td>
         <td><%= link_to 'View Calendar', viewall_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "calendar" %></td>
         <td><%= link_to 'Event List', eventList_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "list" %></td>
         
@@ -25,7 +29,7 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to "Back to Profile", member_profile_path, :class => 'navbar-link'  %>
+<%= link_to "Back", member_profile_path, :class => 'btn btn-link'  %>
 
 
 
