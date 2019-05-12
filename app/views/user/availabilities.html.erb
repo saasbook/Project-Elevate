@@ -5,7 +5,8 @@
 <br>
 
 <div class="card mx-auto w-75">
-    <h5 class="card-title">Current Availabilities</h5>
+    <p></p>
+    <h5 class="card-title" style="text-align:center;">Current Availabilities</h5>
   <div class="card-body">
 
 
@@ -15,7 +16,7 @@
   <th>Delete</th>
   <tbody >
     <% if @time_table.empty? %>
-      <h3> No Availabilities Found </h3>
+      <h5> No Availabilities Found </h5>
     <% end %>
     <% @time_table.each do |record| %>
       <tr>
@@ -31,7 +32,8 @@
 </div>
 <br>
 <div class="card mx-auto w-50">
-    <h5 class="card-title">Add Availability</h5>
+    <p></p>
+    <h5 class="card-title" style="text-align:center;">Add Availability</h5>
   <div class="card-body">
 <%= form_for :user, url: add_availabilities_path do |f| %>
 
@@ -71,6 +73,7 @@
     </div>
     </div>
     </div>
+    <p></p>
     <%= f.submit value: 'Add availibility', class: 'button btn btn-primary' %>
   </div>
 <% end %>
