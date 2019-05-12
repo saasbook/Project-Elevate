@@ -1,5 +1,13 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :user_tag
+
+  def user_tag
+      if user_signed_in?
+        @name = current_user.name
+        @membership = current_user.membership
+      end
+  end
 
   protected
 
