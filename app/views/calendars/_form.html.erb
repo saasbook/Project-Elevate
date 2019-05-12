@@ -9,7 +9,8 @@
     <% if !flash[:both].blank? %> 
       <div class="alert alert-danger"><a href="#" class="alert-link"><%= flash[:both]%></a></div>
     <% end %>
-<% end %> 
+<% end %>
+<div>Please leave both emails empty for a club event. </div>
 <%= form_with(model: calendar, local: true) do |form| %>
   <div class="field">
     <%= form.label :name %>
