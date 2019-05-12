@@ -19,7 +19,7 @@ Scenario: Add package successfully
   And I press "Add package"
   Then I should be on Payment Packages Page
   Then I should see "Platinum"
-  Then I should see "10"
+  Then I should see "50"
   Then I should see "200"
 
 Scenario: Add package but fill in form incorrectly
