@@ -70,7 +70,7 @@ Scenario: Log in as Jason Yang a Club member and wants to view the details of th
   And I go to profile page
   Then he should see "Details"
   When he follows the "1" "Details"
-  And he should see the following: "Name, Start time, End time, View Calendar, Back to Profile"
+  And he should see the following: "Name, Start time, End time, View All Calendars, Back to Profile"
   And he should not see the following: "Edit Event, Delete"
 
 Scenario: Log in as Jason Yang a Club Member and tries to go to the URL pages he shouldn't be able to 

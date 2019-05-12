@@ -60,7 +60,7 @@
   </div>
   
   <div class="field form-check">
-    <%= form.check_box :conflict, {checked: true, class: 'form-check-input'}, "Conflict", "None" %>
+    <%= form.check_box :conflict, {checked: @calendar.conflict == 'Conflict', class: 'form-check-input'}, "Conflict", "None" %>
     <%= form.label :conflict, class: 'form-check-label' %>
 
   </div>
