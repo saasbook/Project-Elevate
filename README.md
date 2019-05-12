@@ -13,8 +13,8 @@ Project Elevate is a website that is meant to help sports clubs create a system 
 * Ability to edit and create additional events
 
 ### Lesson Booking
-The booking system is broken down between a coach's perspective and a player's perspective.
-For the coach's perspective we designed the following:
+The booking system is broken down between a coach's perspective and a player's perspective.  
+For the coach's perspective we designed the following:  
 * Ability to add/edit/delete a coach's available times throughout the week
 * Ability for a coach to view his/her specific booked lessons on the calendar
 
@@ -25,14 +25,14 @@ For the player's perspective we designed the following:
 * Ability to choose a specific coach and date for a lesson
 * Have the player pay via Stripe to confirm the booking
 
-Booking lessons in bulk allow for the capability of having certain lessons overlap and conflict since you are signing up for a recurring weekly time.
-However, users are notified of any conflicting lessons and administrators are given the privilege of viewing and editing any events in order to resolve any conflicts.
-Packages determine how many bulk lessons a member can book at one and how much the bulk lessons cost, and can only be determined by an administrator.
+Booking lessons in bulk allow for the capability of having certain lessons overlap and conflict since you are signing up for a recurring weekly time.  
+However, users are notified of any conflicting lessons and administrators are given the privilege of viewing and editing any events in order to resolve any conflicts.  
+Packages determine how many bulk lessons a member can book at one and how much the bulk lessons cost, and can only be determined by an administrator.  
 
 ### Membership
-The membership was broken down into 3 primary categories: Member, Coach, Administrator
+The membership was broken down into 3 primary categories: Member, Coach, Administrator  
 
-All categories of membership are capable of the following:
+All categories of membership are capable of the following:  
 * Editing their user name/password/email
 * Viewing their personal calendar with personal events along with any club events that affects everyone
 
@@ -50,9 +50,9 @@ An administrator has the extra capabilities:
 * Edit calendar events to resolve conflicting events
 * Creating packages for bulk lessons and determining the prices
 
-When signing up for a new account, the account will initially start off with a Member status.
-In order to change one's membership status to coach, they must get the approval and actions of an administrator.
-Currently only one administrator account exists within the database.
+When signing up for a new account, the account will initially start off with a Member status.  
+In order to change one's membership status to coach, they must get the approval and actions of an administrator.  
+Currently only one administrator account exists within the database.  
 
 ## Deployment
 Currently the website is deployed via heroku and can be accessed at https://project-elevate.herokuapp.com/
@@ -71,7 +71,8 @@ rails db:reset
 rails db:migrate
 rails s
 ```
-This will clear any pre existing possible data in the rails database and seed the rails server with the seeded data before starting up the server. This is crucial for testing any administrator privileges as there is no other way to create an administrator account currently. The server should be running locally on default port 3000, or whichever specified port using the -p tag.
+This will clear any pre existing possible data in the rails database and seed the rails server with the seeded data before starting up the server.
+This is crucial for testing any administrator privileges as there is no other way to create an administrator account currently. The server should be running locally on default port 3000, or whichever specified port using the -p tag.  
 
 Lastly, in order to view coverage and tests run
 ```
