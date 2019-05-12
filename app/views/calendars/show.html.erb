@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p class='alert alert-success' id="notice"><%= notice %></p>
 <div class="card text-center mx-auto w-30" style="width: 25rem;">
   <div class="card-body">
     <h5 class="card-title">Event Details</h5>
@@ -34,25 +34,15 @@
       <strong>End time:</strong>
       <%= @calendar.end_time.strftime('%a %m/%d/%Y %I:%M%p') %>
     </p>
-    <% if current_user.membership == "Administrator" and !@calendar.UserId.nil? %>
-      <%= link_to 'View Calendar', viewall_calendar_path(@calendar.UserId), :class => 'btn btn-primary btn-sm' %>
-    <% else %>
-      <%= link_to 'View Calendar', calendars_path, :class => 'btn btn-primary btn-sm' %>
-    <% end %> 
-    <%= link_to "Back to Profile", member_profile_path, :class => 'btn btn-primary btn-sm' %>
     <% if current_user.membership == "Administrator" or current_user.membership == "Manager" %>
       <p> </p>
       <%= link_to 'Edit Event', edit_calendar_path, :class => 'btn btn-primary btn-sm' %>
-            <%= link_to 'New Event', new_calendar_path, :class => 'btn btn-primary btn-sm' %>
       <%= link_to 'Delete',  @calendar,  method: :delete, :class => 'btn btn-primary btn-sm', data: { confirm: 'Are you sure?' } %>
     <% end %>
   </div>
 </div>
 
 
-
-<p>
-  <%# <strong>Typeevent:</strong>
-  <%= @calendar.typeEvent %>
-</p>
+<%= link_to "View All Calendars", all_calendar_path, :class => 'btn btn-link' %>
+<%= link_to "Back to Profile", member_profile_path, :class => 'btn btn-link' %>
 

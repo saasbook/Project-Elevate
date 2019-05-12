@@ -1,7 +1,8 @@
 class ChargesController < ApplicationController
     before_action :authenticate_user!
     before_action :check_current_user
-    before_action :check_time_slot, only: [:checkout, :checkout_multiple]
+    before_action :check_time_slot_checkout, only: [:checkout]
+    before_action :check_time_slot_checkout_multiple, only: [:checkout_multiple]
   
     protected 
     # Check if current user is a club member. If not, redirect them to their profile page
@@ -13,15 +14,18 @@ class ChargesController < ApplicationController
     end
 
     # Check if any time slot is selected both for single booking and multibooking
-    def check_time_slot
+    def check_time_slot_checkout
       if (params[:user].nil? || params[:user][:temp_availability].nil?)
         flash[:alert] = "Please choose a time slot."
-        # use params[:packages] to check if it's sinlge booking or multibooking
-        if (params[:packages].blank?)
-          redirect_to :controller => "user", :action => "booking" 
-        else
-          redirect_to :controller => "user", :action => "multiple_booking" 
-        end
+        redirect_to :controller => "user", :action => "booking" 
+        return
+      end
+    end
+
+    def check_time_slot_checkout_multiple
+      if (params[:user].nil? || params[:user][:temp_availability].nil?)
+        flash[:alert] = "Please choose a time slot."
+        redirect_to :controller => "user", :action => "multiple_booking" 
         return
       end
     end
