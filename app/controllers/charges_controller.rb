@@ -166,6 +166,9 @@ class ChargesController < ApplicationController
 
     def checkout
 
+      if params[:user].nil?
+        redirect_to booking_path and return
+      end
       # Parsing time
       start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
       end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
@@ -187,10 +190,17 @@ class ChargesController < ApplicationController
 
     # Checkout controller for multiple booking
     def checkout_multiple
+      if params[:user].nil?
+        redirect_to multiple_booking_path and return
+      end
+
       @num_classes = params[:packages].to_i
       start_time, end_time = DateTime.parse(params[:user][:temp_availability].split(',')[0]), DateTime.parse(params[:user][:temp_availability].split(',')[1])
 
       day_info = [params[:day].to_i, params[:month].to_i, DateTime.now.year.to_i]
+      @day_index, @month_index, @year_index = day_info
+      @event_start = Time.zone.local(day_info[2], day_info[1], day_info[0], start_time.hour, start_time.minute, 0)
+      @event_end = Time.zone.local(day_info[2], day_info[1], day_info[0], end_time.hour, end_time.minute, 0)
 
       # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
       if check_time_past(Time.zone.local(day_info[2], day_info[1], day_info[0], start_time.hour, start_time.minute, 0), true, day_info[2])
@@ -206,6 +216,12 @@ class ChargesController < ApplicationController
     end
 
     def show
+      @back = request.original_url
+      if @back.end_with?('checkout')
+        return checkout
+      else
+        return checkout_multiple
+      end
     end
 
     def append_lesson(i, num_classes, month_index, day_index)

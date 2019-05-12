@@ -1,5 +1,7 @@
-<h3 style="text-align:center;"> Resolve Conflicts Log </h3>
-
+<div class="card-deck">
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title" style="text-align:center;"> Resolve Conflicts Log </h4>
 <table class="table table-hover">
 <thead>
     <tr>
@@ -21,8 +23,8 @@
         <td class="club_member_email"><%= User.find(record.UserId).email%></td>
         <td class="coach"><%= User.find(record.OtherId).name%></td>
         <td class="coach_email"><%= User.find(record.OtherId).email%></td>
-        <td class="start_time"><%= record.start_time%></td>
-        <td class="end_time"><%= record.end_time%></td>
+        <td class="start_time"><%= record.start_time.strftime('%a %m/%d/%Y %I:%M%p')%></td>
+        <td class="end_time"><%= record.end_time.strftime('%a %m/%d/%Y %I:%M%p')%></td>
         <td class="edit">      
             <%= link_to "Resolve", edit_calendar_path(record.id) %>
         </td>
@@ -30,5 +32,10 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
+</div>
+</div>
+<p>
+<p>
 <%= link_to "Back", :back %>
+</p>

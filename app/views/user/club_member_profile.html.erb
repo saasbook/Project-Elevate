@@ -2,11 +2,11 @@
 <% if flash[:alert] %>
 <p class="alert alert-danger"><%= flash[:alert] %></p>
 <% end %>
-<p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5> </p>
+<p> <h4 style="text-align:center;"> My Profile</h4> </p>
 
 <div class="card mx-auto w-75">
   <div class="card-body">
-    <h5 class="card-title">Upcoming Events</h5>
+    <h5 class="card-title" style="text-align:center;">Upcoming Events</h5>
         <table class="table table-hover">
         <% @calendarsShow.each do |calendar| %>
             <tr>
@@ -24,6 +24,10 @@
         
   </div>
 </div>
+</div>
+
+<div class="px-3">
+ <%= link_to 'Back', root_path, class: 'button btn btn-link' %>
 </div>
 
 
