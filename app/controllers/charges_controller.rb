@@ -189,6 +189,11 @@ class ChargesController < ApplicationController
 
       day_info = [params[:day].to_i, params[:month].to_i, DateTime.now.year.to_i]
 
+      # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
+      if check_time_past(Time.zone.local(day_info[2], day_info[1], day_info[0], start_time.hour, start_time.minute, 0), true, day_info[2])
+        return
+      end
+
       lessons, conflicting_lessons = get_lessons(@num_classes, day_info, start_time, end_time)
       
       @start_time_hour, @start_time_minute, @end_time_hour, @end_time_minute = start_time.hour, start_time.minute, end_time.hour, end_time.minute
@@ -216,10 +221,7 @@ class ChargesController < ApplicationController
         event_start = Time.zone.local(year_index, month_index, day_index, start_time.hour, start_time.minute, 0)
         event_end = Time.zone.local(year_index, month_index, day_index, end_time.hour, end_time.minute, 0)
         lessons += append_lesson(i, num_classes, month_index, day_index)
-        # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
-        if check_time_past(event_start, true, year_index)
-          return
-        end
+        
         # Checking if there are conflicted lessons and add the dates into a string
         if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
           conflicting_lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
