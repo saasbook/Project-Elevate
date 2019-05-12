@@ -31,7 +31,6 @@ calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId 
             {:name => "Coach Jason Yang", :UserId =>2, :OtherId => 5, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"},
             {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"}]
 
-
 calendars.each do |calendar|
   Calendar.create!(calendar)
 end

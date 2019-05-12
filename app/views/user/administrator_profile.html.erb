@@ -1,12 +1,35 @@
 
 <p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5>
 
+<div class="card mx-auto w-75">
+  <div class="card-body">
+    <h5 class="card-title">Upcoming Events</h5>
+        <table class="table table-hover">
+        <% @calendarsShow.each do |calendar| %>
+            <tr>
+              <td><%= calendar.name%></td>
+              <td><%= calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
+              <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
+              <td><%= link_to 'Delete',  calendar,  method: :delete, :class=> 'navbar-link', data: { confirm: 'Are you sure?' } %></td>
+            </div>
+            </tr>
+        <% end %>
+
+        </table>
+        <%= link_to "More...", user_calendar_path, :class => 'navbar-link' %>
+        
+  </div>
+</div>
+</div>
+<p></p>
 <div class="text-center">
   <a href="<%= membership_status_path %>" class="btn btn-primary active" role="button" aria-pressed="true">Edit Membership Statuses</a>  
-  <a href="<%= payment_package_path %>" class="btn btn-primary active" role="button" aria-pressed="true">Edit Payment Packages</a>  
+  <a href="<%= payment_package_path %>" class="btn btn-primary active" role="button" aria-pressed="true">Edit Payment Packages</a>
+  <a href="<%= calendars_path %>" class="btn btn-primary active" role="button" aria-pressed="true">Manage my Calendar</a>
+  
+  <p> </p>
+  <a href="<%= all_calendar_path %>" class="btn btn-primary active" role="button" aria-pressed="true">View Other Calendars</a>
+  <a href="<%= new_calendar_path %>" class="btn btn-primary active" role="button" aria-pressed="true">New Event</a>
 </div>
-
-
-<br> <%= link_to "Home", root_path %>
 </p>
 

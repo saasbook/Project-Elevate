@@ -33,9 +33,13 @@ Rails.application.routes.draw do
   get 'user/calendar' => 'user#calendar', :as => 'user_calendar'
 
   get '/' => 'home#index', :as => 'root'
+  
+  get 'calendar/viewall' => 'calendars#all', :as => 'all_calendar'
+  get 'calendar/viewall/:UserId' => 'calendars#viewall', :as => 'viewall_calendar'
+  get 'calendar/viewall/eventlist/:UserId' => 'calendars#eventList', :as => 'eventList_calendar'
 
   get '/pass' => 'home#pass', :as => 'pass'
-
+  
 
 
   # availabilities routes
