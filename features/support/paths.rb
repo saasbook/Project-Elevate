@@ -51,6 +51,9 @@ module NavigationHelpers
     when /^profile page$/i
       member_profile_path
 
+    when /^conflict page$/i
+      conflict_path
+      
     else
       begin
         page_name =~ /^the (.*) page$/
