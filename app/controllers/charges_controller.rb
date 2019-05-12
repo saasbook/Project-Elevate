@@ -109,7 +109,6 @@ class ChargesController < ApplicationController
       my_new_event_name, coach_new_event_name = "Lesson: #{event_start_time} to #{event_end_time}", "Coaching: #{event_start_time} to #{event_end_time}"
       # Storing booked lessons in the database for multiple booking
       if params[:multiple_booking] == "true"
-        byebug
         num_classes = params[:num_classes].to_i
         month_index, day_index = params[:month_index].to_i, params[:day_index].to_i
         start_time_hour, end_time_hour = params[:start_time_hour].to_i, params[:end_time_hour].to_i
@@ -167,6 +166,9 @@ class ChargesController < ApplicationController
 
     def checkout
 
+      if params[:user].nil?
+        redirect_to booking_path and return
+      end
       # Parsing time
       start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
       end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
@@ -188,6 +190,10 @@ class ChargesController < ApplicationController
 
     # Checkout controller for multiple booking
     def checkout_multiple
+      if params[:user].nil?
+        redirect_to multiple_booking_path and return
+      end
+
       @num_classes = params[:packages].to_i
       start_time, end_time = DateTime.parse(params[:user][:temp_availability].split(',')[0]), DateTime.parse(params[:user][:temp_availability].split(',')[1])
 
@@ -210,6 +216,12 @@ class ChargesController < ApplicationController
     end
 
     def show
+      @back = request.original_url
+      if @back.end_with?('checkout')
+        return checkout
+      else
+        return checkout_multiple
+      end
     end
 
     def append_lesson(i, num_classes, month_index, day_index)
