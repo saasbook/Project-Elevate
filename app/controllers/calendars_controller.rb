@@ -128,24 +128,34 @@ class CalendarsController < ApplicationController
     @calendar2.save
   end
   
-  def create
-    if paramsEmailChecker
-      redirecterError
-    else 
-      @calendar = Calendar.new(calendar_params)
-      if containEmail1
-        createSetNames
-        if @calendar.UserId != nil
-          createCal2
-        end 
-      end
-      respond_to do |format|
-          @calendar.save
-          format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
-          format.json { render :show, status: :created, location: @calendar }
-          
-        end 
+  def createResponse
+    respond_to do |format|
+      @calendar.save
+      format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
+      format.json { render :show, status: :created, location: @calendar }
     end
+  end 
+  
+  def create
+    @calendar = Calendar.new(calendar_params)
+    if containEmail1
+      if !User.exists?(:email =>  params['calendar']['email1']) or !User.exists?(:email =>  params['calendar']['email2'])
+        redirecterError
+        return 
+      end 
+      createSetNames
+      if @calendar.UserId != nil
+        createCal2
+      end
+      createResponse
+    else 
+      if params['calendar']['email2'] != ""
+        redirecterError
+        return 
+      end 
+      createResponse
+    end 
+    
   end
 
   # PATCH/PUT /calendars/1
