@@ -1,0 +1,73 @@
+<div class="card text-center mx-auto w-50" style="width: 25rem;">
+  <div class="card-body">
+    <h5 class="card-title">Booking Details</h5>
+
+<%= form_tag charges_path do %>
+    <article>
+    <% if flash.now[:alert] %>
+    <p class="alert alert-warning"><%= flash.now[:alert] %></p>
+    <% end %>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+  <p class="card-text">
+  Individual Class Prices (Total): <strong class="text-danger"><%= number_to_currency(@og_amount) %><br />
+  </p></strong>
+  <p class="card-text">
+  Bundled Class Price (Total): <strong class="text-success"><%= number_to_currency(@amount) %><br />
+  </p></strong>
+  <p class="card-text">
+  You Save: <strong class="text-success"><%= number_to_currency(@savings) + " (#{@savings_percent}%)" %><br />
+  </p></strong>
+  <p class="card-text">
+  Number of Classes Booked:<strong> <%= @num_classes %><br />
+  </p></strong>
+  <p class="card-text">
+  Event Start: <strong> <%= @event_start.strftime("%I:%M%p") %><br />
+  </p></strong>
+  <p class="card-text">
+  Event End: <strong><%= @event_end.strftime("%I:%M%p") %><br />
+  </p></strong>
+  <p class="card-text">
+  On <strong><%= @lessons %><br />
+  </p></strong>
+  <p class="card-text">
+  <label class="amount">
+    <span>Total Amount: <strong><%= number_to_currency(@amount) %></span>
+  </label>
+  </p></strong>
+  </article>
+  <article>
+  <%= hidden_field_tag(:amount, @amount) %>
+  <%= hidden_field_tag(:multiple_booking, @multiple_booking) %>
+  <%= hidden_field_tag(:start_time_hour, @start_time_hour) %>
+  <%= hidden_field_tag(:start_time_minute, @start_time_minute) %>
+  <%= hidden_field_tag(:end_time_minute, @end_time_minute) %>
+  <%= hidden_field_tag(:end_time_hour, @end_time_hour) %>
+  <%= hidden_field_tag(:end_time_hour, @end_time_hour) %>
+  <%= hidden_field_tag(:day_index, @day_index) %>
+  <%= hidden_field_tag(:month_index, @month_index) %>
+  <%= hidden_field_tag(:coach_id, @coach_id) %>
+  <%= hidden_field_tag(:num_classes, @num_classes) %>
+  <%= hidden_field_tag(:event_start_time, @event_start.strftime("%I:%M%p")) %>
+  <%= hidden_field_tag(:event_end_time, @event_end.strftime("%I:%M%p")) %>
+
+
+
+  </article>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Class Credits"
+          data-amount=@amount
+          data-zip-code="true"
+          data-billing-address="true"
+          data-locale="auto"></script>
+<% end %>
+</div>
+</div>
+</div>
+
+<br> <%= link_to "Back to Booking", multiple_booking_path, :class => 'navbar-link'  %>
+

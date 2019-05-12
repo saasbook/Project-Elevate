@@ -11,8 +11,8 @@ users = [{:name => 'Joe Chen', :email => 'chenjoe@gmail.com', :password => '8888
     	  {:name => 'Roger Destroyer', :email => 'rogerahh@gmail.com', :password => '12345678', :membership => 'Coach', :confirmed_at => Time.now.utc},
 				{:name => 'Matthew Sie', :email => 'matthew.sie@berkeley.edu', :password => 'dabaka22', :membership => 'Administrator', :confirmed_at => Time.now.utc},
 				{:name => 'John Doe', :email => 'johndoe@gmail.com', :password => '12345678', :membership => 'Manager', :confirmed_at => Time.now.utc},
-				# {:name => 'Jason Yang', :email => 'jason@gmail.com', :password => '123456', :membership => 'Club Member', :confirmed_at => Time.now.utc},
-				# {:name => 'Pizza', :email => 'pizza@gmail.com', :password => '12345678', :membership => 'Coach', :confirmed_at => '2013-02-02 01:00:00 UTC'} 
+				{:name => 'Jason Yang', :email => 'jason@gmail.com', :password => '123456', :membership => 'Club Member', :confirmed_at => Time.now.utc}
+				# {:name => 'Pizza', :email => 'pizza@gmail.com', :password => '12345678', :membership => 'Coach', :confirmed_at => '2013-02-02 01:00:00 UTC'}
   	 ]
 
 users.each do |user|
@@ -30,7 +30,7 @@ calendars = [{:name => "Train with the Roger Destroyer", :UserId => 1, :OtherId 
             {:name => "Play with Jason Yang", :UserId => 1, :OtherId => 5,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00", :event_day => "23", :event_month => "04"},
             {:name => "Coach Jason Yang", :UserId =>2, :OtherId => 5, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"},
             {:name => "Train with Roger Destroyer", :UserId =>5, :OtherId => 2, :typeEvent => "Coaching", :start_time => "2019-04-14 10:00:00", :end_time => "2019-04-14 12:00:00", :event_day => "14", :event_month => "04"},
-            {:name => "Play with Jason Yang", :UserId => 2, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00", :event_day => "23", :event_month => "04", :conflict => "Conflict"},]
+            {:name => "Play with Jason Yang", :UserId => 2, :OtherId => 1,  :typeEvent => "Play", :start_time => "2019-04-23 10:00:00", :end_time => "2019-04-23 12:00:00", :event_day => "23", :event_month => "04", :conflict => "Conflict"}]
 
 calendars.each do |calendar|
   Calendar.create!(calendar)
@@ -38,22 +38,23 @@ end
 
 
 payment_packages = [{:name => "Single", :num_classes => 1, :price => 20},
-                    {:name => "Bronze", :num_classes => 5, :price => 100}, 
-                    {:name => "Silver", :num_classes => 10, :price => 175}, 
+                    {:name => "Bronze", :num_classes => 5, :price => 100},
+                    {:name => "Silver", :num_classes => 10, :price => 175},
                     {:name => "Gold", :num_classes => 20, :price => 300}]
 
 payment_packages.each do |pp|
   PaymentPackage.create!(pp)
-end 
+end
 
-availabilities = [{:coach_id => "6", :day => "Sunday", :start_time => "1pm", :end_time  => "3pm"}, 
-                  {:coach_id => "6", :day => "Sunday", :start_time => "4pm", :end_time => "7pm"}, 
-                  {:coach_id => "6", :day => "Sunday", :start_time => "9am", :end_time => "12pm"}, 
-                  {:coach_id => "6", :day => "Sunday", :start_time => "12pm", :end_time => "3pm"}, 
+availabilities = [{:coach_id => "6", :day => "Sunday", :start_time => "1pm", :end_time  => "3pm"},
+                  {:coach_id => "6", :day => "Sunday", :start_time => "4pm", :end_time => "7pm"},
+                  {:coach_id => "6", :day => "Sunday", :start_time => "9am", :end_time => "12pm"},
+                  {:coach_id => "6", :day => "Sunday", :start_time => "12pm", :end_time => "3pm"},
                   {:coach_id => "6", :day => "Monday", :start_time => "12pm", :end_time => "3pm"},
-                  {:coach_id => "6", :day => "Monday", :start_time => "3pm", :end_time => "6pm"}]
+                  {:coach_id => "6", :day => "Monday", :start_time => "3pm", :end_time => "6pm"},
+                  {:coach_id => "2", :day => "Tuesday", :start_time => "12pm", :end_time => "3pm"},
+                  {:coach_id => "1", :day => "Tuesday", :start_time => "12pm", :end_time => "3pm"}]
 
 availabilities.each do |avail|
   CoachAvailability.create!(avail)
 end
-

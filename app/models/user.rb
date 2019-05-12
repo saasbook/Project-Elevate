@@ -30,4 +30,11 @@ class User < ApplicationRecord
     return User.select(:id, :name, :email, :membership).where(:membership => ["Club Member", "Coach"])
   end
 
+  def get_calendar
+    if self.membership == "Club Member" or self.membership == "Coach"
+      @calendars = Calendar.all.where(:UserId => [self.id, nil]).where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
+    else
+      @calendars = Calendar.all.where("start_time > ?", Time.now.beginning_of_day).order(:start_time)
+    end
+  end
 end

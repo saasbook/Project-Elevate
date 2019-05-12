@@ -1,6 +1,11 @@
+Given /"(.*)" logs in with correct password "(.*)" and goes to elevate page/ do |name, password|
+    step %{I sign in with valid credentials with "#{name}" account with password: "#{password}"}
+    step %{I go to elevate Page}
+end
+
 Given /"(.*)" logs in with correct password "(.*)" and goes to profile page/ do |name, password|
     step %{I sign in with valid credentials with "#{name}" account with password: "#{password}"}
-    step %{"#{name}" goes to "My Profile Page"}
+    step %{I go to profile Page}
 end
 
 And /selects status "(.*)" for "(.*)"/ do |status, name|

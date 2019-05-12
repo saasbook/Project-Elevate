@@ -12,6 +12,53 @@
     
   </head>
 
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<a class="navbar-brand" href="/">Project Elevate</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav ml-auto">
+
+<% if user_signed_in? %>
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="<%= booking_path %>">Book Lesson</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="<%= multiple_booking_path %>">Book Recurring Lessons</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="<%= member_profile_path %>">View Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= edit_user_registration_path %>">Edit Profile</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Logout", destroy_user_session_path, :class => 'nav-link', method: :delete %>
+      </li>
+
+
+    <% else %>
+      <li class="nav-item">
+        <li><%= link_to "Login", new_user_session_path, :class => 'nav-link'  %></li>
+      </li>
+      <li class="nav-item">
+        <li><%= link_to "Sign-Up", new_user_registration_path, :class => 'nav-link'  %></li>
+      </li>
+
+    <% end %>
+
+    </ul>
+</nav>
+
   <body>
     
     <%= yield %>

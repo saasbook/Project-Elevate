@@ -26,13 +26,13 @@ Scenario: log in as a Club Member
   Given "Joe Chen" is a "Club Member"
   And "Joe Chen" logs in with correct credentials with password "88888888"
   Then "Joe Chen" goes to "My Profile Page" 
-  And he should see membership as "Membership: Club Member"
+  And he should see membership as "Joe Chen | Club Member"
 
 Scenario: log in as a Coach
   Given "Roger Destroyer" is a "Coach"
   And "Roger Destroyer" logs in with correct credentials with password "12345678"
   Then "Roger Destroyer" goes to "My Profile Page" 
-  And he should see membership as "Membership: Coach"
+  And he should see membership as "Roger Destroyer | Coach"
  
 Scenario: log in as an Administrator
   Given "Matthew Sie" is a "Administrator"

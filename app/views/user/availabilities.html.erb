@@ -2,9 +2,17 @@
     <p class="alert alert-danger"><%= alert %></p>
 <% end %>
 
-<h2> Current Availabilities </h2>
+<br>
+
+<div class="card mx-auto w-75">
+    <h5 class="card-title">Current Availabilities</h5>
+  <div class="card-body">
+
 
 <table class="table table-hover">
+  <th>Day</th>
+  <th>Time</th>
+  <th>Delete</th>
   <tbody >
     <% if @time_table.empty? %>
       <h3> No Availabilities Found </h3>
@@ -13,26 +21,60 @@
       <tr>
         <td><%= record.day%></td>
         <td><%= record.start_time.strftime("%l:%M%p")%> - <%= record.end_time.strftime("%l:%M%p") %> </td>
-        <td> <%= form_for :user, url: "/users/profile/availabilities/#{record.id}", method: 'delete' do |f| %>
-          <%= f.submit 'Delete', id: record.id.to_s + '_delete' %>
-        <% end %> </td>
+        <td><%= link_to icon('far', 'trash-alt'), delete_availabilities_path(record.id), :id => record.id.to_s + '_delete', :method => :delete %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+</div>
+</div>
+<br>
+<div class="card mx-auto w-50">
+    <h5 class="card-title">Add Availability</h5>
+  <div class="card-body">
 <%= form_for :user, url: add_availabilities_path do |f| %>
+
   <div class="date">
+    <div class="row">
+    <div class="col">
     Choose Date: <br />
-    <%= f.select :day, Date::DAYNAMES %> <br />
+    <%= f.select :day, Date::DAYNAMES, class: 'form-control' %> <br />
+    </div>
+    <div class="col">
+    
     Start Time: <br />
-    <%= f.select :start_time, CoachAvailability.availibility %> :
-    <%= f.select :start_time_s, ['00', '30'] %>
-    <%= f.select :start_time_ampm, ['AM', 'PM'] %> <br />
+    <div class="row">
+    <div class="col">
+    <%= f.select :start_time, CoachAvailability.availibility, class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :start_time_s, ['00', '30'], class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :start_time_ampm, ['AM', 'PM'], class: 'form-control' %>
+    </div>
+    </div>
+    </div>
+    <div class="col">
     End Time: <br />
-    <%= f.select :end_time, CoachAvailability.availibility %> :
-    <%= f.select :end_time_s, ['00', '30'] %>
-    <%= f.select :end_time_ampm, ['AM', 'PM'] %><br />
-    <%= f.submit value: 'Add availibility' %>
+    <div class="row">
+    <div class="col">
+    <%= f.select :end_time, CoachAvailability.availibility, class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :end_time_s, ['00', '30'], class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :end_time_ampm, ['AM', 'PM'], class: 'form-control' %>
+    </div>
+    </div>
+    </div>
+    </div>
+    <%= f.submit value: 'Add availibility', class: 'button btn btn-primary' %>
   </div>
 <% end %>
+</div>
+</div>
+
+<br> <%= link_to 'Back', member_profile_path %>

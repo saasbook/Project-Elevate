@@ -1,0 +1,31 @@
+
+<% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Email</th>
+      <th>Calendar</th>
+      <th>Event List</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to 'View Calendar', viewall_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "calendar" %></td>
+        <td><%= link_to 'Event List', eventList_calendar_path(user.id), :class => 'navbar-link', :id => "#{user.name}" + "list" %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "Back to Profile", member_profile_path, :class => 'navbar-link'  %>
+
+
+

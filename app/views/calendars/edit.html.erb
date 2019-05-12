@@ -1,6 +1,5 @@
-<h1>Editing Calendar</h1>
+<h1>Editing Event</h1>
 
-<%= render 'form', calendar: @calendar %>
+<%= render 'form', calendar: @calendar, :email1 => "jason@gmail.com" %>
 
-<%= link_to 'Show', @calendar %> |
-<%= link_to 'Back', calendars_path %>
+<%= link_to 'Back', :back %>
