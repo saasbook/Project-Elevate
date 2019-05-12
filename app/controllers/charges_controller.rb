@@ -109,6 +109,7 @@ class ChargesController < ApplicationController
       my_new_event_name, coach_new_event_name = "Lesson: #{event_start_time} to #{event_end_time}", "Coaching: #{event_start_time} to #{event_end_time}"
       # Storing booked lessons in the database for multiple booking
       if params[:multiple_booking] == "true"
+        byebug
         num_classes = params[:num_classes].to_i
         month_index, day_index = params[:month_index].to_i, params[:day_index].to_i
         start_time_hour, end_time_hour = params[:start_time_hour].to_i, params[:end_time_hour].to_i
@@ -191,6 +192,9 @@ class ChargesController < ApplicationController
       start_time, end_time = DateTime.parse(params[:user][:temp_availability].split(',')[0]), DateTime.parse(params[:user][:temp_availability].split(',')[1])
 
       day_info = [params[:day].to_i, params[:month].to_i, DateTime.now.year.to_i]
+      @day_index, @month_index, @year_index = day_info
+      @event_start = Time.zone.local(day_info[2], day_info[1], day_info[0], start_time.hour, start_time.minute, 0)
+      @event_end = Time.zone.local(day_info[2], day_info[1], day_info[0], end_time.hour, end_time.minute, 0)
 
       # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
       if check_time_past(Time.zone.local(day_info[2], day_info[1], day_info[0], start_time.hour, start_time.minute, 0), true, day_info[2])
