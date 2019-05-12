@@ -18,13 +18,12 @@
       </p>
     <% end %> 
     
-    <% if @calendar.details != nil %>
+    <% if !@calendar.details.blank? %>
       <p class="card-text"> 
         <strong>Details:</strong>
         <%= @calendar.details %>
       </p>
     <% end %> 
-    
 
     <p class="card-text">
       <strong>Start time:</strong>
