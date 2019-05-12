@@ -4,12 +4,14 @@ class ChargesController < ApplicationController
     before_action :check_time_slot, only: [:checkout, :checkout_multiple]
   
     protected 
+    # Check if current user is a club member. If not, redirect them to their profile page
     def check_current_user
       if current_user.membership != "Club Member"
         redirect_to member_profile_path
       end
     end
 
+    # Check if any time slot is selected both for single booking and multibooking
     def check_time_slot
       if (params[:user].nil? || params[:user][:temp_availability].nil?)
         flash[:alert] = "Please choose a time slot."
@@ -59,7 +61,7 @@ class ChargesController < ApplicationController
 
     end
 
-    # Checking if the event time is before the current time
+    # Checking if the selected event time is before the current time
     def check_time_past(event_start, multiple_booking, year)
       if year > DateTime.now.year.to_i
         return false
@@ -76,16 +78,17 @@ class ChargesController < ApplicationController
       return false
     end
 
-    # Check if increasing seven days update month based on current year If so, return correct day and month index. 
-    # If not, just return day_index + 7 and original month_index
+    # Returns a list of [day, month, year] after increasing the day by 7(a week). 
     def update_day_month(day_index, month_index, year_index)
        # incrementing by 7 days and updating month and day and year
        day_index += 7
+       # Checking if it is going to a new year
        if (day_index > 31) and (month_index == 12)
         next_year = year_index + 1
         updated_day_index = day_index - Time.days_in_month(1, year = next_year)
         return [updated_day_index, 1, next_year]
        end
+       # If it's not going to a new year, check if it is going to a new month and update accordingly
        if (day_index > Time.days_in_month(month_index, year = year_index))
         updated_day_index = day_index - Time.days_in_month(month_index, year = year_index)
         updated_month_index = month_index + 1
@@ -100,7 +103,6 @@ class ChargesController < ApplicationController
     end
     
     def create
-
       event_arr = []
       event_start_time, event_end_time = params[:event_start_time], params[:event_end_time]
       my_new_event_name, coach_new_event_name = "Lesson: #{event_start_time} to #{event_end_time}", "Coaching: #{event_start_time} to #{event_end_time}"
