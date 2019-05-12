@@ -35,8 +35,6 @@ class CalendarsController < ApplicationController
     else
       redirect_to  member_profile_path
     end
-
-
   end
 
   # GET /calendars/1
@@ -72,20 +70,19 @@ class CalendarsController < ApplicationController
     end
   end
 
-  # # GET /calendars/1/edit
-  # def edit
-  # end
-
-  # POST /calendars
-  # POST /calendars.json
   def redirecterError
     flash[:error] = true
-      if !User.exists?(:email => params['calendar']['email1']) 
-        flash[:email1] = "Email 1 does not exist."
-      end
-      if !User.exists?(:email => params['calendar']['email2']) 
-        flash[:email2] = "Email 2 does not exist."
-      end
+    if !User.exists?(:email => params['calendar']['email1']) and params['calendar']['email1'] != ""
+      flash[:email1] = "Email 1 does not exist."
+    end
+    if !User.exists?(:email => params['calendar']['email2']) and params['calendar']['email2'] != ""
+      flash[:email2] = "Email 2 does not exist."
+    end
+    if singleEmail
+      flash[:both] = "Need both emails unless both are blank."
+    end 
+      
+      
       redirect_to request.referrer
   end  
   
@@ -96,12 +93,27 @@ class CalendarsController < ApplicationController
     @calendar.OtherId = @calendar2Temp.id
   end 
   
-  def paramsEmailChecker
-    if params['calendar']['email1'] != "" and (!User.exists?(:email =>  params['calendar']['email1']) or  !User.exists?(:email =>  params['calendar']['email2']))
+  def singleEmail
+    if (params['calendar']['email1'] == "" and params['calendar']['email2'] != "") or (params['calendar']['email1'] != "" and params['calendar']['email2'] == "")
       return true
-    end 
+    end
     return false
   end 
+  
+  
+  def paramsEmailChecker
+    if params['calendar']['email1'] != ""
+      if !User.exists?(:email =>  params['calendar']['email1']) or !User.exists?(:email =>  params['calendar']['email2'])
+        return true
+      end
+    end
+    if singleEmail
+      return true
+    end 
+    
+    return false
+  end 
+
 
   def create
     if paramsEmailChecker
@@ -131,7 +143,7 @@ class CalendarsController < ApplicationController
   def update
     if paramsEmailChecker
       redirecterError
-    else    
+    else 
       respond_to do |format|
         if params['calendar']['email1'] != ""
           params['calendar']['UserId'] = User.where(:email => params['calendar']['email1']).first.id

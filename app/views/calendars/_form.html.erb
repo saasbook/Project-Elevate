@@ -6,6 +6,9 @@
     <% if !flash[:email2].blank? %> 
       <div class="alert alert-danger"><a href="#" class="alert-link"><%= flash[:email2]%></a></div>
     <% end %>
+    <% if !flash[:both].blank? %> 
+      <div class="alert alert-danger"><a href="#" class="alert-link"><%= flash[:both]%></a></div>
+    <% end %>
 <% end %> 
 <%= form_with(model: calendar, local: true) do |form| %>
   <div class="field">

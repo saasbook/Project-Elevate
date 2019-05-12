@@ -220,7 +220,19 @@ Scenario: Log in as Matthew Sie an Administrator to create a coaching event with
   When I click "Submit" 
   Then he should see the following: "Email 1 does not exist., Email 2 does not exist."
   
-  
+Scenario: Log in as Matthew Sie an Administrator to create a coaching event but only adds one email
+  Given "Matthew Sie" is a "Administrator"
+  And "Matthew Sie" logs in with correct credentials with password "dabaka22"
+  And I go to profile page
+  And he follows "Manage my Calendar"
+  When he follows "New Event"
+  When I fill in "calendar[name]" with "Coach Event"
+  When I fill in "calendar[email2]" with "rogerahh@gmail.com"
+  Then I fill in "calendar[details]" with "Testing Create"
+  When I click "Submit" 
+  Then he should see the following: "Need both emails unless both are blank."
+    
+
 Scenario: Log in as Matthew Sie an Administrator to edit an event
   Given "Matthew Sie" is a "Administrator"
   And "Matthew Sie" logs in with correct credentials with password "dabaka22"
