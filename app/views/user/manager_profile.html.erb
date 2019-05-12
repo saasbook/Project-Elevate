@@ -1,4 +1,6 @@
-
+<% if flash[:alert] %>
+  <p class="alert alert-info"><%= flash[:alert] %></p>
+<% end %>
 <p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5>
 
 <table class="table table-hover">

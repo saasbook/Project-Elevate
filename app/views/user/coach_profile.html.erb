@@ -1,4 +1,6 @@
-
+<% if flash[:alert] %>
+  <p class="alert alert-info"><%= flash[:alert] %></p>
+<% end %>
 <p> <h5 style="text-align:center;"> <%= @name %> | <%= @membership %></h5> </p>
 <div class="text-center">
  <%= link_to "Edit Availibilities", availabilities_path, method: :get, :class => 'button btn btn-primary'  %>

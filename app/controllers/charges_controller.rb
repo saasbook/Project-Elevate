@@ -7,6 +7,7 @@ class ChargesController < ApplicationController
     # Check if current user is a club member. If not, redirect them to their profile page
     def check_current_user
       if current_user.membership != "Club Member"
+        flash[:alert] = "Only Club Member can book lessons"
         redirect_to member_profile_path
       end
     end
