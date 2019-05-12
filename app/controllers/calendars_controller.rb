@@ -184,7 +184,6 @@ class CalendarsController < ApplicationController
       end
     end
     @calendar.destroy
-    
     respond_to do |format|
       format.html { redirect_to member_profile_path , notice: 'The event was successfully destroyed.' }
       format.json { head :no_content }
