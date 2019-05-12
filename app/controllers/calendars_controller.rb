@@ -36,19 +36,19 @@ class CalendarsController < ApplicationController
 
   # POST /calendars
   # POST /calendars.json
-  # def create
-  #   @calendar = Calendar.new(calendar_params)
+  def create
+    @calendar = Calendar.new(calendar_params)
 
-  #   respond_to do |format|
-  #     if @calendar.save
-  #       format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
-  #       format.json { render :show, status: :created, location: @calendar }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @calendar.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      if @calendar.save
+        format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
+        format.json { render :show, status: :created, location: @calendar }
+      else
+        format.html { render :new }
+        format.json { render json: @calendar.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # PATCH/PUT /calendars/1
   # PATCH/PUT /calendars/1.json

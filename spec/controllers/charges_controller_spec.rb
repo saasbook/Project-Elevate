@@ -70,7 +70,4 @@ RSpec.describe ChargesController, type: :controller do
 
     end
 
-    
-
-    
 end
