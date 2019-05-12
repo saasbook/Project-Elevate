@@ -187,25 +187,44 @@ class ChargesController < ApplicationController
 
     # Checkout controller for multiple booking
     def checkout_multiple
-      conflicting_lessons, lessons = "", ""
       @num_classes = params[:packages].to_i
       start_time, end_time = DateTime.parse(params[:user][:temp_availability].split(',')[0]), DateTime.parse(params[:user][:temp_availability].split(',')[1])
 
-      day_index, month_index = params[:day].to_i, params[:month].to_i 
-      @day_index, @month_index = day_index, month_index
-      year_index = DateTime.now.year.to_i
-      for i in 1..@num_classes do
+      day_info = [params[:day].to_i, params[:month].to_i, DateTime.now.year.to_i]
+
+      # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
+      if check_time_past(Time.zone.local(day_info[2], day_info[1], day_info[0], start_time.hour, start_time.minute, 0), true, day_info[2])
+        return
+      end
+
+      lessons, conflicting_lessons = get_lessons(@num_classes, day_info, start_time, end_time)
+      
+      @start_time_hour, @start_time_minute, @end_time_hour, @end_time_minute = start_time.hour, start_time.minute, end_time.hour, end_time.minute
+      @coach_id, @multiple_booking = params[:coach_id], "true"
+      @amount, @lessons = PaymentPackage.payment_package_price_by_num_class(@num_classes), lessons
+      @og_amount, @savings, @savings_percent = PaymentPackage.gen_stats(@num_classes, @amount)
+    end
+
+    def show
+    end
+
+    def append_lesson(i, num_classes, month_index, day_index)
+      if i != num_classes or num_classes == 1
+        return  Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
+      else
+        return "and " + Date::MONTHNAMES[month_index] + " " + day_index.to_s
+      end
+    end
+
+    def get_lessons(num_classes, day_info, start_time, end_time)
+      conflicting_lessons, lessons = "", ""
+      day_index, month_index, year_index = day_info
+      
+      for i in 1..num_classes do
         event_start = Time.zone.local(year_index, month_index, day_index, start_time.hour, start_time.minute, 0)
         event_end = Time.zone.local(year_index, month_index, day_index, end_time.hour, end_time.minute, 0)
-        if i != @num_classes or @num_classes == 1
-          lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
-        else
-          lessons += "and " + Date::MONTHNAMES[month_index] + " " + day_index.to_s
-        end
-        # Checking if it's invalid time (namely if the booked time is before current time). If it is, then flash error 
-        if check_time_past(event_start, true, year_index)
-          return
-        end
+        lessons += append_lesson(i, num_classes, month_index, day_index)
+        
         # Checking if there are conflicted lessons and add the dates into a string
         if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
           conflicting_lessons += Date::MONTHNAMES[month_index] + " " + day_index.to_s + ", "
@@ -216,20 +235,7 @@ class ChargesController < ApplicationController
       if (conflicting_lessons != "")
         flash.now[:alert] = conflicting_lessons.prepend("(Please contact Admin for more information) Conflicting lessons on ")[0...-2]
       end
-      @start_time_hour, @start_time_minute = start_time.hour, start_time.minute
-      @end_time_hour, @end_time_minute = end_time.hour, end_time.minute
-      @coach_id, @multiple_booking = params[:coach_id], "true"
-      @amount, @lessons = PaymentPackage.payment_package_price_by_num_class(@num_classes), lessons
-      @event_start, @event_end = event_start, event_end
-      @og_amount = @num_classes * PaymentPackage.single_class_price
-      @savings = @og_amount - @amount
-      @savings_percent = (100 * @savings / @og_amount.to_f).round(2) 
+
+      return lessons, conflicting_lessons
     end
-
-    def show
-    end
-
-
-
-
 end

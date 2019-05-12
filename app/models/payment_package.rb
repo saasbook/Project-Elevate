@@ -11,4 +11,12 @@ class PaymentPackage < ApplicationRecord
     def name_and_num_classes
         return "#{self.name} (#{self.num_classes})"
     end
+
+    def self.gen_stats(num_classes, amount)
+      og_amount = num_classes * self.single_class_price
+      savings = og_amount - amount
+      savings_percent = (100 * savings / og_amount.to_f).round(2)
+
+      return og_amount, savings, savings_percent
+    end
 end
