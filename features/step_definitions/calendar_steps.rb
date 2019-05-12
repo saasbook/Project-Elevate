@@ -58,8 +58,12 @@ Then /"(.*)" should see every member and coach except himself/ do |name|
   User.all.where.not(:id => user.id).each do |users|
     step %{I should see "#{users.name}"}
   end
-  step %{I should not see "#{user.name}"}
-end 
+
+  all('other_calendars').each do |td|
+    td.should have_no_content(user.name)
+  end
+  # step %{I should not see "#{user.name}"}
+end
 
 When /he goes to "(.*)" calendar/ do |name|
 
