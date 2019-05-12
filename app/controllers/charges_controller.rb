@@ -1,8 +1,7 @@
 class ChargesController < ApplicationController
     before_action :authenticate_user!
     before_action :check_current_user
-    before_action :check_time_slot_checkout, only: [:checkout]
-    before_action :check_time_slot_checkout_multiple, only: [:checkout_multiple]
+    before_action :check_time_slot, only: [:checkout, :checkout_multiple]
   
     protected 
     # Check if current user is a club member. If not, redirect them to their profile page
@@ -14,18 +13,14 @@ class ChargesController < ApplicationController
     end
 
     # Check if any time slot is selected both for single booking and multibooking
-    def check_time_slot_checkout
+    def check_time_slot
       if (params[:user].nil? || params[:user][:temp_availability].nil?)
         flash[:alert] = "Please choose a time slot."
-        redirect_to :controller => "user", :action => "booking" 
-        return
-      end
-    end
-
-    def check_time_slot_checkout_multiple
-      if (params[:user].nil? || params[:user][:temp_availability].nil?)
-        flash[:alert] = "Please choose a time slot."
-        redirect_to :controller => "user", :action => "multiple_booking" 
+        if params[:action] == "checkout_multiple"
+          redirect_to :controller => "user", :action => "multiple_booking" 
+        else
+          redirect_to :controller => "user", :action => "booking" 
+        end
         return
       end
     end
@@ -170,9 +165,6 @@ class ChargesController < ApplicationController
 
     def checkout
 
-      if params[:user].nil?
-        redirect_to booking_path and return
-      end
       # Parsing time
       start_time = DateTime.parse(params[:user][:temp_availability].split(',')[0])
       end_time = DateTime.parse(params[:user][:temp_availability].split(',')[1])
@@ -194,10 +186,6 @@ class ChargesController < ApplicationController
 
     # Checkout controller for multiple booking
     def checkout_multiple
-      if params[:user].nil?
-        redirect_to multiple_booking_path and return
-      end
-
       @num_classes = params[:packages].to_i
       start_time, end_time = DateTime.parse(params[:user][:temp_availability].split(',')[0]), DateTime.parse(params[:user][:temp_availability].split(',')[1])
 
@@ -220,12 +208,6 @@ class ChargesController < ApplicationController
     end
 
     def show
-      @back = request.original_url
-      if @back.end_with?('checkout')
-        return checkout
-      else
-        return checkout_multiple
-      end
     end
 
     def append_lesson(i, num_classes, month_index, day_index)
