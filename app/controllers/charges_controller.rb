@@ -104,56 +104,42 @@ class ChargesController < ApplicationController
 
     def create
       event_arr = []
-      event_start_time, event_end_time = params[:event_start_time], params[:event_end_time]
-      my_new_event_name, coach_new_event_name = "Lesson: #{event_start_time} to #{event_end_time}", "Coaching: #{event_start_time} to #{event_end_time}"
       # Storing booked lessons in the database for multiple booking
       if params[:multiple_booking] == "true"
         month_index, day_index = params[:month_index].to_i, params[:day_index].to_i
-        start_time_hour, end_time_hour = params[:start_time_hour].to_i, params[:end_time_hour].to_i
-        start_time_minute, end_time_minute = params[:start_time_minute].to_i, params[:end_time_minute].to_i
         year_index = DateTime.now.year.to_i
 
         for i in 1..params[:num_classes].to_i do
-          event_start = Time.zone.local(year_index, month_index, day_index, start_time_hour, start_time_minute, 0)
-          event_end = Time.zone.local(year_index, month_index, day_index, end_time_hour, end_time_minute, 0)
+          event_start = Time.zone.local(year_index, month_index, day_index, params[:start_time_hour].to_i, params[:start_time_minute].to_i, 0)
+          event_end = Time.zone.local(year_index, month_index, day_index, params[:end_time_hour].to_i, params[:end_time_minute].to_i, 0)
 
-          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], [my_new_event_name, "Coaching"], true)
-          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], [coach_new_event_name, "Coaching"], true)
-
-
+          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Lesson: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], true)
+          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], true)
 
           # incrementing by 7 days and updating month and day
           day_index, month_index, year_index = update_day_month(day_index, month_index, year_index)
         end
       else
          # Storing booked lesson in the database for single booking
-
-        event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], [my_new_event_name, "Coaching"], false)
-        event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], [coach_new_event_name, "Coaching"], false)
+        event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Lesson: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], false)
+        event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], false)
       end
       # Amount in cents
       @amount_in_create = params[:amount]
-      @amount = params[:amount].to_f*100
-      @amount = @amount.to_i
+      @amount = (params[:amount].to_f*100).to_i
 
       customer = create_stripe_customer(params[:stripeEmail], params[:stripeToken])
       charge = create_stripe_charges(@amount, customer)
-      invoice = create_invoice(@amount, customer)
       #Actually sending customer invoices through email
-      invoice.send_invoice
+      create_invoice(@amount, customer).send_invoice
       #Actually save in database
       event_arr.each do |event|
         event.save!
-
       end
-
-
-
 
       rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to new_charge_path
-
     end
 
 
