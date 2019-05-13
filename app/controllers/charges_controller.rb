@@ -106,8 +106,7 @@ class ChargesController < ApplicationController
       event_arr = []
       # Storing booked lessons in the database for multiple booking
       if params[:multiple_booking] == "true"
-        month_index, day_index = params[:month_index].to_i, params[:day_index].to_i
-        year_index = DateTime.now.year.to_i
+        month_index, day_index, year_index = params[:month_index].to_i, params[:day_index].to_i, DateTime.now.year.to_i
 
         for i in 1..params[:num_classes].to_i do
           event_start = Time.zone.local(year_index, month_index, day_index, params[:start_time_hour].to_i, params[:start_time_minute].to_i, 0)
