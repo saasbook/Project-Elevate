@@ -103,25 +103,12 @@ class ChargesController < ApplicationController
     end
 
     def create
-      event_arr = []
       # Storing booked lessons in the database for multiple booking
       if params[:multiple_booking] == "true"
-        month_index, day_index, year_index = params[:month_index].to_i, params[:day_index].to_i, DateTime.now.year.to_i
-
-        for i in 1..params[:num_classes].to_i do
-          event_start = Time.zone.local(year_index, month_index, day_index, params[:start_time_hour].to_i, params[:start_time_minute].to_i, 0)
-          event_end = Time.zone.local(year_index, month_index, day_index, params[:end_time_hour].to_i, params[:end_time_minute].to_i, 0)
-
-          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Lesson: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], true)
-          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], true)
-
-          # incrementing by 7 days and updating month and day
-          day_index, month_index, year_index = update_day_month(day_index, month_index, year_index)
-        end
+        event_arr = create_multi(params)
       else
-         # Storing booked lesson in the database for single booking
-        event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Lesson: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], false)
-        event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], false)
+        # Storing booked lesson in the database for single booking
+        event_arr = create_single(params)
       end
       # Amount in cents
       @amount_in_create = params[:amount]
@@ -139,6 +126,31 @@ class ChargesController < ApplicationController
       rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to new_charge_path
+    end
+
+    def create_single(params)
+      event_arr = []
+      event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Lesson: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], false)
+      event_arr << Calendar.create_event([params[:event_start], params[:event_end], params[:month], params[:day]], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], false)
+      return event_arr
+    end
+
+    def create_multi(params)
+      event_arr = []
+      month_index, day_index, year_index = params[:month_index].to_i, params[:day_index].to_i, DateTime.now.year.to_i
+
+      for i in 1..params[:num_classes].to_i do
+        event_start = Time.zone.local(year_index, month_index, day_index, params[:start_time_hour].to_i, params[:start_time_minute].to_i, 0)
+        event_end = Time.zone.local(year_index, month_index, day_index, params[:end_time_hour].to_i, params[:end_time_minute].to_i, 0)
+
+        event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Lesson: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], true)
+        event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching: #{params[:event_start_time]} to #{params[:event_end_time]}", "Coaching"], true)
+
+        # incrementing by 7 days and updating month and day
+        day_index, month_index, year_index = update_day_month(day_index, month_index, year_index)
+      end
+
+      return event_arr
     end
 
 
