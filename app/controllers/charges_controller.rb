@@ -151,9 +151,6 @@ class ChargesController < ApplicationController
           event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Coaching Lesson", "Coaching", conflict], true)
           event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching Lesson", "Coaching", conflict], true)
         end
-        event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Coaching Lesson", "Coaching"], true)
-        event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching Lesson", "Coaching"], true)
-
         # incrementing by 7 days and updating month and day
         day_index, month_index, year_index = update_day_month(day_index, month_index, year_index)
       end
