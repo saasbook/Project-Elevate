@@ -7,6 +7,10 @@ Find the live app: [https://project-elevate.herokuapp.com](https://project-eleva
 
 Project Elevate is a website that is meant to help sports clubs create a system where athletes and coaches can log in and track their lessons, payments, and memberships.
 
+## Software
+* Ruby 2.5.3
+* Rails 5.2.2
+
 ## Features
 
 ### Calendar Events
@@ -75,6 +79,18 @@ rails s
 ```
 This will clear any pre existing possible data in the rails database and seed the rails server with the seeded data before starting up the server.
 This is crucial for testing any administrator privileges as there is no other way to create an administrator account currently. The server should be running locally on default port 3000, or whichever specified port using the -p tag.  
+
+## Logins
+
+Admin Login: 
+* email: **matthew.sie@berkeley.edu**
+* password: **dabaka22**
+
+Coach Login: 
+* email: **rogerahh@gmail.com**
+* password: **12345678**
+
+## Testing
 
 Lastly, in order to view coverage and tests run
 ```
