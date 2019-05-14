@@ -13,7 +13,7 @@
 <div>Please leave both emails empty for a club event. </div>
 <%= form_with(model: calendar, local: true) do |form| %>
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label "Name:" %>
     <%= form.text_field :name, :required => true, class: 'form-control form-control-sm' %>
   </div>
 
