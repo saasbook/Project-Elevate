@@ -142,7 +142,15 @@ class ChargesController < ApplicationController
       for i in 1..params[:num_classes].to_i do
         event_start = Time.zone.local(year_index, month_index, day_index, params[:start_time_hour].to_i, params[:start_time_minute].to_i, 0)
         event_end = Time.zone.local(year_index, month_index, day_index, params[:end_time_hour].to_i, params[:end_time_minute].to_i, 0)
-
+        conflict = "No Conflict"
+        if !(Booking.check_time_slot(event_start, event_end, params[:coach_id].to_i, [month_index, day_index, year_index]))
+          conflict = "Conflict"
+          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Coaching Lesson", "Coaching", "Conflict"], true)
+          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching Lesson", "Coaching", "No Conflict"], true)
+        else
+          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Coaching Lesson", "Coaching"], true)
+          event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching Lesson", "Coaching"], true)
+        end
         event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [current_user.id, params[:coach_id].to_i, params[:coach_id].to_i], ["Coaching Lesson", "Coaching"], true)
         event_arr << Calendar.create_event([event_start, event_end, month_index, day_index, year_index], [params[:coach_id].to_i, current_user.id, params[:coach_id].to_i], ["Coaching Lesson", "Coaching"], true)
 
