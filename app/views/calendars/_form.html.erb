@@ -21,8 +21,14 @@
     
     <%= form.label "Student Email:" %>
     <% if params['id'] != nil and Calendar.where(:id => params['id']).first.UserId != nil  %>
+      <% if User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.membership == "Coach"%>
+        <%= User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email  %>
+        <%= form.hidden_field(:email1, :value => User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email) %>
+      <% else %>
         <%= User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email  %>
         <%= form.hidden_field(:email1, :value => User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email) %>
+      <% end %> 
+        
     <% else %> 
       <%= form.text_field :email1, class: 'form-control form-control-sm' %>
     <% end %> 
@@ -32,8 +38,13 @@
   <div class="field">
     <%= form.label "Coach Email:" %>
     <% if params['id'] != nil and Calendar.where(:id => params['id']).first.OtherId != nil %>
-      <%= User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email  %>
-      <%= form.hidden_field(:email2, :value => User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email) %>
+      <% if User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.membership == "Club Member"%>
+        <%= User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email  %>
+        <%= form.hidden_field(:email2, :value => User.where(:id => Calendar.where(:id => params['id']).first.UserId).first.email) %>
+      <% else %>
+        <%= User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email  %>
+        <%= form.hidden_field(:email2, :value => User.where(:id => Calendar.where(:id => params['id']).first.OtherId).first.email) %>
+      <% end %> 
     <% else %> 
       <%= form.text_field :email2, class: 'form-control form-control-sm' %>
     <% end %> 

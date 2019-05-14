@@ -9,23 +9,23 @@ class CalendarsController < ApplicationController
       end
     @calendars =Calendar.all.where(:UserId => [current_user.id, nil]).order(:start_time)
   end
-  
-  def all 
+
+  def all
     if not coach_member
       @users = User.all.where.not(:id => current_user.id)
     else
       redirect_to member_profile_path
     end
   end
-  
-  def viewall 
+
+  def viewall
     setAdminCalendars
   end
-  
-  def eventList 
+
+  def eventList
     setAdminCalendars
-  end 
-  
+  end
+
   def setAdminCalendars
     if not coach_member
       @calendars = Calendar.all.where(:UserId => [params[:UserId], nil]).order(:start_time)
@@ -41,9 +41,9 @@ class CalendarsController < ApplicationController
       if @calendar.UserId != current_user.id and @calendar.UserId != nil
           redirect_to  member_profile_path
       end
-    end 
-  end 
-  
+    end
+  end
+
   def show
     redirecter
     if !@calendar.UserId.nil? and !@calendar.OtherId.nil? and @calendar.UserId != 0 and @calendar.OtherId != 0
@@ -63,7 +63,7 @@ class CalendarsController < ApplicationController
      @email = "z"
     @calendar = Calendar.new
     if coach_member
-    
+
       redirect_to  member_profile_path
     end
   end
@@ -78,25 +78,25 @@ class CalendarsController < ApplicationController
     end
     if singleEmail
       flash[:both] = "Need both emails unless both are blank."
-    end 
+    end
       redirect_to request.referrer
-  end  
-  
+  end
+
   def createSetNames
     @calendarTemp = User.where(:email => params['calendar']['email1']).first
     @calendar2Temp = User.where(:email => params['calendar']['email2']).first
     @calendar.UserId = @calendarTemp.id
     @calendar.OtherId = @calendar2Temp.id
-  end 
-  
+  end
+
   def singleEmail
     if (params['calendar']['email1'] == "" and params['calendar']['email2'] != "") or (params['calendar']['email1'] != "" and params['calendar']['email2'] == "")
       return true
     end
     return false
-  end 
-  
-  
+  end
+
+
   def paramsEmailChecker
     if params['calendar']['email1'] != ""
       if !User.exists?(:email =>  params['calendar']['email1']) or !User.exists?(:email =>  params['calendar']['email2'])
@@ -105,42 +105,42 @@ class CalendarsController < ApplicationController
     end
     if singleEmail
       return true
-    end 
-    
+    end
+
     return false
   end
-  
+
   def containEmail1
     if params['calendar']['email1'] != ""
       return true
     end
     return false
-  end 
-  
+  end
+
   def createCal2
     @calendar2 = Calendar.new(calendar_params)
     @calendar2.OtherId = @calendar.UserId
     @calendar2.UserId = @calendar.OtherId
     @calendar2.save
   end
-  
+
   def create
     if paramsEmailChecker
       redirecterError
-    else 
+    else
       @calendar = Calendar.new(calendar_params)
       if containEmail1
         createSetNames
         if @calendar.UserId != nil
           createCal2
-        end 
+        end
       end
       respond_to do |format|
           if @calendar.save
             format.html { redirect_to @calendar, notice: 'The event was successfully created.' }
             format.json { render :show, status: :created, location: @calendar }
           end
-        end 
+        end
     end
   end
 
@@ -149,21 +149,20 @@ class CalendarsController < ApplicationController
   def update
     if paramsEmailChecker
       redirecterError
-    else 
+    else
       respond_to do |format|
         if params['calendar']['email1'] != ""
           params['calendar']['UserId'] = User.where(:email => params['calendar']['email1']).first.id
           params['calendar']['OtherId'] = User.where(:email => params['calendar']['email2']).first.id
         end
         if @calendar.UserId != nil
-          @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :start_time => @calendar.start_time, :end_time => @calendar.end_time)
-        end 
+          @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :start_time => @calendar.start_time, :end_time => @calendar.end_time).first
+        end
         if @calendar.update(calendar_params)
           temp = params['calendar']['UserId']
           params['calendar']['UserId'] = params['calendar']['OtherId']
           params['calendar']['OtherId'] = temp
-          if @calendar.UserId != nil 
-            params['calendar']['name'] = @calendar2.name
+          if @calendar.UserId != nil
             @calendar2.update(calendar_params)
           end
           format.html { redirect_to @calendar, notice: 'The event was successfully updated.' }
@@ -172,8 +171,8 @@ class CalendarsController < ApplicationController
       end
     end
   end
-  
-  
+
+
   def coach_member
     x = current_user.membership == "Club Member" or current_user.membership == "Coach"
     return x
@@ -184,7 +183,7 @@ class CalendarsController < ApplicationController
   def destroy
     if @calendar.UserId != nil
       @calendar2 = Calendar.where(:UserId => @calendar.OtherId, :OtherId => @calendar.UserId, :start_time => @calendar.start_time, :end_time => @calendar.end_time).first
-      if @calendar2 != nil 
+      if @calendar2 != nil
         @calendar2.destroy
       end
     end
@@ -207,7 +206,3 @@ class CalendarsController < ApplicationController
       params.require(:calendar).permit(:name, :UserId, :OtherId, :start_time, :end_time, :details, :conflict)
     end
 end
-
-
-
-
