@@ -19,10 +19,18 @@
     <% @calendar.each do |record| %>
       <tr>
         <td class="event_name"><%= record.name%></td>
-        <td class="club_member"><%= User.find(record.UserId).name%></td>
-        <td class="club_member_email"><%= User.find(record.UserId).email%></td>
-        <td class="coach"><%= User.find(record.OtherId).name%></td>
-        <td class="coach_email"><%= User.find(record.OtherId).email%></td>
+        <% if User.find(record.UserId).membership == "Club Member" %>
+          <td class="club_member"><%= User.find(record.UserId).name%></td>
+          <td class="club_member_email"><%= User.find(record.UserId).email%></td>
+          <td class="coach"><%= User.find(record.OtherId).name%></td>
+          <td class="coach_email"><%= User.find(record.OtherId).email%></td>
+        <% else %>
+          <td class="club_member"><%= User.find(record.OtherId).name%></td>
+          <td class="club_member_email"><%= User.find(record.OtherId).email%></td>
+          <td class="coach"><%= User.find(record.UserId).name%></td>
+          <td class="coach_email"><%= User.find(record.UserId).email%></td>
+        <% end %> 
+        
         <td class="start_time"><%= record.start_time.strftime('%a %m/%d/%Y %I:%M%p')%></td>
         <td class="end_time"><%= record.end_time.strftime('%a %m/%d/%Y %I:%M%p')%></td>
         <td class="edit">      
