@@ -1,0 +1,60 @@
+<head> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<% if !flash[:alert].blank? %>
+  <% if flash[:alert][/The email address and password you entered do not match our records/] %>
+    <div class="flashNotice col last">
+      <%= t('devise.failure.not_found_in_database', resource_name: "#{params[:user][:email]}").html_safe %>
+    </div>
+  <% else %>
+    <!-- Style for any warning message -->
+    <div class="alert alert-danger"><a href="#" class="alert-link"><%= flash[:alert]%></a></div>
+    
+  <% end %>
+<% end %>
+<div id = "container">
+  <h2>Welcome back!</h2>
+  
+  <div id = "empty"></div>
+  <p></p>
+  <%# <div id = "socialmedia"> 
+    <a href="#" class="fa fa-facebook"></a> 
+    <div class = "text">Sign in with Facebook!</div>
+  </div>
+  <div id = "welcome">
+    <span style=" font-size: 20px; background-color: white; padding: 0 10px;">
+      Or <!--Padding is optional-->
+    </span>
+  </div>
+  <div id = "empty"></div> %>
+
+
+<div id = "formside"> 
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+  
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+  
+    <% if devise_mapping.rememberable? %>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+  
+    <div class="actions" >
+      <%= f.submit "Log in" %>
+    </div>
+     <%= link_to "Forgot Password?", new_user_password_path, :class => 'link'%>
+     <p></p>
+     <%= link_to "Sign up", new_user_registration_path, :class => 'link'%>
+  <% end %>
+  </div>
+</div>
+  

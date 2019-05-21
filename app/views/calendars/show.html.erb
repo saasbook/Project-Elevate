@@ -1,0 +1,48 @@
+<p class='alert alert-success' id="notice"><%= notice %></p>
+<div class="card text-center mx-auto w-30" style="width: 25rem;">
+  <div class="card-body">
+    <h5 class="card-title">Event Details</h5>
+    <p class="card-text">
+      <strong>Name:</strong>
+      <%= @calendar.name %>
+    </p>
+    <% if @calendar.UserId != nil %> 
+      <p class="card-text">
+        <strong>Student:</strong>
+        <%= @student %>
+      </p>
+      
+      <p class="card-text"> 
+        <strong>Instructor:</strong>
+        <%= @instructor %>
+      </p>
+    <% end %> 
+    
+    <% if !@calendar.details.blank? %>
+      <p class="card-text"> 
+        <strong>Details:</strong>
+        <%= @calendar.details %>
+      </p>
+    <% end %> 
+
+    <p class="card-text">
+      <strong>Start time:</strong>
+      <%= @calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %>
+    </p>
+
+    <p class="card-text">
+      <strong>End time:</strong>
+      <%= @calendar.end_time.strftime('%a %m/%d/%Y %I:%M%p') %>
+    </p>
+    <% if current_user.membership == "Administrator" or current_user.membership == "Manager" %>
+      <p> </p>
+      <%= link_to 'Edit Event', edit_calendar_path, :class => 'btn btn-primary btn-sm' %>
+      <%= link_to 'Delete',  @calendar,  method: :delete, :class => 'btn btn-primary btn-sm', data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </div>
+</div>
+
+
+<%= link_to "View All Calendars", all_calendar_path, :class => 'btn btn-link' %>
+<%= link_to "Back to Profile", member_profile_path, :class => 'btn btn-link' %>
+

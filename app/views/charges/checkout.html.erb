@@ -1,0 +1,55 @@
+<p></p>
+<div class="card text-center mx-auto w-30" style="width: 25rem;">
+  <div class="card-body">
+    <h5 class="card-title">Booking Details</h5>
+    
+<%= form_tag charges_path do %>
+    <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+  <p class="card-text">
+  Single Class Price (1 hour): <strong> <%= number_to_currency(@amount)  %><br />
+  </strong></p>
+  <p class="card-text">
+  Number of Hours Booked: <strong><%= @number_hours %><br />
+  </strong></p>
+  <p class="card-text">
+  Event Start:<strong> <%= @event_start.strftime("%m/%d/%Y")%> at <%= @event_start.strftime("%I:%M%p") %><br />
+  </p></strong>
+  <p class="card-text">
+  Event End:  <strong><%= @event_end.strftime("%m/%d/%Y")%> at <%= @event_end.strftime("%I:%M%p") %><br />
+  </p></strong>
+  <p class="card-text">
+  <label class="amount">
+    <span>Total Amount:<strong> <%= number_to_currency(@amount) %></span>
+  </label>
+  </p></strong>
+  </article>
+  <article>
+  <%= hidden_field_tag(:amount, @amount) %>
+  <%= hidden_field_tag(:event_start, @event_start) %>
+  <%= hidden_field_tag(:event_end, @event_end) %>
+  <%= hidden_field_tag(:event_start_time, @event_start.strftime("%I:%M%p")) %>
+  <%= hidden_field_tag(:event_end_time, @event_end.strftime("%I:%M%p")) %>
+  <%= hidden_field_tag(:month, @month) %>
+  <%= hidden_field_tag(:day, @day) %>
+  <%= hidden_field_tag(:coach_id, @coach) %>
+  </article>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Class Credits"
+          data-amount=@amount
+          data-zip-code="true"
+          data-billing-address="true"
+          data-locale="auto"></script>
+<% end %>
+</div>
+</div>
+</div>
+<div class="px-3">
+<%= link_to "Back to Booking", booking_path, :class => 'btn btn-link'  %>
+</div>
+

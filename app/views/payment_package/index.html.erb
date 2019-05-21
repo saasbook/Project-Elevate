@@ -1,0 +1,50 @@
+<% if alert %>
+    <p class="alert alert-warning"><%= flash[:alert] %></p>
+<% end %>
+
+<table class="table table-hover">
+<h2 class="card-title text-center">Edit Payment Packages</h2>
+<thead>
+    <tr>
+      <th>Package Name</th>
+      <th>Number of Classes</th>
+      <th>Price</th>
+      <th>Updated At</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+</thead>
+  <tbody >
+    <% @packages.each do |record| %>
+    <div id=<%= 'package_' + record.id.to_s %>>
+      <tr>
+        <td class="package_name"><%= record.name%></td>
+        <td class="num_classes"><%= record.num_classes%></td>
+        <td class="price"><%= '$' + record.price.to_s%></td>
+        <td><%= record.updated_at.in_time_zone("Pacific Time (US & Canada)").strftime("%B %d, %Y %I:%M:%S %p %Z")%></td>
+        <td><%= link_to icon('far', 'edit'), edit_payment_package_path(record.id), :id => 'edit_' + record.id.to_s %>
+        <% if record.name != 'Single' %>
+          <td><%= link_to icon('far', 'trash-alt'), delete_payment_package_path(record.id), :id => 'delete_' + record.id.to_s, :method => :delete %>
+        <% end %> </div>
+      </tr>
+    </div>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<div class="card mx-auto w-50">
+    <p></p>
+    <h5 class="card-title text-center">Add Payment Package</h5>
+  <div class="card-body">
+<%= form_for :payment_package, url: add_payment_package_path do |f| %>
+  Name: <%= f.text_field :name, class:'form-control' %> <br>
+  Number of Classes: <%= f.number_field :num_classes, class:'form-control' %> <br>
+  Price: <%= f.number_field :price, class:'form-control ' %> <br>
+  <%= f.submit value: 'Add package', class: 'button btn-primary btn ' %>
+<% end %>
+</div>
+</div>
+
+
+<%= link_to "Back", member_profile_path, :class => 'btn btn-link' %>

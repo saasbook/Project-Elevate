@@ -1,0 +1,14 @@
+<p>Hello <%= @resource.name %>!</p>
+
+<% if @resource.try(:unconfirmed_email?) %>
+  <p>We're contacting you to notify you that your account email is being changed to <%= @resource.unconfirmed_email %>.</p>
+<% else %>
+  <p>We're contacting you to notify you that your account email has been changed to <%= @resource.email %>.</p>
+<% end %>
+<p>You can confirm your new account email through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>In the future, please use <%= @resource.unconfirmed_email %> to login to your account. </p>
+<br> - The Project Elevate Team 
+</p>

@@ -1,0 +1,83 @@
+<% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<br>
+
+<div class="card mx-auto w-75">
+    <p></p>
+    <h5 class="card-title" style="text-align:center;">Current Availabilities</h5>
+  <div class="card-body">
+
+
+<table class="table table-hover">
+  <th>Day</th>
+  <th>Time</th>
+  <th>Delete</th>
+  <tbody >
+    <% if @time_table.empty? %>
+      <h5> No Availabilities Found </h5>
+    <% end %>
+    <% @time_table.each do |record| %>
+      <tr>
+        <td><%= record.day%></td>
+        <td><%= record.start_time.strftime("%l:%M%p")%> - <%= record.end_time.strftime("%l:%M%p") %> </td>
+        <td><%= link_to icon('far', 'trash-alt'), delete_availabilities_path(record.id), :id => record.id.to_s + '_delete', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+<br>
+<div class="card mx-auto w-50">
+    <p></p>
+    <h5 class="card-title" style="text-align:center;">Add Availability</h5>
+  <div class="card-body">
+<%= form_for :user, url: add_availabilities_path do |f| %>
+
+  <div class="date">
+    <div class="row">
+    <div class="col">
+    Choose Date: <br />
+    <%= f.select :day, Date::DAYNAMES, class: 'form-control' %> <br />
+    </div>
+    <div class="col">
+    
+    Start Time: <br />
+    <div class="row">
+    <div class="col">
+    <%= f.select :start_time, CoachAvailability.availibility, class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :start_time_s, ['00', '30'], class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :start_time_ampm, ['AM', 'PM'], class: 'form-control' %>
+    </div>
+    </div>
+    </div>
+    <div class="col">
+    End Time: <br />
+    <div class="row">
+    <div class="col">
+    <%= f.select :end_time, CoachAvailability.availibility, class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :end_time_s, ['00', '30'], class: 'form-control' %>
+    </div>
+    <div class="col">
+    <%= f.select :end_time_ampm, ['AM', 'PM'], class: 'form-control' %>
+    </div>
+    </div>
+    </div>
+    </div>
+    <p></p>
+    <%= f.submit value: 'Add availibility', class: 'button btn btn-primary' %>
+  </div>
+<% end %>
+</div>
+</div>
+
+<br> <%= link_to 'Back', member_profile_path, class: 'btn btn-link' %>
