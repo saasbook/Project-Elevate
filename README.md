@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/zdehkordi/Project-Elevate.svg?branch=master)](https://travis-ci.org/zdehkordi/Project-Elevate)
 
 Find the live app: [https://project-elevate.herokuapp.com](https://project-elevate.herokuapp.com)
+Development app: [https://project-elevate2.herokuapp.com/](https://project-elevate2.herokuapp.com/)
 
 Project Elevate is a website that is meant to help sports clubs create a system where athletes and coaches can log in and track their lessons, payments, and memberships.
 
@@ -82,11 +83,11 @@ This is crucial for testing any administrator privileges as there is no other wa
 
 ## Logins
 
-Admin Login: 
+Admin Login:
 * email: **matthew.sie@berkeley.edu**
 * password: **dabaka22**
 
-Coach Login: 
+Coach Login:
 * email: **rogerahh@gmail.com**
 * password: **12345678**
 
