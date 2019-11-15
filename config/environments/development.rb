@@ -12,9 +12,9 @@ Rails.application.configure do
     :port                 => 587,
     :domain               => 'gmail.com', #you can also use google.com
     :user_name            => 'projectElevateDev@gmail.com',
-    :password             => 'LetsElevate!'
+    :password             => 'LetsElevate!',
     :authentication       => :plain,
-    :enable_starttls_auto => true,
+    :enable_starttls_auto => true
   }
 
 
