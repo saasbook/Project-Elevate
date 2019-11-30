@@ -132,4 +132,11 @@ class UserController < ApplicationController
     render 'membership_status'    
   end
 
+  def dashboard
+    # @user = params[:u]
+    # @id = @user.id
+    # debug(@id)
+    @user = @current_user
+  end
+
 end

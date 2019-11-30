@@ -50,9 +50,12 @@ Rails.application.routes.draw do
   post 'user/profile/availabilities' => 'user#add_availabilities', :as =>'add_availabilities'
   delete 'user/profile/availabilities/:id' => 'user#delete_availabilities', :as =>'delete_availabilities'
 
+  # For dashboard
+  get 'user/dashboard/:id' => 'user#dashboard', :as => 'dashboard'
 
   root to: "home#index"
   # This needs to be at the end
   match '*path' => 'error#error_404', via: :all
+
 
 end
