@@ -137,6 +137,7 @@ class UserController < ApplicationController
     # @id = @user.id
     # debug(@id)
     @user = @current_user
+    @member_since = @user.created_at.strftime("%B, %d, %Y")
   end
 
 end
