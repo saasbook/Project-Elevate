@@ -44,23 +44,6 @@ class ChargesController < ApplicationController
       return charge
     end
 
-    def create_invoice(amount, customer)
-      Stripe::InvoiceItem.create({
-          amount: amount,
-          currency: 'usd',
-          customer: customer.id,
-          description: 'Lesson fee',
-      })
-      invoice = Stripe::Invoice.create({
-        customer: customer.id,
-        billing: 'send_invoice',
-        days_until_due: 30,
-      })
-
-      return invoice
-
-    end
-
     # Checking if the selected event time is before the current time
     def check_time_past(event_start, multiple_booking, year)
       if year > DateTime.now.year.to_i
@@ -116,8 +99,6 @@ class ChargesController < ApplicationController
 
       customer = create_stripe_customer(params[:stripeEmail], params[:stripeToken])
       charge = create_stripe_charges(@amount, customer)
-      #Actually sending customer invoices through email
-      create_invoice(@amount, customer).send_invoice
       #Actually save in database
       event_arr.each do |event|
         event.save!
