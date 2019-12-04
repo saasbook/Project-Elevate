@@ -3,10 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-#container {
+#container.home {
     width: 100vw;
     height: 100vh;
-    // margin-top: -50px;
+    margin-top: 0;
     position: relative;
 }
 
@@ -50,30 +50,34 @@
 .word_container {
     // display: inline;
     position: absolute;
-    width: 90%;
-    height: 200px;
+    width: 94%;
+    // height: 200px;
     // margin: 0, auto;
-    margin:auto;
+    margin:0 20px;
     left: 50%;
-    
-    top: 50%;
+    top: 40%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    font-family: 'Titillium Web', sans-serif;
 }
 
 .word_container h1 {
-    font-size: 40px;
+    font-size: 45px;
+    font-weight: bold;
+    // font-family: 'Titillium Web', sans-serif;
+    font-family: 'Lobster', cursive;
+    margin-bottom: 30px;
 }
 
 .word_text {
     width: 100%;
     text-align: left;
-    font-size: 25px;
-    
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .button_container {
-    
+
     background-color: white;
     color: black;
     border: 2px solid #555555;
@@ -93,6 +97,16 @@
     width: 60%;
     float: right;
     // background-color: red;
+
+    img {
+        margin-left: 20px;
+        width: 94%;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        padding: 15px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 }
 
 .half_side {
@@ -162,7 +176,7 @@
     position: absolute;
     margin:auto;
     left: 50%;
-    
+
     top: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -174,5 +188,44 @@
     background-color: yellow;
 }
 
+.btn {
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+  }
 
+  /* Green */
+  .btn.success {
+    border-color: #4CAF50;
+    color: green;
+  }
 
+  .btn.success:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  /* Blue */
+  .btn.info {
+    border-color: #2196F3;
+    color: dodgerblue
+  }
+
+  .btn.info:hover {
+    background: #2196F3;
+    color: white;
+  }
+
+  /* Orange */
+  .btn.warning {
+    border-color: #ff9800;
+    color: orange;
+  }
+
+  .btn.warning:hover {
+    background: #ff9800;
+    color: white;
+  }
