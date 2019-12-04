@@ -137,6 +137,24 @@ class UserController < ApplicationController
     # @id = @user.id
     # debug(@id)
     @user = @current_user
+    if @user.user_type == "Student"
+      @usertype = "Student"
+    elsif @user.user_type == "Coach"
+      @usertype = "Coach"
+      @temp = Calendar.where(:UserId => @user.id)
+      @total_classes_taught = Calendar.where(:UserId => @user.id).length
+      @students = []
+      if @temp != nil
+        @temp.each do |i|
+          if !(@students.include? i.OtherId)
+            @students << User.find(i.OtherId).name
+          end
+          # @students << User.find_by("@user.id").name
+        end
+      end
+    else
+      @usertype = "Administrator"
+    end
     @member_since = @user.created_at.strftime("%B, %d, %Y")
   end
 
