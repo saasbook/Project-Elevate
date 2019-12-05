@@ -167,7 +167,7 @@ class UserController < ApplicationController
     else
       @usertype = "Administrator"
     end
-    @member_since = @user.created_at.strftime("%B, %d, %Y")
+    @member_since = @user.created_at.strftime("%B %d, %Y")
   end
 
 end
