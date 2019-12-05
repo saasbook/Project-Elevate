@@ -17,6 +17,18 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
 <p>Usertype: <%= @usertype %></p>
 
 <% if @usertype == "Student" %>
+<section>
+   <h3>My Coaches:</h3>
+   <% if @coaches != [] %>
+   <ul>
+   <% @coaches.each do |c| %>
+     <li><%= c %></li>
+   <% end %>
+   </ul>
+   <% else %>
+     <p>Currently None</p>
+   <% end %>
+ </section>
 <!-- Content -->
 <div class="w3-content" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
 

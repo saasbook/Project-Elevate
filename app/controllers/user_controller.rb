@@ -142,6 +142,16 @@ class UserController < ApplicationController
     @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
     if @user.user_type == "Student"
       @usertype = "Student"
+      @temp = Calendar.where(:UserId => @user.id)
+      @total_classes_taught = Calendar.where(:UserId => @user.id).length
+      @coaches = []
+      if @temp != nil
+        @temp.each do |i|
+          if !(@coaches.include? i.OtherId) and User.find(i.OtherId).user_type == "Coach"
+            @coaches << User.find(i.OtherId).name
+          end
+        end
+      end
     elsif @user.user_type == "Coach"
       @usertype = "Coach"
       @temp = Calendar.where(:UserId => @user.id)
@@ -152,7 +162,6 @@ class UserController < ApplicationController
           if !(@students.include? i.OtherId)
             @students << User.find(i.OtherId).name
           end
-          # @students << User.find_by("@user.id").name
         end
       end
     else
