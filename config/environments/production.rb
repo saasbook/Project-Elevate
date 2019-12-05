@@ -11,10 +11,10 @@ Rails.application.configure do
     :address              => 'smtp.gmail.com',
     :port                 => 587,
     :domain               => 'gmail.com', #you can also use google.com
+    :user_name            => 'projectelevatedevelopment@gmail.com',
+    :password             => '7xQLjc;/',
     :authentication       => :plain,
-    :user_name            => 'projectElevateDev@gmail.com',
-    :enable_starttls_auto => true,
-    :password             => 'LetsElevate!'
+    :enable_starttls_auto => true
   }
 
   # Code is not reloaded between requests.
