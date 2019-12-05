@@ -95,7 +95,7 @@ RSpec.describe ChargesController, type: :controller do
         sign_in(User.find_by_name("Joe Chen"))
         coach = User.find_by_membership("Coach")
         post "checkout_multiple", params: {:user => {:temp_availability => "2100-01-01 23:59:00 -0800,2100-01-01 00:00:00 -0800"},  :month => "11", :day => "1", :coach_id => coach.id, :packages => "2" }
-        expect(subject).to render_template(:checkout_multiple)
+        expect(subject).to redirect_to multiple_booking_path
     end
 
     it "doesnt render checkout_multiple if the booked time is before current time" do
