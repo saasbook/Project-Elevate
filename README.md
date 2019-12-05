@@ -8,7 +8,7 @@ Find the live app: [https://project-elevate.herokuapp.com](https://project-eleva
 
 Development app: [https://project-elevate2.herokuapp.com/](https://project-elevate2.herokuapp.com/)
 
-Project Elevate is a website that is meant to help sports clubs create a system where athletes and coaches can log in and track their lessons, payments, and memberships.
+Project Elevate is a website that is meant to help sports clubs create a system where athletes and coaches can log in and track their lessons, payments, and memberships. awef
 
 ## Software
 * Ruby 2.5.3

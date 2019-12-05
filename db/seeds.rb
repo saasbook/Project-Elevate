@@ -8,7 +8,7 @@
 
 
 users = [{:name => 'Joe Chen', :email => 'chenjoe@gmail.com', :password => '88888888', :membership => 'Club Member', :confirmed_at => Time.now.utc},
-    	  {:name => 'Roger Destroyer', :email => 'rogerahh@gmail.com', :password => '12345678', :membership => 'Coach', :confirmed_at => Time.now.utc},
+    	  {:name => 'Roger Destroyer', :email => 'rogerahh@gmail.com', :password => '12345678', :membership => 'Coach', :user_type => "Coach", :confirmed_at => Time.now.utc},
 				{:name => 'Matthew Sie', :email => 'matthew.sie@berkeley.edu', :password => 'dabaka22', :membership => 'Administrator', :confirmed_at => Time.now.utc},
 				{:name => 'John Doe', :email => 'johndoe@gmail.com', :password => '12345678', :membership => 'Manager', :confirmed_at => Time.now.utc},
 				{:name => 'Jason Yang', :email => 'jason@gmail.com', :password => '123456', :membership => 'Club Member', :confirmed_at => Time.now.utc}
