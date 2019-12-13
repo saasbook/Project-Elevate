@@ -83,6 +83,25 @@ rails s
 This will clear any pre existing possible data in the rails database and seed the rails server with the seeded data before starting up the server.
 This is crucial for testing any administrator privileges as there is no other way to create an administrator account currently. The server should be running locally on default port 3000, or whichever specified port using the -p tag.  
 
+## Encryption and Keys
+The only API Keys used in this Project are Published and Secret Keys for stripe: https://stripe.com/. To generate a new set of test keys follow this guide by Stripe: https://stripe.com/docs/keys. Once the new keys are generated; make sure to generate a new credentials and master.key file to implement the new keys.
+### In order to setup a new credentials and master.key follow this guide
+Run the following commands in the Project-Elevate directory:
+```
+rm config/credentials.yml.enc
+```
+This will remove the old credentials file.
+```
+EDITOR=vim rails credentials:edit
+```
+This will generate a new `credentials.yml.enc` and `master.key` -> Keep the `master.key` safe!
+In the editor for the credentials file add the code below with the new keys:
+```
+publish_key_stripe: YOUR_KEY_HERE
+secret_key_stripe: YOUR_KEY_HERE
+```
+Everything is now setup for development!
+
 ## Logins
 
 Admin Login:
