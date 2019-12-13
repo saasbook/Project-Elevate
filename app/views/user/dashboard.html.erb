@@ -42,12 +42,12 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
 
     <div class="w3-col l3 m6 w3-grey w3-container w3-padding-16">
       <h3>Num Past Classes</h3>
-      <p>Past Classes Taught: <%= @total_classes_taught %> <br> <br> <br></p>
+      <p>Num Classes Taken: <%= @total_classes_taught %> <br> <br> <br></p>
     </div>
 
     <div class="w3-col l3 m6 w3-dark-grey w3-container w3-padding-16">
       <h3>Num Future Classes</h3>
-      <p>Past Classes Taught: <%= @total_classes_taught %> <br> <br> <br></p>
+      <p>Num Future Classes: <%= @total_classes_taught %> <br> <br> <br></p>
     </div>
 
     <div class="w3-col l3 m6 w3-black w3-container w3-padding-16">
@@ -74,7 +74,6 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
               <td><%= calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
               <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
             </tr>
-          </table>
 
           <% end %>
   </div>
@@ -143,7 +142,7 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
               <td><%= calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
               <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
             </tr>
-          </table>
+
     </div>
 
           <% end %>
