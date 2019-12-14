@@ -1,4 +1,5 @@
-
+<!DOCTYPE html>
+<html lang="en"> 
 <% if notice %>
     <p class="alert alert-success"><%= notice %></p>
 <% end %>
@@ -8,28 +9,26 @@
 
 <p class="navbar-text pull-right">
 
-    
-
-    <div id = "container">
+    <div id = "container" class="home">
         <div class = "left_side">
             <div class = "word_container">
                 <h1>Every Ball Counts</h1>
                 <div class = "word_text">
-                    Committing is hard, Count is time Consuming --
-                    so don't. Let us help you figure out the statistics
-                    that will improve your level. Try one Table Tennis Lesson
-                    -- absolutely for free.
+                    Committing is hard. Counting is time consuming -- so don't. <br>
+                    Let us help you figure out the statistics that will improve your performance. <br>
+                    Try one Table Tennis Lesson. <br>
+                    Absolutely for free.
                 </div>
-                <button class = "button_container">Try for Free</button>
-                <button class = "button_container">Learn more</button>
+                <button class = "button_container btn success">Try for Free</button>
+                <button class = "button_container btn warning">Learn more</button>
             </div>
 
         </div>
         <div class = "right_side">
-
+          <div>
+            <img src="<%= image_path("bw.jpg")%>">
+          </div>
         </div>
 
     </div>
-
-
-        
+</html>

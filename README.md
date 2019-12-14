@@ -3,9 +3,9 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8e4ebf79eb7e18659120/test_coverage)](https://codeclimate.com/github/zdehkordi/Project-Elevate/test_coverage)
 [![Build Status](https://travis-ci.org/zdehkordi/Project-Elevate.svg?branch=master)](https://travis-ci.org/zdehkordi/Project-Elevate)
 
-Find the live app: [https://project-elevate.herokuapp.com](https://project-elevate.herokuapp.com)
+Find the live app: [https://project-elevate-2.herokuapp.com](https://project-elevate-2.herokuapp.com)
 
-Project Elevate is a website that is meant to help sports clubs create a system where athletes and coaches can log in and track their lessons, payments, and memberships.
+Project Elevate is a website that is meant to help sports clubs create a system where athletes and coaches can log in and track their lessons, payments, and memberships. awef
 
 ## Software
 * Ruby 2.5.3
@@ -60,8 +60,24 @@ When signing up for a new account, the account will initially start off with a M
 In order to change one's membership status to coach, they must get the approval and actions of an administrator.  
 Currently only one administrator account exists within the database.  
 
+### Dashboard
+Currently both Students and Coaches have a Dashboard which contains the following details:
+#### Student Dashboard
+* History of which Coaches a Student trained with
+* Number of Classes a Student has completed
+* Number of Classes a Student has Scheduled
+* Total Money Spent on Classes
+* List of Upcoming Classes
+#### Coach Dashboard
+* History of which Students a Coach has trained
+* Number of Classes a Coach has Taught
+* Number of Classes a Coach has been scheduled to Teach
+* Total Money Made on Classes
+* List of Upcoming Classes
+
+
 ## Deployment
-Currently the website is deployed via heroku and can be accessed at https://project-elevate.herokuapp.com/
+Currently the website is deployed via heroku and can be accessed at https://project-elevate-2.herokuapp.com/
 
 ## Setting Up and Testing Locally
 In order to run a local version of this app, make sure to have bundler installed.
@@ -80,13 +96,32 @@ rails s
 This will clear any pre existing possible data in the rails database and seed the rails server with the seeded data before starting up the server.
 This is crucial for testing any administrator privileges as there is no other way to create an administrator account currently. The server should be running locally on default port 3000, or whichever specified port using the -p tag.  
 
+## Encryption and Keys
+The only API Keys used in this Project are Published and Secret Keys for stripe: https://stripe.com/. To generate a new set of test keys follow this guide by Stripe: https://stripe.com/docs/keys. Once the new keys are generated; make sure to generate a new credentials and master.key file to implement the new keys.
+### In order to setup a new credentials and master.key follow this guide
+Run the following commands in the Project-Elevate directory:
+```
+rm config/credentials.yml.enc
+```
+This will remove the old credentials file.
+```
+EDITOR=vim rails credentials:edit
+```
+This will generate a new `credentials.yml.enc` and `master.key` -> Keep the `master.key` safe!
+In the editor for the credentials file add the code below with the new keys:
+```
+publish_key_stripe: YOUR_KEY_HERE
+secret_key_stripe: YOUR_KEY_HERE
+```
+Everything is now setup for development!
+
 ## Logins
 
-Admin Login: 
+Admin Login:
 * email: **matthew.sie@berkeley.edu**
 * password: **dabaka22**
 
-Coach Login: 
+Coach Login:
 * email: **rogerahh@gmail.com**
 * password: **12345678**
 
@@ -101,3 +136,7 @@ or
 rspec
 ```
 A separate coverage folder will be created where you can view files independently, or you can view the separate tests created in each of the respective folders.
+
+## Note
+Original App Name: [https://project-elevate.herokuapp.com/](https://project-elevate.herokuapp.com/)
+Once original Heroku Credentials are found; switch to this herokuapp.

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+.mySlides {display:none}
+.w3-tag, .fa {cursor:pointer}
+.w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+</style>
+<body>
+
+<% if @usertype == "Student" %>
+<!-- Content -->
+<div class="w3-content" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
+
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Student Since: <%= @member_since %></span>
+    </div>
+    <div class="w3-col l3 m6 w3-light-grey w3-container w3-padding-16">
+      <h3>My Coach History</h3>
+      <%# <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p> %>
+      <section>
+        <% if @coaches != [] %>
+        <ul>
+        <% @coaches.each do |c| %>
+          <li><%= c %></li>
+        <% end %>
+        </ul>
+        <% else %>
+          <p>Currently None</p>
+        <% end %>
+      </section>
+      <p> <br> </p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-grey w3-container w3-padding-16">
+      <h3>Num Past Classes</h3>
+      <p>Num Classes Taken: <%= @total_classes_taught %> <br> <br> <br></p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-dark-grey w3-container w3-padding-16">
+      <h3>Num Future Classes</h3>
+      <p>Num Future Classes: <%= @total_classes_taught %> <br> <br> <br></p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-black w3-container w3-padding-16">
+      <h3>Total Money Spent</h3>
+      <h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ <%= @total_classes_taught * 20 %><br></h4>
+      <p> <br> </p>
+    </div>
+  </div>
+</div>
+
+<%# <p> <br> <p> %>
+
+  <% if flash[:alert] %>
+  <p class="alert alert-danger"><%= flash[:alert] %></p>
+  <% end %>
+
+  <div class="card mx-auto w-75">
+    <div class="card-body">
+      <h5 class="card-title" style="text-align:center;">Upcoming Classes</h5>
+          <table class="table table-hover">
+          <% @calendarsShow.each do |calendar| %>
+            <tr>
+              <td><%= calendar.name%></td>
+              <td><%= calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
+              <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
+            </tr>
+
+          <% end %>
+  </div>
+  </div>
+
+
+<% else %>
+
+<div class="w3-content" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
+
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Coach Since: <%= @member_since %></span>
+    </div>
+    <div class="w3-col l3 m6 w3-light-grey w3-container w3-padding-16">
+      <h3>My Student History</h3>
+      <%# <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p> %>
+      <section>
+        <% if @students != [] %>
+        <ul>
+        <% @students.each do |s| %>
+          <li><%= s %></li>
+        <% end %>
+        <li style="list-style-type:none;"> <br> </li>
+        </ul>
+        <% else %>
+          <p>Currently None</p>
+        <% end %>
+      </section>
+    </div>
+
+    <div class="w3-col l3 m6 w3-grey w3-container w3-padding-16">
+      <h3>Num Past Classes</h3>
+      <p>Past Classes Taught: <%= @total_classes_taught %> <br> <br> <br></p>
+      <%# <p> <br> </p> %>
+    </div>
+
+    <div class="w3-col l3 m6 w3-dark-grey w3-container w3-padding-16">
+       <h3>Num Future Classes</h3>
+      <p>Future Classes Scheduled: <%= @total_classes_taught %> <br> <br> <br></p>
+      <%# <p> <br> </p> %>
+    </div>
+
+    <div class="w3-col l3 m6 w3-black w3-container w3-padding-16">
+      <h3>Total Money Made</h3>
+      <%# <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p> %>
+      <h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ <%= @total_classes_taught * 20 %><br></h4>
+      <p> <br> </p>
+    </div>
+  </div>
+
+  <p> <br><br> <p>
+
+  <% if flash[:alert] %>
+  <p class="alert alert-danger"><%= flash[:alert] %></p>
+  <% end %>
+
+  <div class="card mx-auto w-75">
+    <div class="card-body">
+      <h5 class="card-title" style="text-align:center;">Upcoming Classes</h5>
+          <table class="table table-hover">
+          <% @calendarsShow.each do |calendar| %>
+            <tr>
+              <td><%= calendar.name%></td>
+              <td><%= calendar.start_time.strftime('%a %m/%d/%Y %I:%M%p') %></td>
+              <td><%= link_to "Details", calendar_path(calendar), :class => 'navbar-link' %> </td>
+            </tr>
+
+    </div>
+
+          <% end %>
+  </div>
+  </div>
+
+<% end %>
+
+</body>
+</html>

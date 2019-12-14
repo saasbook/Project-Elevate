@@ -132,4 +132,42 @@ class UserController < ApplicationController
     render 'membership_status'    
   end
 
+  def dashboard
+    # @user = params[:u]
+    # @id = @user.id
+    # debug(@id)
+    @user = @current_user
+    @calendars = current_user.get_calendar
+    @calendarsShow = @calendars.where(:UserId => [current_user.id, nil]).limit(5)
+    @todayEvents = @calendars.all.where("start_time < ?", Time.now.end_of_day).where( "start_time > ?", Time.now.beginning_of_day).count
+    if @user.user_type == "Student"
+      @usertype = "Student"
+      @temp = Calendar.where(:UserId => @user.id)
+      @total_classes_taught = Calendar.where(:UserId => @user.id).length
+      @coaches = []
+      if @temp != nil
+        @temp.each do |i|
+          if !(@coaches.include? i.OtherId) and User.find(i.OtherId).user_type == "Coach"
+            @coaches << User.find(i.OtherId).name
+          end
+        end
+      end
+    elsif @user.user_type == "Coach"
+      @usertype = "Coach"
+      @temp = Calendar.where(:UserId => @user.id)
+      @total_classes_taught = Calendar.where(:UserId => @user.id).length
+      @students = []
+      if @temp != nil
+        @temp.each do |i|
+          if !(@students.include? i.OtherId)
+            @students << User.find(i.OtherId).name
+          end
+        end
+      end
+    else
+      @usertype = "Administrator"
+    end
+    @member_since = @user.created_at.strftime("%B %d, %Y")
+  end
+
 end

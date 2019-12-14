@@ -99,4 +99,26 @@ RSpec.describe UserController, type: :controller do
         post "update_other", params: {:id => 200}
         expect(response).to redirect_to membership_status_path
     end
+
+    it "renders student dashboard" do
+        user = User.find_by_name("Joe Chen")
+        sign_in(user)
+        get "dashboard", params: {:id => user.id}
+        expect(subject).to render_template(:dashboard)
+    end
+
+    it "renders coach dashboard" do
+        user = User.find_by_name("Roger Destroyer")
+        sign_in(user)
+        get "dashboard", params: {:id => user.id}
+        expect(subject).to render_template(:dashboard)
+    end
+
+    it "renders administrator dashboard" do
+        user = User.find_by_name("Matthew Sie")
+        sign_in(user)
+        get "dashboard", params: {:id => user.id}
+        expect(subject).to render_template(:dashboard)
+    end
+
 end
