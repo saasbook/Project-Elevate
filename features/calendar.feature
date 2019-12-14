@@ -80,7 +80,7 @@ Scenario: Log in as Jason Yang a Club Member and tries to go to the URL pages he
   Then he should see the following: "Jason Yang"
   Then he should see the following: "Jason Yang"
   And he visits "/calendar/"
-  Then he should see the following: "Try one Table Tennis Lesson -- absolutely for free."
+  Then he should see the following: "Try one Table Tennis Lesson. Absolutely for free."
   And he visits "/calendar/viewall/1"
   Then he should see the following: "Jason Yang"
   And he visits "/calendars/new"
@@ -88,7 +88,7 @@ Scenario: Log in as Jason Yang a Club Member and tries to go to the URL pages he
   And he visits "/calendars/1"
   Then he should see the following: "Jason Yang"
     And he visits "/calendars/edit/4"
-  Then he should see the following: "Try one Table Tennis Lesson -- absolutely for free."
+  Then he should see the following: "Try one Table Tennis Lesson. Absolutely for free."
   
 
 Scenario: Log in as Roger Destroyer a Coach with multiple events scheduled
