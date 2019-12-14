@@ -36,7 +36,7 @@ gem 'stripe'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Devise for authentication
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7'
 # Use Omniauth Facebook plugin
 gem 'omniauth-facebook', '~> 4.0'
 # Use ActiveRecord Sessions
